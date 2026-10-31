@@ -6,34 +6,74 @@
 <meta name="description" content="平移与旋转互动实验室：生活观察、平移实验、旋转转盘、图案重合与分针计时。支持离线与触屏的数学互动课件。">
 <meta name="color-scheme" content="light">
 <title>平移与旋转 · 互动实验室</title>
-<style>:root{--ink:#203d3a;--muted:#657b74;--teal:#147d77;--teal-dark:#0c5f5a;--teal-soft:#e5f2ed;--coral:#f17b59;--coral-soft:#fff0e9;--cream:#f4f4ed;--line:#dce5dc;--white:#fff;--shadow:0 10px 32px rgba(32,61,58,.045);font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-synthesis:none}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);font-size:16px;line-height:1.65}button,input,select{font:inherit}button{cursor:pointer}button,input,select,a{-webkit-tap-highlight-color:transparent}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #df6945;outline-offset:4px}button{color:inherit}svg{max-width:100%;vertical-align:middle}svg text{font-family:inherit}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.35}p:last-child{margin-bottom:0}button{user-select:none}
-.site-header{border-bottom:1px solid var(--line);background:rgba(255,255,255,.76)}.header-inner{max-width:1400px;min-height:78px;margin:auto;padding:14px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:43px;height:43px;flex:none}.brand-title{font-size:20px;letter-spacing:.08em;font-weight:800}.brand-note{font-size:11px;color:var(--muted);letter-spacing:.18em;font-weight:600}.header-actions{display:flex;gap:10px;align-items:center}.header-tag{color:var(--muted);font-size:13px;margin-right:8px}.top-button{border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;min-height:44px;font-size:14px;font-weight:600}.top-button:hover{background:var(--teal-soft);border-color:#9fc4b8}.top-button[aria-expanded=true]{background:var(--teal-soft);border-color:var(--teal)}
-.app-wrap{max-width:1400px;margin:auto;padding:28px 36px 22px}.intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px}.intro-copy{padding-top:2px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;color:var(--teal);font-size:12px;font-weight:800;margin-bottom:8px;display:block}.intro h1{font-size:clamp(27px,3vw,37px);letter-spacing:.035em;margin-bottom:8px;font-weight:850}.intro h1 span{color:var(--teal)}.intro p{font-size:15px;color:var(--muted);margin:0}.intro-art{width:236px;max-height:116px;flex:none}.learning-cycle{display:flex;align-items:center;gap:10px;margin-top:16px;color:#6f7b6f;font-size:12px}.learning-cycle span{background:#e9ece1;border-radius:100px;padding:4px 12px}.learning-cycle b{color:#9ba898;font-weight:500}
-.module-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:24px}.nav-card{position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:16px 16px;background:#fff;border:1px solid var(--line);border-radius:15px;transition:background .15s,border-color .15s;min-height:78px}.nav-card:hover{border-color:#8db6a9;background:#fbfdfb}.nav-card.active{background:var(--teal);border-color:var(--teal);color:white;box-shadow:0 7px 16px rgba(20,125,119,.14)}.nav-number{font-size:22px;line-height:1;color:#acc0b5;font-weight:750;letter-spacing:-.04em}.active .nav-number{color:#8bc5b9}.nav-copy{display:flex;flex-direction:column;gap:4px}.nav-title{font-size:15px;font-weight:750}.nav-subtitle{font-size:11px;color:var(--muted)}.active .nav-subtitle{color:#cfebe3}.nav-done{position:absolute;right:9px;top:7px;font-size:11px;font-weight:800;color:var(--teal)}.active .nav-done{color:#ddf9b1}.single-label{display:flex;align-items:center;gap:12px;margin:0 0 22px;font-size:15px;font-weight:650}.single-label .num{background:var(--teal);border-radius:10px;color:#fff;padding:5px 12px;letter-spacing:.05em}
-.teacher-panel{margin-bottom:22px;background:#fff8e6;border:1px solid #eadcb3;border-radius:16px;padding:20px 24px}.teacher-panel h2{font-size:17px;margin-bottom:10px}.teacher-panel ol{margin:0;padding-left:21px;display:grid;gap:6px}.teacher-panel p{margin:12px 0 0;color:#7c6e4a;font-size:14px}.content-host{min-height:520px}.module-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;min-width:0}.panel-title{font-size:20px;font-weight:800;margin-bottom:12px}.panel-title small{font-size:12px;font-weight:500;color:var(--muted)}.stage{background:#f4f8f2;border:1px solid #e3ebe1;border-radius:16px;overflow:hidden;position:relative;min-width:0}.stage>svg{display:block;width:100%;height:auto}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}.controls:empty{display:none}.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 17px;font-size:14px;font-weight:650;line-height:1.35;transition:background .15s,border-color .15s,box-shadow .15s}.btn:hover:not(:disabled){border-color:#85b5a4;background:#f0f7f2}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.primary:hover:not(:disabled){background:var(--teal-dark);border-color:var(--teal-dark)}.btn.secondary{background:var(--teal-soft);border-color:#d1e8de;color:var(--teal-dark)}.btn.ghost{background:transparent}.btn.small{font-size:12px;min-height:36px;padding:7px 11px}.btn[aria-pressed=true]:not(.primary){background:var(--teal-soft);border-color:var(--teal);color:var(--teal-dark)}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.chip{border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px;font-weight:600;padding:9px 14px;min-height:42px;line-height:1.3}.chip.active,.chip[aria-pressed=true]{background:var(--teal-soft);border-color:#8fb8aa;color:var(--teal-dark)}.chip:hover{border-color:#8fb8aa}.prompt{font-size:17px;font-weight:700;line-height:1.65;margin-bottom:16px}.hint{font-size:13px;color:var(--muted);line-height:1.75}.feedback{background:#f2f6f0;border:1px solid #dfe9db;border-radius:12px;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:16px;min-height:60px;color:#526b60}.feedback.is-success{background:#eaf6e6;border-color:#bddbb1;color:#3d682f}.feedback.is-error{background:#fff1e9;border-color:#f0c1a9;color:#995230}.field{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:650;margin:14px 0}.field input:not([type=checkbox]):not([type=range]),.field select,input[type=number]{width:100%;border:1px solid #cbdad1;padding:11px 12px;border-radius:10px;background:#fff;min-height:44px;color:var(--ink)}input[type=range]{accent-color:var(--teal);width:100%;min-height:32px}input[type=checkbox]{accent-color:var(--teal);width:18px;height:18px;vertical-align:middle;flex:none}.toggle{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;min-height:40px}.divider{height:1px;background:var(--line);margin:18px 0}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:100px;background:var(--teal-soft);color:var(--teal);padding:4px 11px;font-size:12px;font-weight:700}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.course-footer{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}.footer-trail{display:flex;align-items:center;gap:8px}.footer-trail i{width:6px;height:6px;background:var(--coral);border-radius:50%;display:block}.footer-nav{display:flex;align-items:center;gap:12px}.footer-nav button{background:transparent;border:0;min-height:42px;color:var(--teal);font-size:13px;padding:8px}.footer-nav button:hover{text-decoration:underline}.global-announcement{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:12px;box-shadow:0 8px 30px #203d3a30;z-index:30;font-size:14px;max-width:90vw}.offline-note{margin-top:14px;text-align:center;color:#8b9b90;font-size:11px;letter-spacing:.05em}
-@media(min-width:1500px){.app-wrap{padding-top:34px}.intro{margin-bottom:30px}.stage>svg{max-height:550px}}
-@media(max-width:1100px){.header-inner,.app-wrap{padding-left:24px;padding-right:24px}.module-layout{grid-template-columns:minmax(0,1fr) 280px;gap:16px}.panel{padding:18px}.nav-card{padding:14px 12px;gap:9px}.nav-title{font-size:14px}.nav-subtitle{font-size:10px}.intro-art{width:200px}.header-tag{display:none}}
-@media(max-width:820px){.module-layout{grid-template-columns:1fr}.module-nav{gap:7px}.nav-card{padding:12px 8px;flex-direction:column;align-items:flex-start;gap:7px;min-height:94px}.nav-number{font-size:18px}.nav-subtitle{display:none}.intro-art{width:170px}.intro h1{font-size:29px}.panel{padding:18px}.content-host{min-height:0}.stage>svg{max-height:490px}.course-footer{align-items:flex-start}}
-@media(max-width:540px){body{font-size:15px}.header-inner{padding:12px 16px;gap:8px;min-height:70px}.brand-mark{width:34px;height:34px}.brand-title{font-size:17px;letter-spacing:.03em}.brand-note{font-size:9px}.header-actions{gap:6px}.top-button{padding:8px 10px;font-size:12px}.top-button svg{display:none}.app-wrap{padding:22px 14px 18px}.intro{margin-bottom:20px;gap:0}.intro-art{display:none}.intro h1{font-size:28px}.intro p{font-size:13px}.learning-cycle{margin-top:12px;gap:6px}.learning-cycle span{padding:3px 9px}.module-nav{gap:5px;margin-bottom:18px}.nav-card{border-radius:12px;padding:10px 7px;min-height:78px;gap:8px}.nav-title{font-size:12px;white-space:nowrap}.nav-number{font-size:15px}.nav-done{right:5px;top:4px;font-size:9px}.panel{padding:14px;border-radius:16px}.panel-title{font-size:18px}.controls{gap:7px}.btn{padding:10px 13px}.teacher-panel{padding:17px}.course-footer{flex-direction:column;gap:5px}.footer-nav{width:100%;justify-content:space-between}.intro p{max-width:330px}.stage{border-radius:12px}.teacher-panel ol{font-size:14px}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
-@media(max-width:380px){.nav-card{padding:10px 4px}.nav-title{font-size:11px}.nav-number{font-size:14px}}
-@media print{.header-actions,.module-nav,.controls,.footer-nav,.offline-note{display:none!important}.app-wrap{padding:0}.site-header{border:0}.module-layout{grid-template-columns:1fr}body{background:#fff}.panel{break-inside:avoid;box-shadow:none}}
+<style>:root{--ink:#203d3a;--muted:#526b62;--teal:#147d77;--teal-dark:#0c5f5a;--teal-soft:#e5f2ed;--coral:#d66b43;--coral-soft:#fff0e9;--cream:#f5f7f4;--line:#d7e2db;--white:#fff;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font-size:16px;line-height:1.65}button,input,select{font:inherit}button{cursor:pointer;color:inherit;user-select:none}button,input,select,a{-webkit-tap-highlight-color:transparent}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #c55d36;outline-offset:4px}svg{max-width:100%;vertical-align:middle}svg text{font-family:inherit}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.35}p:last-child{margin-bottom:0}summary{cursor:pointer}
+.skip-link{position:absolute;top:8px;left:16px;z-index:50;transform:translateY(-160%);padding:10px 18px;background:var(--ink);color:#fff;border-radius:8px}.skip-link:focus{transform:translateY(0)}
+.site-header{border-bottom:1px solid var(--line);background:#fff}.header-inner{max-width:1400px;min-height:76px;margin:auto;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:40px;height:40px;flex:none}.brand-title{font-size:22px;letter-spacing:.035em;font-weight:800}.brand-note{font-size:14px;color:var(--muted);font-weight:500}.header-actions{display:flex;gap:8px;align-items:center}.top-button{border:1px solid var(--line);border-radius:9px;background:#fff;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;min-height:44px;font-size:14px;font-weight:600;transition:background 140ms,border-color 140ms,transform 120ms}.top-button:hover{background:var(--teal-soft);border-color:#9fc4b8}.top-button[aria-expanded=true]{background:var(--teal-soft);border-color:var(--teal)}
+.app-wrap{max-width:1400px;margin:auto;padding:20px 32px 24px}.workspace-toolbar{display:flex;align-items:center;gap:22px;margin-bottom:24px}.module-nav{isolation:isolate;position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:4px;background:#e8eee9;border-radius:12px;flex:1;min-width:0}.nav-indicator{position:absolute;left:4px;top:4px;bottom:4px;width:calc((100% - 8px)/5);z-index:0;background:var(--teal);border-radius:9px;transition:transform 220ms cubic-bezier(.2,.7,.3,1)}.nav-card{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;padding:10px 9px;background:transparent;border:0;border-radius:9px;min-height:50px;transition:color 140ms,background 140ms}.nav-card:hover:not(.active){background:#dbe7df}.nav-card.active{color:white}.nav-number{font-size:14px;line-height:1;color:#536f61;font-weight:650;font-variant-numeric:tabular-nums}.active .nav-number{color:#ddf0e8}.nav-title{font-size:16px;font-weight:650;white-space:nowrap}.nav-done{font-size:14px;font-weight:800;min-width:12px;color:var(--teal)}.active .nav-done{color:#e4f8bc}.lesson-progress{font-size:14px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}.module-picker{display:none;min-width:0;flex:1}.module-picker label{font-size:14px;color:var(--muted);display:block;margin-bottom:6px}.module-picker select{width:100%;min-height:48px;font-size:16px;font-weight:650;color:var(--ink);background:#fff;border:1px solid #b7cbbf;border-radius:9px;padding:9px 32px 9px 12px}.single-label{display:flex;align-items:center;gap:12px;flex:1;font-size:16px;font-weight:650}.single-label .num{background:var(--teal);border-radius:8px;color:#fff;padding:6px 12px}.lesson-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:22px}.lesson-heading h1{font-size:28px;font-weight:800;letter-spacing:.015em;margin:0 0 7px}.lesson-heading p{font-size:16px;color:var(--muted);margin:0}.lesson-number{font-size:14px;color:var(--muted);white-space:nowrap}
+.teacher-panel{margin-bottom:22px;background:#fff8e6;border-left:3px solid #cbaf61;border-radius:8px;padding:18px 22px}.teacher-panel h2{font-size:18px;margin-bottom:10px}.teacher-panel ol{margin:0;padding-left:21px;display:grid;gap:6px;font-size:16px}.teacher-panel p{margin:12px 0 0;color:#6e5e35;font-size:16px}.content-host{min-width:0}.module-pane{min-width:0}.module-layout{display:grid;grid-template-columns:minmax(0,1fr) 324px;gap:28px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;min-width:0}.module-layout>.panel:first-child{border:0;padding:0;background:transparent;box-shadow:none}.panel-title{font-size:22px;font-weight:750;margin-bottom:12px}.panel-title small{font-size:14px;font-weight:500;color:var(--muted)}.stage{background:#f1f5ef;border:0;border-radius:12px;overflow:hidden;position:relative;min-width:0}.stage>svg{display:block;width:100%;height:auto}.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}.controls:empty{display:none}
+.btn{min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #c7d8cc;background:#fff;color:var(--ink);border-radius:9px;padding:10px 17px;font-size:16px;font-weight:650;line-height:1.4;transition:background 140ms,border-color 140ms,transform 120ms}.btn:hover:not(:disabled){border-color:#85b5a4;background:#f0f7f2}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.primary:hover:not(:disabled){background:var(--teal-dark);border-color:var(--teal-dark)}.btn.secondary{background:var(--teal-soft);border-color:#cee3d7;color:var(--teal-dark)}.btn.ghost{background:transparent}.btn.small{font-size:14px;min-height:44px;padding:9px 12px}.btn[aria-pressed=true]:not(.primary){background:var(--teal-soft);border-color:var(--teal);color:var(--teal-dark)}.btn:active:not(:disabled),.top-button:active:not(:disabled),.chip:active:not(:disabled){transform:translateY(1px)}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.chip{border:1px solid #c7d8cc;border-radius:8px;background:#fff;font-size:16px;font-weight:600;padding:10px 14px;min-height:44px;line-height:1.4;transition:background 140ms,border-color 140ms,transform 120ms}.chip.active,.chip[aria-pressed=true]{background:var(--teal-soft);border-color:#8fb8aa;color:var(--teal-dark)}.chip:hover{border-color:#8fb8aa}.prompt{font-size:18px;font-weight:700;line-height:1.6;margin-bottom:16px}.hint{font-size:14px;color:var(--muted);line-height:1.75}.feedback{background:#edf3ec;border:0;border-left:3px solid #94b6a0;border-radius:0 8px 8px 0;padding:13px 15px;font-size:16px;line-height:1.7;margin-top:16px;min-height:60px;color:#385e4b}.feedback.is-success{background:#eaf5e6;border-color:#789c60;color:#365f28}.feedback.is-error{background:#fff1e9;border-color:#ce8665;color:#8b4527}.field{display:flex;flex-direction:column;gap:7px;font-size:16px;font-weight:650;margin:14px 0}.field input:not([type=checkbox]):not([type=range]),.field select,input[type=number]{width:100%;border:1px solid #b9cec1;padding:11px 12px;border-radius:9px;background:#fff;min-height:46px;color:var(--ink)}input[type=range]{accent-color:var(--teal);width:100%;min-height:44px}input[type=checkbox]{accent-color:var(--teal);width:18px;height:18px;vertical-align:middle;flex:none}.toggle{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:14px;min-height:44px;cursor:pointer}.divider{height:1px;background:var(--line);margin:18px 0}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:6px;background:var(--teal-soft);color:var(--teal-dark);padding:4px 10px;font-size:14px;font-weight:650}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.course-footer{margin-top:28px;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:14px}.footer-state-note{font-size:14px}.footer-nav{display:flex;align-items:center;gap:14px}.footer-nav button{background:transparent;border:0;border-radius:8px;min-height:44px;color:var(--teal-dark);font-size:14px;padding:8px 10px}.footer-nav button:hover:not(:disabled){background:var(--teal-soft)}.footer-nav span{font-variant-numeric:tabular-nums}.global-announcement{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;box-shadow:0 8px 30px #203d3a30;z-index:30;font-size:16px;max-width:90vw}
+@media(max-width:1100px){.header-inner,.app-wrap{padding-left:24px;padding-right:24px}.workspace-toolbar{gap:14px}.module-layout{grid-template-columns:minmax(0,1fr) 290px;gap:22px}.panel{padding:18px}.nav-card{gap:6px;padding:10px 6px}.nav-done{min-width:8px}.lesson-progress{font-size:14px}}
+@media(max-width:900px){.module-layout{grid-template-columns:1fr}.nav-number{display:none}.workspace-toolbar{flex-wrap:wrap;gap:8px}.module-nav{flex-basis:100%}.lesson-progress{margin-left:auto}.lesson-heading{margin-bottom:20px}.content-host{min-height:0}.course-footer{align-items:flex-start}.panel{padding:20px}.module-layout>aside.panel{max-width:none}}
+@media(max-width:640px){.header-inner{padding:12px 16px;gap:12px}.brand{gap:9px}.brand-mark{width:34px;height:34px}.brand-title{font-size:19px;letter-spacing:0}.brand-note{font-size:14px}.header-actions{gap:6px}.top-button{padding:9px 10px;font-size:14px}.top-button svg{display:none}.app-wrap{padding:18px 16px 20px}.workspace-toolbar{align-items:flex-end;gap:12px;margin-bottom:20px;flex-wrap:nowrap}.module-nav{display:none}.module-picker{display:block}.lesson-progress{padding-bottom:12px;margin:0;font-size:14px}.lesson-heading{align-items:flex-start;gap:10px}.lesson-heading h1{font-size:24px}.lesson-heading p{font-size:16px}.lesson-number{display:none}.panel{padding:18px;border-radius:12px}.panel-title{font-size:22px}.controls{gap:8px}.btn{padding:10px 14px}.teacher-panel{padding:16px 18px}.course-footer{flex-direction:column;gap:12px}.footer-nav{width:100%;justify-content:space-between;gap:8px}.single-label{font-size:16px;gap:9px}}
+@media(max-width:380px){.header-inner{flex-wrap:wrap}.header-actions{width:100%}.header-actions .top-button{flex:1}.app-wrap{padding-left:12px;padding-right:12px}.panel{padding:16px}.lesson-progress{font-size:14px}.single-label .num{padding:6px 8px}.single-label{font-size:14px}.lesson-heading h1{font-size:23px}}
+.top-button[aria-pressed=true]{background:var(--teal-soft);border-color:#91b7a7;color:var(--teal-dark)}button,input[type=checkbox],select,summary{touch-action:manipulation}
+@media(max-width:999px){.board-toggle{display:none}}
+@media(min-width:1000px){
+  :root[data-board-mode="whiteboard"] body{font-size:20px}
+  :root[data-board-mode="whiteboard"] .header-inner,:root[data-board-mode="whiteboard"] .app-wrap{max-width:1760px}
+  :root[data-board-mode="whiteboard"] .header-inner{min-height:84px}
+  :root[data-board-mode="whiteboard"] .brand-title{font-size:26px}
+  :root[data-board-mode="whiteboard"] .brand-note{font-size:16px}
+  :root[data-board-mode="whiteboard"] .top-button{min-height:52px;font-size:18px;padding:10px 18px}
+  :root[data-board-mode="whiteboard"] .nav-card{min-height:56px;gap:10px}
+  :root[data-board-mode="whiteboard"] .nav-title{font-size:20px}
+  :root[data-board-mode="whiteboard"] .nav-number,:root[data-board-mode="whiteboard"] .nav-done,:root[data-board-mode="whiteboard"] .lesson-progress{font-size:16px}
+  :root[data-board-mode="whiteboard"] .lesson-heading h1{font-size:32px}
+  :root[data-board-mode="whiteboard"] .lesson-heading p{font-size:20px}
+  :root[data-board-mode="whiteboard"] .lesson-number{font-size:16px}
+  :root[data-board-mode="whiteboard"] .module-layout{grid-template-columns:minmax(0,1fr) 400px;gap:28px}
+  :root[data-board-mode="whiteboard"] .panel{padding:24px}
+  :root[data-board-mode="whiteboard"] .module-layout>.panel:first-child{padding:0}
+  :root[data-board-mode="whiteboard"] .panel-title{font-size:26px}
+  :root[data-board-mode="whiteboard"] .btn,:root[data-board-mode="whiteboard"] .chip{font-size:20px;min-height:56px;padding:12px 20px}
+  :root[data-board-mode="whiteboard"] .btn.small{font-size:18px;min-height:52px;padding:10px 16px}
+  :root[data-board-mode="whiteboard"] .controls{gap:12px}
+  :root[data-board-mode="whiteboard"] .prompt{font-size:22px}
+  :root[data-board-mode="whiteboard"] .feedback{font-size:20px;line-height:1.7;padding:16px 18px}
+  :root[data-board-mode="whiteboard"] .hint,:root[data-board-mode="whiteboard"] .toggle{font-size:18px}
+  :root[data-board-mode="whiteboard"] .toggle{min-height:52px;gap:12px}
+  :root[data-board-mode="whiteboard"] input[type=checkbox]{width:24px;height:24px}
+  :root[data-board-mode="whiteboard"] input[type=range]{min-height:56px}
+  :root[data-board-mode="whiteboard"] .teacher-panel ol,:root[data-board-mode="whiteboard"] .teacher-panel p{font-size:20px}
+  :root[data-board-mode="whiteboard"] .teacher-panel h2{font-size:24px}
+  :root[data-board-mode="whiteboard"] .footer-nav button{min-height:56px;font-size:18px;padding:10px 16px}
+  :root[data-board-mode="whiteboard"] .footer-nav span,:root[data-board-mode="whiteboard"] .footer-state-note{font-size:16px}
+  :root[data-board-mode="whiteboard"] .global-announcement{font-size:20px}
+}
+@media(min-width:1600px){:root[data-board-mode="whiteboard"] .module-layout{grid-template-columns:minmax(0,1fr) 440px;gap:32px}}
+@media(min-width:1000px) and (max-height:850px){:root[data-board-mode="whiteboard"] .header-inner{min-height:72px;padding-top:8px;padding-bottom:8px}:root[data-board-mode="whiteboard"] .app-wrap{padding-top:14px}:root[data-board-mode="whiteboard"] .workspace-toolbar{margin-bottom:16px}:root[data-board-mode="whiteboard"] .lesson-heading{margin-bottom:18px}:root[data-board-mode="whiteboard"] .brand-note{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}.btn:active,.top-button:active,.chip:active{transform:none}}
+@media print{.header-actions,.module-nav,.module-picker,.controls,.footer-nav,.skip-link{display:none!important}.app-wrap{padding:0}.site-header{border:0}.module-layout{grid-template-columns:1fr}body{background:#fff}.panel{break-inside:avoid;box-shadow:none}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#module-host">跳到当前活动</a>
 <header class="site-header"><div class="header-inner">
-  <div class="brand"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="17" width="22" height="22" rx="6" fill="#147d77"/><path d="M26 6a15 15 0 0 1 16 20" fill="none" stroke="#f17b59" stroke-width="5" stroke-linecap="round"/><path d="m36 24 5 6 5-7" fill="none" stroke="#f17b59" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 27h10m-4-4 4 4-4 4" fill="none" stroke="#e6f2b9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="brand-title">平移与旋转</div><div class="brand-note">小小运动实验室</div></div></div>
-  <div class="header-actions"><span class="header-tag">小学数学 · 观察与探索</span><button class="top-button" id="tips-button" type="button" aria-expanded="false" aria-controls="teacher-panel"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 14h6m-5 3h4M6 10a5 5 0 1 1 8 0c-1 1-1 2-1 2H7s0-1-1-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>教学提示</button><button class="top-button" id="fullscreen-button" type="button"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8V3h5m4 0h5v5M3 12v5h5m4 0h5v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>全屏演示</span></button></div>
+  <div class="brand"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="17" width="22" height="22" rx="6" fill="#147d77"/><path d="M26 6a15 15 0 0 1 16 20" fill="none" stroke="#d66b43" stroke-width="5" stroke-linecap="round"/><path d="m36 24 5 6 5-7" fill="none" stroke="#d66b43" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 27h10m-4-4 4 4-4 4" fill="none" stroke="#e6f2b9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="brand-title">平移与旋转</div><div class="brand-note">小小运动实验室</div></div></div>
+  <div class="header-actions"><button class="top-button board-toggle" id="board-mode-button" type="button" aria-pressed="true">白板大字</button><button class="top-button" id="tips-button" type="button" aria-expanded="false" aria-controls="teacher-panel"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 14h6m-5 3h4M6 10a5 5 0 1 1 8 0c-1 1-1 2-1 2H7s0-1-1-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>教学提示</button><button class="top-button" id="fullscreen-button" type="button"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8V3h5m4 0h5v5M3 12v5h5m4 0h5v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>全屏演示</span></button></div>
 </div></header>
 <main class="app-wrap">
-  <section class="intro" aria-label="课程介绍"><div class="intro-copy"><span class="eyebrow">观察 · 操作 · 发现</span><h1>让数学，<span>动起来。</span></h1><p>先猜一猜，再动一动。用自己的发现，说出运动的秘密。</p><div class="learning-cycle" aria-label="学习步骤"><span>① 先预测</span><b>→</b><span>② 动手试</span><b>→</b><span>③ 说理由</span></div></div><svg class="intro-art" viewBox="0 0 260 120" aria-hidden="true"><path d="M8 92h243" stroke="#dce4d5" stroke-width="1.5" stroke-dasharray="3 6"/><rect x="24" y="29" width="39" height="47" rx="9" fill="none" stroke="#9dbab0" stroke-width="2" stroke-dasharray="5 5"/><path d="M78 52h42m-7-7 7 7-7 7" stroke="#f17b59" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="135" y="29" width="39" height="47" rx="9" fill="#147d77" transform="rotate(0 154 52)"/><circle cx="156" cy="43" r="4" fill="#cce79b"/><path d="M215 33a25 25 0 1 1-24 29" stroke="#9dbab0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="m205 28 12 5-9 9" stroke="#f17b59" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="215" cy="58" r="5" fill="#f17b59"/><text x="43" y="111" text-anchor="middle" font-size="11" fill="#7d9285">移动位置</text><text x="215" y="111" text-anchor="middle" font-size="11" fill="#7d9285">绕点转动</text></svg></section>
-  <nav id="module-nav" class="module-nav" aria-label="选择学习活动"></nav>
+  <div class="workspace-toolbar">
+    <nav id="module-nav" class="module-nav" aria-label="选择学习活动"></nav>
+    <div class="module-picker" id="module-picker"><label for="module-select">当前活动</label><select id="module-select" aria-controls="module-host"></select></div>
+    <span class="lesson-progress" id="lesson-progress" aria-live="polite">0 / 5 已完成</span>
+  </div>
+  <div class="lesson-heading"><div><h1 id="lesson-title">发现生活中的运动</h1><p id="lesson-description">观察运动的部分，再判断它是平移还是旋转。</p></div><span class="lesson-number" id="lesson-number">活动 01</span></div>
   <aside id="teacher-panel" class="teacher-panel" hidden></aside>
-  <div id="module-host" class="content-host"></div>
-  <footer class="course-footer"><div class="footer-trail"><i></i><span>看清运动过程，试着说出理由。</span></div><div class="footer-nav" id="footer-nav"><button id="prev-module" type="button">← 上一活动</button><span id="current-step">活动 1 / 5</span><button id="next-module" type="button">下一活动 →</button></div></footer>
-  <div class="offline-note">平移与旋转 · 互动课件</div>
+  <div id="module-host" class="content-host" tabindex="-1"></div>
+  <footer class="course-footer"><div class="footer-state-note" id="footer-state-note">切换活动后，回来可以继续。</div><div class="footer-nav" id="footer-nav"><button id="prev-module" type="button">← 上一活动</button><span id="current-step">1 / 5</span><button id="next-module" type="button">下一活动 →</button></div></footer>
 </main>
 <div id="announcement" class="global-announcement" role="status" aria-live="polite" hidden></div>
 <noscript><p style="padding:30px">请在浏览器中启用 JavaScript，以操作本课件。</p></noscript>
@@ -43,13 +83,13 @@
   const modules=[];
   let uid=0;
   function createKit(markDone){
-    const cleanup=[];
+    const cleanup=new Set();
     let disposed=false;
     const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function onCleanup(fn){cleanup.push(fn);}
+    function onCleanup(fn){cleanup.add(fn);return()=>cleanup.delete(fn);}
     function listen(el,type,fn,opts){if(!el)return;el.addEventListener(type,fn,opts);onCleanup(()=>el.removeEventListener(type,fn,opts));}
     function tween(from,to,duration,update,done){
-      let frame=0,last=0,elapsed=0,running=true,cancelled=false,finished=false;
+      let frame=0,last=0,elapsed=0,running=true,cancelled=false,finished=false,removeCleanup=()=>{};
       const length=Math.max(1,duration);
       function tick(now){
         if(cancelled||disposed||!running)return;
@@ -58,66 +98,142 @@
         const progress=Math.min(1,elapsed/length);
         update(from+(to-from)*progress,progress);
         if(progress<1)frame=requestAnimationFrame(tick);
-        else{running=false;finished=true;if(done)done();}
+        else{running=false;finished=true;removeCleanup();if(done)done();}
       }
-      const handle={pause(){if(!running)return;running=false;cancelAnimationFrame(frame);last=0;},resume(){if(cancelled||disposed||running||finished)return;running=true;last=0;frame=requestAnimationFrame(tick);},cancel(){cancelled=true;running=false;cancelAnimationFrame(frame);},get isRunning(){return running;}};
-      onCleanup(handle.cancel);
+      const handle={pause(){if(!running)return;running=false;cancelAnimationFrame(frame);last=0;},resume(){if(cancelled||disposed||running||finished)return;running=true;last=0;frame=requestAnimationFrame(tick);},cancel(){cancelled=true;running=false;cancelAnimationFrame(frame);removeCleanup();},get isRunning(){return running;}};
+      removeCleanup=onCleanup(handle.cancel);
       update(from,0);
       frame=requestAnimationFrame(tick);
       return handle;
     }
     function feedback(el,text,type='info'){
-      if(!el)return;el.classList.remove('is-success','is-error');if(type!=='info')el.classList.add('is-'+type);el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.textContent=text;
+      if(!el)return;
+      el.classList.remove('is-success','is-error');
+      if(type!=='info')el.classList.add('is-'+type);
+      el.setAttribute('role',type==='error'?'alert':'status');
+      el.setAttribute('aria-live',type==='error'?'assertive':'polite');
+      el.textContent=text;
     }
     function svgPoint(svg,event){const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;const m=svg.getScreenCTM();return m?p.matrixTransform(m.inverse()):{x:0,y:0};}
-    return {listen,onCleanup,tween,feedback,svgPoint,markDone,reducedMotion,uid(prefix='cw'){return prefix+'-'+(++uid);},announce(text){window.Courseware.announce(text);},dispose(){if(disposed)return;disposed=true;for(const fn of cleanup.reverse()){try{fn();}catch(e){console.error('Cleanup failed',e);}}}};
+    return {listen,onCleanup,tween,feedback,svgPoint,markDone,reducedMotion,uid(prefix='cw'){return prefix+'-'+(++uid);},announce(text){window.Courseware.announce(text);},dispose(){if(disposed)return;disposed=true;for(const fn of [...cleanup].reverse()){try{fn();}catch(e){console.error('Cleanup failed',e);}}cleanup.clear();}};
   }
-  const tips={
-    life:{steps:['先播放一个生活场景，请学生用手势表示运动。','让学生先选择“平移”或“旋转”，再打开观察线索。','追问：你观察的是哪一部分？它怎样运动？'],note:'扇叶、齿轮和指针有固定的转动中心；观察国旗时看沿旗杆升降的整体运动。'},
-    translation:{steps:['先预测两扇自动门开、关时各自的平移方向。','按“左上角→右上角→右下角”的要求移动课本。','再比较先下后右、直接斜向移动等不同路线。'],note:'平移也可以沿斜方向进行。观察整个移动过程，课本的大小、形状和朝向保持不变。'},
-    rotation:{steps:['固定正面视角，以钟面转动方向作参照。','比较从 A 到 C 的顺时针与逆时针两条路线。','请学生说出经过的位置，再尝试从 C 到 B 或 D。'],note:'到达同一个终点可以采用不同方向。不要只凭最后的位置判断刚才的转动过程。'},
-    overlap:{steps:['先选择哪些图案能通过平移与目标重合。','开启验证，将透明副本移到目标上方。','对照耳朵、尾巴或叶柄的位置，说明判断理由。'],note:'检验中只移动位置，保持每个图案原有的大小与朝向。镜像、旋转后的图案不能自动调整姿态。'},
-    clock:{steps:['请学生先说出分针走一大格经过几分钟。','从12出发，先预测第一次到达目标位置的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里显示分针示意图。按顺时针、一圈以内第一次到达来计算，不把最短路线当作走时方向。'}
+  const lessons={
+    life:{heading:'发现生活中的运动',description:'观察运动的部分，再判断它是平移还是旋转。',steps:['播放一个生活场景，请学生用手势表示运动。','选择“平移”或“旋转”，再打开观察线索。','追问：你观察的是哪一部分？它怎样运动？'],note:'观察扇叶、齿轮和指针时关注转动中心；观察国旗时看沿旗杆升降的整体运动。'},
+    translation:{heading:'让物体平移起来',description:'改变移动方向，观察物体的形状、大小和朝向。',steps:['先预测两扇自动门开、关时各自的平移方向。','按“左上角→右上角→右下角”移动课本。','比较先下后右、直接斜向移动等不同路线。'],note:'平移也可以沿斜方向进行。整个过程中，物体的形状、大小和朝向保持不变。'},
+    rotation:{heading:'同一个终点，两种转法',description:'固定中心，选择方向，看看指针经过哪些位置。',steps:['固定正面视角，以钟面转动方向作参照。','比较从 A 到 C 的顺时针与逆时针两条路线。','说出经过的位置，再尝试从 C 到 B 或 D。'],note:'到达同一个终点可以采用不同方向。判断时要看刚才的转动过程。'},
+    overlap:{heading:'哪些图案能平移重合？',description:'先留下你的预测，再把透明副本移到目标上。',steps:['选择哪些图案能通过平移与目标重合。','开启验证，将透明副本移到目标上方。','对照耳朵、尾巴或叶柄的位置，说出判断理由。'],note:'检验时只移动位置，保持每个图案原有的大小与朝向。镜像、旋转后的图案不会自动调整姿态。'},
+    clock:{heading:'分针走了几分钟？',description:'从 12 出发，观察顺时针第一次到达目标的过程。',steps:['先说出分针走一大格经过几分钟。','从 12 出发，预测第一次到达目标的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里只观察分针。按顺时针、一圈以内第一次到达来计算；一大格对应 5 分钟。'}
   };
-  window.Courseware={modules,register(module){if(modules.some(x=>x.id===module.id))throw new Error('Duplicate module '+module.id);modules.push(module);},announce(text){const el=document.getElementById('announcement');el.textContent=text;el.hidden=false;clearTimeout(this.noticeTimer);this.noticeTimer=setTimeout(()=>el.hidden=true,3500);},boot(){
-    modules.sort((a,b)=>a.number-b.number);
-    const root=document.getElementById('module-host');
-    const nav=document.getElementById('module-nav');
-    const teacher=document.getElementById('teacher-panel');
-    const tipsButton=document.getElementById('tips-button');
-    let active=null,kit=null,dispose=null,done=new Set();
-    try{done=new Set(JSON.parse(localStorage.getItem('motion-lab-completed')||'[]'));}catch(e){/* Private/file mode may disable storage. */}
-    function markDone(id){done.add(id);try{localStorage.setItem('motion-lab-completed',JSON.stringify([...done]));}catch(e){}renderNav();}
-    function renderNav(){
-      const focused=document.activeElement&&document.activeElement.closest?document.activeElement.closest('[data-module]'):null;
-      const focusId=focused&&nav.contains(focused)?focused.dataset.module:null;
-      if(modules.length===1){nav.className='single-label';nav.innerHTML='<span class="num">'+String(modules[0].number).padStart(2,'0')+'</span><span>'+modules[0].title+' · 独立活动</span>';return;}
-      nav.className='module-nav';nav.innerHTML=modules.map(m=>'<button type="button" class="nav-card '+(active&&m.id===active.id?'active':'')+'" data-module="'+m.id+'" aria-current="'+(active&&m.id===active.id?'page':'false')+'"><span class="nav-number">'+String(m.number).padStart(2,'0')+'</span><span class="nav-copy"><span class="nav-title">'+m.title+'</span><span class="nav-subtitle">'+m.subtitle+'</span></span>'+(done.has(m.id)?'<span class="nav-done" aria-label="已完成">✓</span>':'')+'</button>').join('');
-      nav.querySelectorAll('[data-module]').forEach(b=>b.addEventListener('click',()=>switchTo(b.dataset.module,true)));
-      if(focusId){const replacement=nav.querySelector('[data-module="'+focusId+'"]');if(replacement)replacement.focus({preventScroll:true});}
+  window.Courseware={
+    modules,
+    register(module){if(modules.some(x=>x.id===module.id))throw new Error('Duplicate module '+module.id);modules.push(module);},
+    announce(text){const el=document.getElementById('announcement');el.textContent=text;el.hidden=false;clearTimeout(this.noticeTimer);this.noticeTimer=setTimeout(()=>el.hidden=true,3500);},
+    boot(){
+      if(this.started)return;
+      this.started=true;
+      modules.sort((a,b)=>a.number-b.number);
+      const root=document.getElementById('module-host');
+      const nav=document.getElementById('module-nav');
+      const picker=document.getElementById('module-select');
+      const teacher=document.getElementById('teacher-panel');
+      const tipsButton=document.getElementById('tips-button');
+      const boardButton=document.getElementById('board-mode-button');
+      let boardMode=true;
+      try{boardMode=localStorage.getItem('motion-lab-display')!=='desk';}catch(e){}
+      function renderDisplayMode(){document.documentElement.setAttribute('data-board-mode',boardMode?'whiteboard':'desk');boardButton.setAttribute('aria-pressed',String(boardMode));}
+      renderDisplayMode();
+      boardButton.addEventListener('click',()=>{boardMode=!boardMode;renderDisplayMode();document.dispatchEvent(new CustomEvent('courseware:displaychange',{detail:{whiteboard:boardMode}}));try{localStorage.setItem('motion-lab-display',boardMode?'whiteboard':'desk');}catch(e){}window.Courseware.announce(boardMode?'已开启白板大字模式。':'已切换为普通字号。');});
+      const instances=new Map();
+      let active=null,done=new Set();
+      try{const saved=JSON.parse(localStorage.getItem('motion-lab-completed')||'[]');if(Array.isArray(saved))done=new Set(saved.filter(id=>typeof id==='string'));}catch(e){/* Offline/private windows can deny storage. */}
+      picker.innerHTML=modules.map(m=>'<option value="'+m.id+'">'+String(m.number).padStart(2,'0')+' · '+m.title+'</option>').join('');
+      if(modules.length===1){
+        nav.className='single-label';
+        nav.innerHTML='<span class="num">'+String(modules[0].number).padStart(2,'0')+'</span><span>'+modules[0].title+' · 独立活动</span>';
+        document.getElementById('module-picker').hidden=true;
+        document.getElementById('footer-nav').hidden=true;
+        document.getElementById('footer-state-note').hidden=true;
+      }else{
+        nav.innerHTML='<span class="nav-indicator" aria-hidden="true"></span>'+modules.map(m=>'<button type="button" class="nav-card" data-module="'+m.id+'" aria-current="false"><span class="nav-number">'+String(m.number).padStart(2,'0')+'</span><span class="nav-title">'+m.title+'</span><span class="nav-done" aria-hidden="true"></span></button>').join('');
+        nav.querySelectorAll('[data-module]').forEach((button,index)=>{
+          button.addEventListener('click',()=>switchTo(button.dataset.module));
+          button.addEventListener('keydown',event=>{
+            const delta=event.key==='ArrowRight'?1:event.key==='ArrowLeft'?-1:0;
+            if(!delta&&event.key!=='Home'&&event.key!=='End')return;
+            event.preventDefault();
+            const next=event.key==='Home'?0:event.key==='End'?modules.length-1:(index+delta+modules.length)%modules.length;
+            nav.querySelector('[data-module="'+modules[next].id+'"]').focus();
+          });
+        });
+      }
+      function markDone(id){done.add(id);try{localStorage.setItem('motion-lab-completed',JSON.stringify([...done]));}catch(e){}renderNav();}
+      function renderNav(){
+        nav.querySelectorAll('[data-module]').forEach(button=>{
+          const selected=button.dataset.module===active.id;
+          const completed=done.has(button.dataset.module);
+          button.classList.toggle('active',selected);
+          button.setAttribute('aria-current',selected?'page':'false');
+          const module=modules.find(m=>m.id===button.dataset.module);
+          button.setAttribute('aria-label',module.title+(completed?'，已完成':''));
+          button.querySelector('.nav-done').textContent=completed?'✓':'';
+        });
+        const indicator=nav.querySelector('.nav-indicator');
+        if(indicator)indicator.style.transform='translateX('+(modules.indexOf(active)*100)+'%)';
+        picker.value=active.id;
+        document.getElementById('lesson-progress').textContent=modules.filter(m=>done.has(m.id)).length+' / '+modules.length+' 已完成';
+      }
+      function pauseCurrent(){if(!active)return;const instance=instances.get(active.id);if(instance&&instance.controller.pause)instance.controller.pause();}
+      function switchTo(id,focus=false){
+        const module=modules.find(x=>x.id===id)||modules[0];
+        if(active&&active.id===module.id)return;
+        pauseCurrent();
+        active=module;
+        root.dataset.module=module.id;
+        let instance=instances.get(module.id);
+        if(!instance){
+          const pane=document.createElement('section');
+          pane.className='module-pane';
+          pane.setAttribute('aria-labelledby','lesson-title');
+          const kit=createKit(()=>markDone(module.id));
+          root.replaceChildren(pane);
+          const mounted=module.mount(pane,kit)||{};
+          const controller=typeof mounted==='function'?{destroy:mounted}:mounted;
+          instance={pane,kit,controller};
+          instances.set(module.id,instance);
+          if(!kit.reducedMotion&&typeof pane.animate==='function')pane.animate([{opacity:.6,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}],{duration:200,easing:'ease-out'});
+        }else root.replaceChildren(instance.pane);
+        renderNav();
+        const lesson=lessons[module.id];
+        document.getElementById('lesson-title').textContent=lesson.heading;
+        document.getElementById('lesson-description').textContent=lesson.description;
+        document.getElementById('lesson-number').textContent='活动 '+String(module.number).padStart(2,'0');
+        teacher.innerHTML='<h2>教学提示 · '+module.title+'</h2><ol>'+lesson.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p>'+lesson.note+'</p>';
+        document.getElementById('current-step').textContent=module.number+' / 5';
+        const index=modules.indexOf(module);
+        document.getElementById('prev-module').disabled=index===0;
+        document.getElementById('next-module').disabled=index===modules.length-1;
+        document.title=module.title+' · 平移与旋转互动实验室';
+        try{history.replaceState(null,'','#'+module.id);}catch(e){}
+        if(focus){const button=nav.querySelector('[data-module="'+module.id+'"]');if(button)button.focus({preventScroll:true});else picker.focus({preventScroll:true});}
+      }
+      picker.addEventListener('change',()=>switchTo(picker.value));
+      tipsButton.addEventListener('click',()=>{teacher.hidden=!teacher.hidden;tipsButton.setAttribute('aria-expanded',String(!teacher.hidden));});
+      teacher.addEventListener('keydown',event=>{if(event.key==='Escape'){teacher.hidden=true;tipsButton.setAttribute('aria-expanded','false');tipsButton.focus();}});
+      const full=document.getElementById('fullscreen-button');
+      full.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else window.Courseware.announce('可使用浏览器菜单进入全屏演示。');}catch(e){window.Courseware.announce('当前窗口不支持全屏，可使用浏览器菜单进入全屏。');}});
+      document.addEventListener('fullscreenchange',()=>{full.querySelector('span').textContent=document.fullscreenElement?'退出全屏':'全屏演示';});
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)pauseCurrent();});
+      document.getElementById('prev-module').addEventListener('click',()=>{const index=modules.indexOf(active);if(index>0)switchTo(modules[index-1].id,true);});
+      document.getElementById('next-module').addEventListener('click',()=>{const index=modules.indexOf(active);if(index<modules.length-1)switchTo(modules[index+1].id,true);});
+      window.addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(modules.some(m=>m.id===id))switchTo(id);});
+      window.addEventListener('pagehide',event=>{
+        if(event.persisted){pauseCurrent();return;}
+        for(const instance of instances.values()){if(instance.controller.destroy)instance.controller.destroy();instance.kit.dispose();}
+        clearTimeout(window.Courseware.noticeTimer);
+      });
+      switchTo(location.hash.slice(1));
     }
-    function switchTo(id,focus=false){
-      const module=modules.find(x=>x.id===id)||modules[0];if(active&&active.id===module.id)return;
-      if(dispose){try{dispose();}catch(e){console.error(e);}}if(kit)kit.dispose();
-      active=module;kit=createKit(()=>markDone(module.id));root.innerHTML='';root.dataset.module=module.id;
-      dispose=module.mount(root,kit)||null;renderNav();
-      const t=tips[module.id];teacher.innerHTML='<h2>教师提示 · '+module.title+'</h2><ol>'+t.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p>'+t.note+'</p>';
-      document.getElementById('current-step').textContent='活动 '+module.number+' / 5';
-      const index=modules.indexOf(module);document.getElementById('prev-module').disabled=index===0;document.getElementById('next-module').disabled=index===modules.length-1;
-      document.title=module.title+' · 平移与旋转互动实验室';
-      try{history.replaceState(null,'','#'+module.id);}catch(e){}
-      if(focus){const btn=nav.querySelector('[data-module="'+module.id+'"]');if(btn)btn.focus({preventScroll:true});}
-    }
-    tipsButton.addEventListener('click',()=>{teacher.hidden=!teacher.hidden;tipsButton.setAttribute('aria-expanded',String(!teacher.hidden));});
-    const full=document.getElementById('fullscreen-button');
-    full.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else window.Courseware.announce('可使用浏览器菜单进入全屏演示。');}catch(e){window.Courseware.announce('当前窗口不支持全屏，可使用浏览器菜单进入全屏。');}});
-    document.addEventListener('fullscreenchange',()=>{full.querySelector('span').textContent=document.fullscreenElement?'退出全屏':'全屏演示';});
-    document.getElementById('prev-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i>0)switchTo(modules[i-1].id,true);});
-    document.getElementById('next-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i<modules.length-1)switchTo(modules[i+1].id,true);});
-    window.addEventListener('hashchange',()=>switchTo(location.hash.slice(1)));
-    if(modules.length===1)document.getElementById('footer-nav').hidden=true;
-    switchTo(location.hash.slice(1));
-  }};
+  };
 })();
 
 Courseware.register({
@@ -144,22 +260,42 @@ Courseware.register({
     }).join('');
     root.innerHTML = `
       <style>
-        .ck-main{min-width:0}.ck-presets{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:18px}.ck-presets-label{font-size:13px;color:#71887D;margin-right:2px}.ck-presets .chip{min-width:52px}.ck-random{margin-left:auto}
-        .ck-stage{position:relative;overflow:hidden;border:1px solid #DFE9E3;background:radial-gradient(circle at 50% 45%,#fff 0,#F6F8F0 75%);border-radius:22px}.ck-svg{display:block;width:100%;max-height:480px}.ck-svg text{font-family:inherit}.ck-stage-label{position:absolute;top:17px;left:18px;font-size:12px;color:#6C8376;font-weight:600}.ck-stage-label i{display:inline-block;width:7px;height:7px;background:#147D77;border-radius:50%;margin-right:7px}.ck-direction-label{text-align:center;color:#6F8779;font-size:13px;padding:0 16px 16px;line-height:1.6}
-        .ck-target-number{font-weight:800}.ck-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}.ck-metric{background:#F3F6EF;border:1px solid #E7ECE1;border-radius:13px;padding:13px 10px;text-align:center}.ck-metric span{display:block;font-size:11px;color:#7A8D7E;margin-bottom:5px}.ck-metric strong{display:block;font-size:21px;font-weight:750;color:#285546}.ck-metric strong.ck-muted{font-size:14px;line-height:25px;color:#93A095;font-weight:500}.ck-metric:last-child{background:#FFF4E7;border-color:#F4E5D1}.ck-metric:last-child strong{color:#B66C36}
-        .ck-options{display:flex;gap:14px 20px;flex-wrap:wrap;margin-top:18px;color:#567264;font-size:13px}.ck-options label{display:flex;align-items:center;gap:8px;cursor:pointer}.ck-options input{width:16px;height:16px;accent-color:#147D77}.ck-rule-box{border-radius:14px;background:#F2F6EE;padding:15px 16px;margin:18px 0;display:flex;gap:12px;align-items:center;color:#4C6D5E}.ck-rule-icon{display:grid;place-items:center;flex:0 0 43px;height:43px;border-radius:50%;background:#E0ECD8;font-size:23px;color:#588346}.ck-rule-box strong{display:block;font-size:14px;margin-bottom:3px}.ck-rule-box small{font-size:12px;line-height:1.6}.ck-answer-label{display:block;font-weight:700;font-size:14px;color:#355B4A;margin:20px 0 10px}.ck-answer-row{display:flex;gap:10px;align-items:center;margin-bottom:12px}.ck-answer-row input{box-sizing:border-box;width:100%;min-width:0;border:1.5px solid #CDDCCF;border-radius:12px;font-family:inherit;font-size:23px;font-weight:600;line-height:1.4;padding:12px 13px;color:#244D3D;background:#fff;min-height:52px}.ck-answer-row input:focus{outline:3px solid #DFEEDB;border-color:#147D77}.ck-answer-row span{font-size:14px;white-space:nowrap;color:#6A8070}.ck-submit{width:100%}.ck-feedback{margin-top:16px;min-height:86px}.ck-question{line-height:1.6}.ck-question strong{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;background:#F7E1B6;color:#9C631F;border-radius:9px;padding:0 5px}.ck-note{font-size:12px;color:#788A7C;line-height:1.7;margin:16px 0 0}.ck-record{border-top:1px solid #E7EDE3;margin-top:24px;padding-top:19px}.ck-record h4{font-size:14px;margin:0 0 11px;color:#3B5F4E}.ck-record-items{display:flex;flex-wrap:wrap;gap:6px}.ck-record-items span{background:#E9F2E3;color:#527447;padding:5px 8px;border-radius:7px;font-size:11px}.ck-record-empty{color:#91A08F;font-size:12px}.ck-large-step{font-size:11px;fill:#95A78F}
-        @media(max-width:640px){.ck-presets{gap:7px}.ck-presets .chip{min-width:42px;padding-left:9px;padding-right:9px}.ck-random{margin-left:0}.ck-metrics{gap:7px}.ck-metric{padding:11px 5px}.ck-metric strong{font-size:18px}.ck-stage-label{font-size:10px;top:12px}.ck-direction-label{font-size:11px;bottom:9px}.ck-options{font-size:12px}.ck-svg{min-height:290px}}
+        .ck-main{min-width:0}.ck-presets{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:16px}.ck-presets-label{font-size:14px;color:#526D63;margin-right:2px}.ck-presets .chip{min-width:48px;min-height:44px;font-size:16px}.ck-random{margin-left:auto;font-size:14px;min-height:44px}
+        .ck-stage{overflow:hidden;background:#F5F8F3;border-radius:12px}.ck-svg{display:block;width:100%;height:auto;max-width:444px;margin:0 auto}.ck-svg text{font-family:inherit}.ck-direction-label{text-align:center;color:#526D63;font-size:14px;padding:0 16px 14px;line-height:1.6}
+        .ck-metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 0;padding:14px 0;border-top:1px solid #E1E8E0}.ck-metric span{display:block;font-size:14px;color:#526D63;margin-bottom:4px}.ck-metric strong{display:block;font-size:22px;font-weight:750;color:#285546}.ck-metric strong.ck-muted{font-size:16px;line-height:33px;color:#60756B;font-weight:400}.ck-metric:last-child strong:not(.ck-muted){color:#A7602E}
+        .ck-play-help{margin:10px 0 0;color:#526D63;font-size:14px;line-height:1.6}.ck-display{border-top:1px solid #E1E8E0}.ck-display summary{display:flex;align-items:center;min-height:44px;cursor:pointer;color:#526D63;font-size:14px;font-weight:600;list-style:none}.ck-display summary::-webkit-details-marker{display:none}.ck-display summary::before{content:'＋';margin-right:8px}.ck-display[open] summary::before{content:'−'}.ck-options{display:flex;gap:0 20px;flex-wrap:wrap;color:#526D63;font-size:14px}.ck-options label{display:flex;align-items:center;min-height:44px;gap:9px;cursor:pointer}.ck-options input{width:18px;height:18px;accent-color:#147D77}
+        .ck-rule{margin:14px 0 20px;color:#526D63;font-size:16px;line-height:1.6}.ck-answer-label{display:block;font-weight:700;font-size:16px;color:#355B4A;margin:20px 0 10px}.ck-answer-row{display:flex;gap:10px;align-items:center;margin-bottom:12px}.ck-answer-row input{box-sizing:border-box;width:100%;min-width:0;border:1.5px solid #A8BFB0;border-radius:10px;font-family:inherit;font-size:24px;font-weight:600;line-height:1.4;padding:12px 13px;color:#244D3D;background:#fff;min-height:52px}.ck-answer-row input:focus{outline:3px solid #DFEEDB;border-color:#147D77}.ck-answer-row span{font-size:16px;white-space:nowrap;color:#526D63}.ck-submit,.ck-next{width:100%;min-height:48px}.ck-feedback{margin-top:18px;min-height:0;font-size:16px}.ck-next{margin-top:14px}.ck-question{line-height:1.65}.ck-question strong{color:#9C631F}.ck-note{font-size:14px;color:#526D63;line-height:1.65;margin:8px 0 14px}.ck-record{border-top:1px solid #E1E8E0;margin-top:24px;padding-top:18px}.ck-record h4{font-size:16px;margin:0 0 12px;color:#3B5F4E}.ck-record-items{display:flex;flex-direction:column;gap:8px}.ck-record-items span{color:#526D63;font-size:14px}.ck-record-empty{color:#60756B;font-size:14px;font-style:normal}.ck-large-step{font-size:24px;fill:#607C56}
+        .ck-record summary{display:flex;align-items:center;min-height:44px;cursor:pointer;list-style:none;font-size:16px;font-weight:600;color:#3B5F4E}.ck-record summary::-webkit-details-marker{display:none}.ck-record summary::before{content:'＋';margin-right:8px}.ck-record[open] summary::before{content:'−'}.ck-record[open] .ck-record-items{margin-top:12px}
+        .ck-predict-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}.ck-predict-steps .btn{min-height:56px;font-size:16px}
+        @media(max-width:640px){.ck-presets{gap:7px}.ck-presets .chip{min-width:44px;padding-left:9px;padding-right:9px}.ck-random{margin-left:0}.ck-metrics{gap:12px}.ck-direction-label{padding-left:12px;padding-right:12px}}
+        @media(min-width:1000px){
+          :root[data-board-mode="whiteboard"] .ck-module .btn,:root[data-board-mode="whiteboard"] .ck-presets .chip{min-height:56px;font-size:20px;padding:14px 20px}
+          :root[data-board-mode="whiteboard"] .ck-presets{gap:12px;margin-bottom:16px}
+          :root[data-board-mode="whiteboard"] .ck-presets .chip{min-width:60px;font-size:24px}
+          :root[data-board-mode="whiteboard"] .ck-svg{max-width:520px}
+          :root[data-board-mode="whiteboard"] .ck-svg [data-number]{font-size:36px}
+          :root[data-board-mode="whiteboard"] .ck-module .panel-title{font-size:26px}
+          :root[data-board-mode="whiteboard"] .ck-question{font-size:24px;line-height:1.55}
+          :root[data-board-mode="whiteboard"] .ck-presets-label,:root[data-board-mode="whiteboard"] .ck-direction-label,:root[data-board-mode="whiteboard"] .ck-rule,:root[data-board-mode="whiteboard"] .ck-answer-label,:root[data-board-mode="whiteboard"] .ck-answer-row span,:root[data-board-mode="whiteboard"] .ck-feedback,:root[data-board-mode="whiteboard"] .ck-play-help,:root[data-board-mode="whiteboard"] .ck-options,:root[data-board-mode="whiteboard"] .ck-note,:root[data-board-mode="whiteboard"] .ck-record-items span,:root[data-board-mode="whiteboard"] .ck-record-empty{font-size:20px;line-height:1.55}
+          :root[data-board-mode="whiteboard"] .ck-answer-row input{min-height:64px;font-size:32px}
+          :root[data-board-mode="whiteboard"] .ck-metric span{font-size:20px}
+          :root[data-board-mode="whiteboard"] .ck-metric strong{font-size:30px}
+          :root[data-board-mode="whiteboard"] .ck-metric strong.ck-muted{font-size:20px;line-height:45px}
+          :root[data-board-mode="whiteboard"] .ck-display summary,:root[data-board-mode="whiteboard"] .ck-record summary{min-height:56px;font-size:20px}
+          :root[data-board-mode="whiteboard"] .ck-options label{min-height:56px;gap:12px}
+          :root[data-board-mode="whiteboard"] .ck-options input{width:24px;height:24px}
+          :root[data-board-mode="whiteboard"] .ck-module .controls{gap:12px;margin-top:16px}
+        }
       </style>
-      <div class="module-layout">
+      <div class="module-layout ck-module">
         <div class="panel ck-main">
           <div class="ck-presets" role="group" aria-label="选择分针目标位置">
             <span class="ck-presets-label">转到</span>
             ${[1, 3, 4, 10].map(n => `<button class="chip${n === 3 ? ' active' : ''}" data-target="${n}" aria-pressed="${n === 3}">${n}</button>`).join('')}
-            <button class="btn ghost ck-random">换一题</button>
+            <button class="btn ghost ck-random">随机题</button>
           </div>
           <div class="ck-stage">
-            <div class="ck-stage-label"><i></i>分针示意图 · 只观察分针</div>
-            <svg class="ck-svg" viewBox="0 0 660 450" role="img" aria-label="分针从12顺时针旋转到指定数字的示意钟面">
+            <svg class="ck-svg" viewBox="108 0 444 455" role="img" aria-label="只显示分针的示意钟面，分针从12顺时针旋转到指定数字">
               <defs><filter id="${prefix}-shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#325E43" flood-opacity=".1"/></filter><marker id="${prefix}-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#94B58A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
               <circle cx="330" cy="225" r="165" fill="#FFF" stroke="#D9E5D7" stroke-width="2" filter="url(#${prefix}-shadow)"/>
               <path class="ck-sector" fill="#EDF5E4" opacity=".9"/>
@@ -167,55 +303,80 @@ Courseware.register({
               <path class="ck-trace" fill="none" stroke="#7BA96A" stroke-width="9" stroke-linecap="round"/>
               ${ticks}
               <circle class="ck-target" cx="446" cy="225" r="22" fill="#F8E3B8"/>
-              ${Array.from({ length: 12 }, (_, i) => { const p = point(i * 30, 116); return `<text data-number="${i || 12}" x="${p.x}" y="${p.y + 8}" text-anchor="middle" fill="#46624A" font-size="24" font-weight="650">${i || 12}</text>`; }).join('')}
+              ${Array.from({ length: 12 }, (_, i) => { const p = point(i * 30, 116); return `<text data-number="${i || 12}" x="${p.x}" y="${p.y + 10}" text-anchor="middle" fill="#46624A" font-size="30" font-weight="650">${i || 12}</text>`; }).join('')}
               <g class="ck-five-labels">${Array.from({ length: 11 }, (_, i) => { const n = i + 1, p = point(n * 30, 188); return `<text x="${p.x}" y="${p.y + 4}" text-anchor="middle" class="ck-large-step">${n * 5}分</text>`; }).join('')}</g>
               <path d="M 380 33 A 199 199 0 0 1 436 59" fill="none" stroke="#94B58A" stroke-width="2" stroke-linecap="round" marker-end="url(#${prefix}-arrow)"/>
               <g class="ck-hand"><path d="M 324 242 L 325 122 Q 325 113 330 102 Q 335 113 335 122 L 336 242 Z" fill="#ED815B"/><circle cx="330" cy="119" r="4" fill="#FFEADB"/></g>
               <circle cx="330" cy="225" r="12" fill="#365E45"/><circle cx="330" cy="225" r="4" fill="#DFEBCF"/>
             </svg>
-            <div class="ck-direction-label">从 12 出发，顺时针走，在一圈以内第一次到达目标</div>
-          </div>
-          <div class="ck-metrics">
-            <div class="ck-metric"><span>起点</span><strong>12</strong></div>
-            <div class="ck-metric"><span>已走大格</span><strong class="ck-count ck-muted">暂时隐藏</strong></div>
-            <div class="ck-metric"><span>经过时间</span><strong class="ck-time ck-muted">暂时隐藏</strong></div>
+            <div class="ck-direction-label">分针示意图 · 从12顺时针出发<br>一圈以内，第一次到达目标就停下</div>
           </div>
           <div class="controls">
-            <button class="btn primary ck-play" disabled>开始转动</button>
+            <button class="btn secondary ck-play" disabled aria-describedby="${prefix}-play-help">开始验证</button>
             <button class="btn secondary ck-step" disabled>走一大格</button>
             <button class="btn ghost ck-reset">从 12 重来</button>
           </div>
-          <div class="ck-options">
-            <label><input type="checkbox" class="ck-slow">慢速播放</label>
-            <label><input type="checkbox" class="ck-show-minutes">显示计时提示</label>
-            <label><input type="checkbox" class="ck-show-trace" checked>显示轨迹</label>
+          <p id="${prefix}-play-help" class="ck-play-help">先填写并提交预测，才能开始验证。</p>
+          <div class="ck-metrics">
+            <div class="ck-metric"><span>已走大格</span><strong class="ck-count ck-muted">暂时隐藏</strong></div>
+            <div class="ck-metric"><span>经过时间</span><strong class="ck-time ck-muted">暂时隐藏</strong></div>
           </div>
+          <details class="ck-display"><summary>显示与速度</summary>
+            <div class="ck-options">
+              <label><input type="checkbox" class="ck-slow">慢速播放</label>
+              <label><input type="checkbox" class="ck-show-minutes">显示计时提示</label>
+              <label><input type="checkbox" class="ck-show-trace" checked>显示轨迹</label>
+            </div>
+            <p class="ck-note">隐藏计时提示时，自己数一数分针走了几个大格。</p>
+          </details>
         </div>
         <aside class="panel">
-          <div class="eyebrow">先估一估 · 再走一走</div>
           <h3 class="panel-title">分针走了多久？</h3>
           <p class="prompt ck-question">从 12 顺时针转到 <strong class="ck-target-label">3</strong>，经过多少分钟？</p>
-          <div class="ck-rule-box"><span class="ck-rule-icon" aria-hidden="true">↻</span><div><strong>每走一大格，经过 5 分钟</strong><small>这一题只走不到一圈，第一次到达就停下。</small></div></div>
-          <form class="ck-form">
+          <p class="ck-rule">每走一大格，经过 <strong>5 分钟</strong>。</p>
+          <form class="ck-form" novalidate>
             <label class="ck-answer-label" for="${prefix}-answer">我的预测</label>
             <div class="ck-answer-row"><input id="${prefix}-answer" type="number" inputmode="numeric" min="0" max="60" step="1" placeholder="填一个数" required aria-describedby="${prefix}-answer-hint"><span>分钟</span></div>
+            <div class="ck-predict-steps" role="group" aria-label="调整预测分钟数，不自动提交">
+              <button type="button" class="btn secondary" data-prediction-step="-5" aria-label="预测减少5分钟，最少0分钟">−5 分钟</button>
+              <button type="button" class="btn secondary" data-prediction-step="5" aria-label="预测增加5分钟，最多60分钟">+5 分钟</button>
+            </div>
             <span class="sr-only" id="${prefix}-answer-hint">请输入0到60之间的整数分钟。</span>
             <button type="submit" class="btn primary ck-submit">提交预测</button>
           </form>
           <div class="feedback ck-feedback" role="status" aria-live="polite">先填入你的预测，再让分针走一走。</div>
-          <p class="ck-note">可以连续播放，也可以每次走一大格。隐藏计时提示时，试着自己数一数。</p>
-          <div class="ck-record"><h4>我的观察记录</h4><div class="ck-record-items"><em class="ck-record-empty">完成后，记录会出现在这里。</em></div></div>
+          <button class="btn primary ck-next" hidden>下一题</button>
+          <details class="ck-record"><summary>观察记录</summary><div class="ck-record-items"><em class="ck-record-empty">完成后，记录会出现在这里。</em></div></details>
         </aside>
       </div>`;
     const $ = selector => root.querySelector(selector);
     const input = $('.ck-answer-row input'), feedback = $('.ck-feedback');
     const targetMinutes = () => target * 5;
+    const predictionChanged = () => prediction !== null && (input.value.trim() === '' || Number(input.value) !== prediction);
+    const ready = () => prediction !== null && !predictionChanged();
     function stopAnimation() { if (animation) animation.cancel(); animation = null; playing = false; }
+    function pauseActivity() { if (animation) animation.pause(); playing = false; draw(); }
+    function focusControl(el) { el.focus({ preventScroll: true }); if (el.scrollIntoView) el.scrollIntoView({ block: 'nearest' }); }
     function updateButtons() {
-      $('.ck-play').disabled = prediction === null;
-      $('.ck-step').disabled = prediction === null || playing || completed;
-      $('.ck-play').textContent = playing ? '暂停转动' : completed ? '再看一次' : animation ? '继续转动' : '开始转动';
-      $('.ck-submit').textContent = completed ? '检查答案' : prediction === null ? '提交预测' : '更新预测';
+      const canVerify = ready(), needsSubmission = !canVerify;
+      $('.ck-play').disabled = !canVerify;
+      $('.ck-step').disabled = !canVerify || playing || completed;
+      $('.ck-play').textContent = playing ? '暂停转动' : completed ? '重看数格过程' : animation || minutes > 0 ? '继续验证' : '开始验证';
+      $('.ck-play').classList.toggle('primary', canVerify && !completed);
+      $('.ck-play').classList.toggle('secondary', !canVerify || completed);
+      $('.ck-submit').classList.toggle('primary', needsSubmission);
+      $('.ck-submit').classList.toggle('secondary', !needsSubmission);
+      $('.ck-submit').disabled = !needsSubmission;
+      $('.ck-submit').textContent = prediction === null ? '提交预测' : predictionChanged() ? completed ? '检查修改后的答案' : '更新预测' : completed ? '答案已核对' : '预测已提交';
+      $('.ck-next').hidden = !completed;
+      $('.ck-next').classList.toggle('primary', canVerify);
+      $('.ck-next').classList.toggle('secondary', !canVerify);
+      $('.ck-play-help').textContent = prediction === null ? '先填写并提交预测，才能开始验证。'
+        : predictionChanged() ? '预测有修改，请重新提交后继续验证。'
+        : completed ? '已到达目标。可以选下一题，也可以重看数格过程。'
+        : playing ? '分针正在顺时针转动，随时可以暂停。'
+        : minutes > 0 ? '进度已保留。继续验证或点“走一大格”。'
+        : '预测已记录。点“开始验证”，也可以每次走一大格。';
     }
     function draw() {
       const angle = minutes * 6;
@@ -236,7 +397,7 @@ Courseware.register({
     }
     function showResult() {
       const correct = prediction === targetMinutes();
-      kit.feedback(feedback, `${correct ? '预测正确！' : `你的预测是 ${prediction} 分钟。`} 分针走了 ${target} 个大格，每格 5 分钟，一共 ${targetMinutes()} 分钟。`, correct ? 'success' : 'info');
+      kit.feedback(feedback, `${correct ? '预测正确！' : `你预测 ${prediction} 分钟。`} 分针走了 ${target} 个大格，每格 5 分钟，一共 ${targetMinutes()} 分钟。${correct ? '' : '可以修改答案后再检查，或重播数格过程。'}`, correct ? 'success' : 'info');
       if (correct) kit.markDone();
     }
     function finish() {
@@ -257,40 +418,63 @@ Courseware.register({
     }
     function reset(clearPrediction = false) {
       stopAnimation(); minutes = 0; completed = false;
-      if (clearPrediction) { prediction = null; input.value = ''; }
-      kit.feedback(feedback, prediction === null ? '先填入你的预测，再让分针走一走。' : `已保留你的预测：${prediction} 分钟。分针回到 12，可以再观察一次。`);
+      if (clearPrediction) { prediction = null; input.value = ''; input.setAttribute('aria-invalid', 'false'); }
+      kit.feedback(feedback, prediction === null ? '填入预计分钟数，再提交预测。' : `已保留你的预测：${prediction} 分钟。分针回到 12，可以再观察一次。`);
       draw();
     }
-    function selectTarget(value) { target = value; reset(true); }
+    function selectTarget(value) { if (target === value) return; target = value; reset(true); }
+    function nextQuestion() {
+      const options = Array.from({ length: 11 }, (_, i) => i + 1).filter(n => n !== target);
+      selectTarget(options[Math.floor(Math.random() * options.length)]); focusControl(input);
+    }
     kit.listen($('.ck-form'), 'submit', event => {
       event.preventDefault();
       const raw = input.value.trim(), value = Number(raw);
-      if (!raw || !Number.isInteger(value) || value < 0 || value > 60) { kit.feedback(feedback, '请输入 0 到 60 之间的整数分钟，再开始验证。', 'error'); input.focus(); return; }
+      if (!raw || !Number.isInteger(value) || value < 0 || value > 60) { pauseActivity(); input.setAttribute('aria-invalid', 'true'); kit.feedback(feedback, '请填 0 到 60 之间的整数分钟，例如 15，再提交。', 'error'); input.focus(); return; }
       prediction = value;
+      input.setAttribute('aria-invalid', 'false');
       if (completed) showResult();
-      else kit.feedback(feedback, `预测已记录：${prediction} 分钟。让分针走一走，看看是否正确。`);
+      else kit.feedback(feedback, `预测已记录：${prediction} 分钟。点“${minutes > 0 ? '继续验证' : '开始验证'}”来观察。`);
       updateButtons();
+      if (!completed) focusControl($('.ck-play'));
+    });
+    function onPredictionInput() {
+      if (playing) pauseActivity();
+      input.setAttribute('aria-invalid', 'false');
+      if (predictionChanged()) kit.feedback(feedback, '预测有修改，重新提交后可继续验证。');
+      updateButtons();
+    }
+    kit.listen(input, 'input', onPredictionInput);
+    root.querySelectorAll('[data-prediction-step]').forEach(button => {
+      kit.listen(button, 'click', () => {
+        const value = Number(input.value), base = Number.isFinite(value) ? Math.round(value) : 0;
+        const next = Math.max(0, Math.min(60, base + Number(button.dataset.predictionStep)));
+        input.value = String(next); onPredictionInput();
+        kit.feedback(feedback, `当前预测：${next} 分钟。${prediction === null ? '提交预测后再验证。' : predictionChanged() ? '重新提交后可继续验证。' : '与已提交预测相同，可以继续验证。'}`);
+      });
     });
     kit.listen(root, 'click', event => {
       const button = event.target.closest('[data-target]'); if (button && root.contains(button)) selectTarget(Number(button.dataset.target));
     });
-    kit.listen($('.ck-random'), 'click', () => {
-      const options = Array.from({ length: 11 }, (_, i) => i + 1).filter(n => n !== target);
-      selectTarget(options[Math.floor(Math.random() * options.length)]);
-    });
+    kit.listen($('.ck-random'), 'click', nextQuestion);
+    kit.listen($('.ck-next'), 'click', nextQuestion);
     kit.listen($('.ck-play'), 'click', () => {
-      if (playing) { animation.pause(); playing = false; updateButtons(); return; }
+      if (!ready()) return;
+      if (playing) { pauseActivity(); return; }
       if (animation) { animation.resume(); playing = true; updateButtons(); return; }
       if (completed) reset(false);
       moveTo(targetMinutes());
     });
-    kit.listen($('.ck-step'), 'click', () => moveTo(Math.min(targetMinutes(), (Math.floor(minutes / 5 + .001) + 1) * 5)));
+    kit.listen($('.ck-step'), 'click', () => { if (ready() && !playing && !completed) moveTo(Math.min(targetMinutes(), (Math.floor(minutes / 5 + .001) + 1) * 5)); });
     kit.listen($('.ck-reset'), 'click', () => reset(false));
-    kit.listen($('.ck-slow'), 'change', event => { slow = event.target.checked; if (playing) moveTo(tweenDestination); else if (animation) { animation.cancel(); animation = null; updateButtons(); } });
+    kit.listen($('.ck-slow'), 'change', event => {
+      slow = event.target.checked;
+      if (animation) { const wasPlaying = playing; moveTo(tweenDestination); if (!wasPlaying) pauseActivity(); }
+    });
     kit.listen($('.ck-show-minutes'), 'change', event => { showMinutes = event.target.checked; draw(); });
     kit.listen($('.ck-show-trace'), 'change', event => { showTrace = event.target.checked; draw(); });
     reset(true);
-    return () => stopAnimation();
+    return { pause: pauseActivity, destroy: stopAnimation };
   }
 });
 
