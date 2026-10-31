@@ -5,9 +5,9 @@ import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const outputs=['index.html',...(await readdir(path.join(root,'modules'))).filter(x=>x.endsWith('.html')).map(x=>'modules/'+x)];
-assert.equal(outputs.length,6,'Provide a combined page plus five independent pages.');
-const expectedIds=['life','translation','rotation','overlap','clock'];
+const outputs=['index.html','feedback.html',...(await readdir(path.join(root,'modules'))).filter(x=>x.endsWith('.html')).map(x=>'modules/'+x)];
+assert.equal(outputs.length,7,'Provide a combined page, feedback page and five independent activities.');
+const expectedIds=['life','translation','rotation','overlap','clock','feedback'];
 for(const file of outputs){
   const html=await readFile(path.join(root,file),'utf8');
   assert.match(html,/<!doctype html>/i);
@@ -29,7 +29,8 @@ for(const file of outputs){
   assert.deepEqual(registrations.map(m=>m.id),expectedIds);
   for(const m of registrations){assert.equal(typeof m.mount,'function');assert(m.title&&m.subtitle);}
   const count=(scripts[0][1].match(/Courseware\.register\(/g)||[]).length;
-  assert.equal(count,file==='index.html'?5:1,file+' contains the wrong number of modules.');
+  assert.equal(count,file==='index.html'?6:1,file+' contains the wrong number of modules.');
+  if(file==='index.html'||file==='feedback.html')assert(html.includes('CoursewareFeedbackData'),file+' must embed the feedback data model.');
   console.log('PASS '+file+' — syntax, module registration, embedded assets, offline independence');
 }
 const core=await readFile(path.join(root,'src/core.js'),'utf8');

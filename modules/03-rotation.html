@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="平移与旋转互动实验室：生活观察、平移实验、旋转转盘、图案重合与分针计时。支持离线与触屏的数学互动课件。">
+<meta name="description" content="平移与旋转互动实验室：五个数学互动活动与课后学习反馈。支持离线、电子白板触屏和反馈导出。">
 <meta name="color-scheme" content="light">
 <title>平移与旋转 · 互动实验室</title>
 <style>:root{--ink:#203d3a;--muted:#526b62;--teal:#147d77;--teal-dark:#0c5f5a;--teal-soft:#e5f2ed;--coral:#d66b43;--coral-soft:#fff0e9;--cream:#f5f7f4;--line:#d7e2db;--white:#fff;font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-synthesis:none}
@@ -18,6 +18,8 @@
 @media(max-width:900px){.module-layout{grid-template-columns:1fr}.nav-number{display:none}.workspace-toolbar{flex-wrap:wrap;gap:8px}.module-nav{flex-basis:100%}.lesson-progress{margin-left:auto}.lesson-heading{margin-bottom:20px}.content-host{min-height:0}.course-footer{align-items:flex-start}.panel{padding:20px}.module-layout>aside.panel{max-width:none}}
 @media(max-width:640px){.header-inner{padding:12px 16px;gap:12px}.brand{gap:9px}.brand-mark{width:34px;height:34px}.brand-title{font-size:19px;letter-spacing:0}.brand-note{font-size:14px}.header-actions{gap:6px}.top-button{padding:9px 10px;font-size:14px}.top-button svg{display:none}.app-wrap{padding:18px 16px 20px}.workspace-toolbar{align-items:flex-end;gap:12px;margin-bottom:20px;flex-wrap:nowrap}.module-nav{display:none}.module-picker{display:block}.lesson-progress{padding-bottom:12px;margin:0;font-size:14px}.lesson-heading{align-items:flex-start;gap:10px}.lesson-heading h1{font-size:24px}.lesson-heading p{font-size:16px}.lesson-number{display:none}.panel{padding:18px;border-radius:12px}.panel-title{font-size:22px}.controls{gap:8px}.btn{padding:10px 14px}.teacher-panel{padding:16px 18px}.course-footer{flex-direction:column;gap:12px}.footer-nav{width:100%;justify-content:space-between;gap:8px}.single-label{font-size:16px;gap:9px}}
 @media(max-width:380px){.header-inner{flex-wrap:wrap}.header-actions{width:100%}.header-actions .top-button{flex:1}.app-wrap{padding-left:12px;padding-right:12px}.panel{padding:16px}.lesson-progress{font-size:14px}.single-label .num{padding:6px 8px}.single-label{font-size:14px}.lesson-heading h1{font-size:23px}}
+.footer-nav button.closing-action{background:var(--teal);color:#fff;font-weight:650;padding:10px 16px}.footer-nav button.closing-action:hover{background:var(--teal-dark);color:#fff}
+@media(min-width:641px) and (max-width:1250px){.module-nav[data-count="6"] .nav-number{display:none}}
 .top-button[aria-pressed=true]{background:var(--teal-soft);border-color:#91b7a7;color:var(--teal-dark)}button,input[type=checkbox],select,summary{touch-action:manipulation}
 @media(max-width:999px){.board-toggle{display:none}}
 @media(min-width:1000px){
@@ -122,7 +124,8 @@
     translation:{heading:'让物体平移起来',description:'改变移动方向，观察物体的形状、大小和朝向。',steps:['先预测两扇自动门开、关时各自的平移方向。','按“左上角→右上角→右下角”移动课本。','比较先下后右、直接斜向移动等不同路线。'],note:'平移也可以沿斜方向进行。整个过程中，物体的形状、大小和朝向保持不变。'},
     rotation:{heading:'同一个终点，两种转法',description:'固定中心，选择方向，看看指针经过哪些位置。',steps:['固定正面视角，以钟面转动方向作参照。','比较从 A 到 C 的顺时针与逆时针两条路线。','说出经过的位置，再尝试从 C 到 B 或 D。'],note:'到达同一个终点可以采用不同方向。判断时要看刚才的转动过程。'},
     overlap:{heading:'哪些图案能平移重合？',description:'先留下你的预测，再把透明副本移到目标上。',steps:['选择哪些图案能通过平移与目标重合。','开启验证，将透明副本移到目标上方。','对照耳朵、尾巴或叶柄的位置，说出判断理由。'],note:'检验时只移动位置，保持每个图案原有的大小与朝向。镜像、旋转后的图案不会自动调整姿态。'},
-    clock:{heading:'分针走了几分钟？',description:'从 12 出发，观察顺时针第一次到达目标的过程。',steps:['先说出分针走一大格经过几分钟。','从 12 出发，预测第一次到达目标的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里只观察分针。按顺时针、一圈以内第一次到达来计算；一大格对应 5 分钟。'}
+    clock:{heading:'分针走了几分钟？',description:'从 12 出发，观察顺时针第一次到达目标的过程。',steps:['先说出分针走一大格经过几分钟。','从 12 出发，预测第一次到达目标的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里只观察分针。按顺时针、一圈以内第一次到达来计算；一大格对应 5 分钟。'},
+    feedback:{heading:'这节课，我学得怎么样？',description:'选一选自己的收获，把还想练习的地方告诉老师。',steps:['请一位同学独立填写一份反馈，也可以匿名。','没有练过的内容选“今天没练过”，不必猜测。','切到教师汇总，查看大家想再练什么，并导出反馈。'],note:'这是学习自评，不计分。统计单位是反馈份数。反馈保存在当前页面的浏览器中，其他设备的反馈可通过JSON文件合并，不会自动联网同步。'}
   };
   window.Courseware={
     modules,
@@ -144,17 +147,23 @@
       renderDisplayMode();
       boardButton.addEventListener('click',()=>{boardMode=!boardMode;renderDisplayMode();document.dispatchEvent(new CustomEvent('courseware:displaychange',{detail:{whiteboard:boardMode}}));try{localStorage.setItem('motion-lab-display',boardMode?'whiteboard':'desk');}catch(e){}window.Courseware.announce(boardMode?'已开启白板大字模式。':'已切换为普通字号。');});
       const instances=new Map();
+      const learningModules=modules.filter(module=>module.id!=='feedback');
+      const moduleLabel=module=>module.id==='feedback'?'课后':String(module.number).padStart(2,'0');
+      nav.dataset.count=String(modules.length);
+      document.getElementById('lesson-progress').hidden=learningModules.length===0;
       let active=null,done=new Set();
       try{const saved=JSON.parse(localStorage.getItem('motion-lab-completed')||'[]');if(Array.isArray(saved))done=new Set(saved.filter(id=>typeof id==='string'));}catch(e){/* Offline/private windows can deny storage. */}
-      picker.innerHTML=modules.map(m=>'<option value="'+m.id+'">'+String(m.number).padStart(2,'0')+' · '+m.title+'</option>').join('');
+      picker.innerHTML=modules.map(m=>'<option value="'+m.id+'">'+moduleLabel(m)+' · '+m.title+'</option>').join('');
       if(modules.length===1){
         nav.className='single-label';
-        nav.innerHTML='<span class="num">'+String(modules[0].number).padStart(2,'0')+'</span><span>'+modules[0].title+' · 独立活动</span>';
+        nav.innerHTML='<span class="num">'+moduleLabel(modules[0])+'</span><span>'+modules[0].title+(modules[0].id==='feedback'?' · 独立页面':' · 独立活动')+'</span>';
         document.getElementById('module-picker').hidden=true;
         document.getElementById('footer-nav').hidden=true;
         document.getElementById('footer-state-note').hidden=true;
       }else{
-        nav.innerHTML='<span class="nav-indicator" aria-hidden="true"></span>'+modules.map(m=>'<button type="button" class="nav-card" data-module="'+m.id+'" aria-current="false"><span class="nav-number">'+String(m.number).padStart(2,'0')+'</span><span class="nav-title">'+m.title+'</span><span class="nav-done" aria-hidden="true"></span></button>').join('');
+        nav.style.gridTemplateColumns='repeat('+modules.length+',minmax(0,1fr))';
+        nav.innerHTML='<span class="nav-indicator" aria-hidden="true"></span>'+modules.map(m=>'<button type="button" class="nav-card" data-module="'+m.id+'" aria-current="false"><span class="nav-number">'+moduleLabel(m)+'</span><span class="nav-title">'+m.title+'</span><span class="nav-done" aria-hidden="true"></span></button>').join('');
+        nav.querySelector('.nav-indicator').style.width='calc((100% - 8px) / '+modules.length+')';
         nav.querySelectorAll('[data-module]').forEach((button,index)=>{
           button.addEventListener('click',()=>switchTo(button.dataset.module));
           button.addEventListener('keydown',event=>{
@@ -170,7 +179,7 @@
       function renderNav(){
         nav.querySelectorAll('[data-module]').forEach(button=>{
           const selected=button.dataset.module===active.id;
-          const completed=done.has(button.dataset.module);
+          const completed=button.dataset.module!=='feedback'&&done.has(button.dataset.module);
           button.classList.toggle('active',selected);
           button.setAttribute('aria-current',selected?'page':'false');
           const module=modules.find(m=>m.id===button.dataset.module);
@@ -180,7 +189,7 @@
         const indicator=nav.querySelector('.nav-indicator');
         if(indicator)indicator.style.transform='translateX('+(modules.indexOf(active)*100)+'%)';
         picker.value=active.id;
-        document.getElementById('lesson-progress').textContent=modules.filter(m=>done.has(m.id)).length+' / '+modules.length+' 已完成';
+        document.getElementById('lesson-progress').textContent=learningModules.filter(m=>done.has(m.id)).length+' / '+learningModules.length+' 已完成';
       }
       function pauseCurrent(){if(!active)return;const instance=instances.get(active.id);if(instance&&instance.controller.pause)instance.controller.pause();}
       function switchTo(id,focus=false){
@@ -206,15 +215,20 @@
         const lesson=lessons[module.id];
         document.getElementById('lesson-title').textContent=lesson.heading;
         document.getElementById('lesson-description').textContent=lesson.description;
-        document.getElementById('lesson-number').textContent='活动 '+String(module.number).padStart(2,'0');
+        document.getElementById('lesson-number').textContent=module.id==='feedback'?'课后小调查':'活动 '+String(module.number).padStart(2,'0');
         teacher.innerHTML='<h2>教学提示 · '+module.title+'</h2><ol>'+lesson.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p>'+lesson.note+'</p>';
-        document.getElementById('current-step').textContent=module.number+' / 5';
+        document.getElementById('current-step').textContent=module.id==='feedback'?'课后反馈':module.number+' / 5';
         const index=modules.indexOf(module);
         document.getElementById('prev-module').disabled=index===0;
         document.getElementById('next-module').disabled=index===modules.length-1;
+        document.getElementById('next-module').textContent=module.id==='feedback'?'课程结束':modules[index+1]&&modules[index+1].id==='feedback'?'填写课后反馈 →':'下一活动 →';
+        document.getElementById('next-module').classList.toggle('closing-action',!!(modules[index+1]&&modules[index+1].id==='feedback'));
         document.title=module.title+' · 平移与旋转互动实验室';
         try{history.replaceState(null,'','#'+module.id);}catch(e){}
-        if(focus){const button=nav.querySelector('[data-module="'+module.id+'"]');if(button)button.focus({preventScroll:true});else picker.focus({preventScroll:true});}
+        if(focus){
+          if(module.id==='feedback'){root.focus({preventScroll:true});const heading=document.getElementById('lesson-title');if(heading.scrollIntoView)heading.scrollIntoView({block:'start'});}
+          else{const button=nav.querySelector('[data-module="'+module.id+'"]');if(button)button.focus({preventScroll:true});else picker.focus({preventScroll:true});}
+        }
       }
       picker.addEventListener('change',()=>switchTo(picker.value));
       tipsButton.addEventListener('click',()=>{teacher.hidden=!teacher.hidden;tipsButton.setAttribute('aria-expanded',String(!teacher.hidden));});
