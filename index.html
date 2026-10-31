@@ -1,0 +1,1334 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="平移与旋转互动实验室：生活观察、平移实验、旋转转盘、图案重合与分针计时。支持离线与触屏的数学互动课件。">
+<meta name="color-scheme" content="light">
+<title>平移与旋转 · 互动实验室</title>
+<style>:root{--ink:#203d3a;--muted:#657b74;--teal:#147d77;--teal-dark:#0c5f5a;--teal-soft:#e5f2ed;--coral:#f17b59;--coral-soft:#fff0e9;--cream:#f4f4ed;--line:#dce5dc;--white:#fff;--shadow:0 10px 32px rgba(32,61,58,.045);font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font-size:16px;line-height:1.65}button,input,select{font:inherit}button{cursor:pointer}button,input,select,a{-webkit-tap-highlight-color:transparent}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #df6945;outline-offset:4px}button{color:inherit}svg{max-width:100%;vertical-align:middle}svg text{font-family:inherit}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.35}p:last-child{margin-bottom:0}button{user-select:none}
+.site-header{border-bottom:1px solid var(--line);background:rgba(255,255,255,.76)}.header-inner{max-width:1400px;min-height:78px;margin:auto;padding:14px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:43px;height:43px;flex:none}.brand-title{font-size:20px;letter-spacing:.08em;font-weight:800}.brand-note{font-size:11px;color:var(--muted);letter-spacing:.18em;font-weight:600}.header-actions{display:flex;gap:10px;align-items:center}.header-tag{color:var(--muted);font-size:13px;margin-right:8px}.top-button{border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;min-height:44px;font-size:14px;font-weight:600}.top-button:hover{background:var(--teal-soft);border-color:#9fc4b8}.top-button[aria-expanded=true]{background:var(--teal-soft);border-color:var(--teal)}
+.app-wrap{max-width:1400px;margin:auto;padding:28px 36px 22px}.intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px}.intro-copy{padding-top:2px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;color:var(--teal);font-size:12px;font-weight:800;margin-bottom:8px;display:block}.intro h1{font-size:clamp(27px,3vw,37px);letter-spacing:.035em;margin-bottom:8px;font-weight:850}.intro h1 span{color:var(--teal)}.intro p{font-size:15px;color:var(--muted);margin:0}.intro-art{width:236px;max-height:116px;flex:none}.learning-cycle{display:flex;align-items:center;gap:10px;margin-top:16px;color:#6f7b6f;font-size:12px}.learning-cycle span{background:#e9ece1;border-radius:100px;padding:4px 12px}.learning-cycle b{color:#9ba898;font-weight:500}
+.module-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:24px}.nav-card{position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:16px 16px;background:#fff;border:1px solid var(--line);border-radius:15px;transition:background .15s,border-color .15s;min-height:78px}.nav-card:hover{border-color:#8db6a9;background:#fbfdfb}.nav-card.active{background:var(--teal);border-color:var(--teal);color:white;box-shadow:0 7px 16px rgba(20,125,119,.14)}.nav-number{font-size:22px;line-height:1;color:#acc0b5;font-weight:750;letter-spacing:-.04em}.active .nav-number{color:#8bc5b9}.nav-copy{display:flex;flex-direction:column;gap:4px}.nav-title{font-size:15px;font-weight:750}.nav-subtitle{font-size:11px;color:var(--muted)}.active .nav-subtitle{color:#cfebe3}.nav-done{position:absolute;right:9px;top:7px;font-size:11px;font-weight:800;color:var(--teal)}.active .nav-done{color:#ddf9b1}.single-label{display:flex;align-items:center;gap:12px;margin:0 0 22px;font-size:15px;font-weight:650}.single-label .num{background:var(--teal);border-radius:10px;color:#fff;padding:5px 12px;letter-spacing:.05em}
+.teacher-panel{margin-bottom:22px;background:#fff8e6;border:1px solid #eadcb3;border-radius:16px;padding:20px 24px}.teacher-panel h2{font-size:17px;margin-bottom:10px}.teacher-panel ol{margin:0;padding-left:21px;display:grid;gap:6px}.teacher-panel p{margin:12px 0 0;color:#7c6e4a;font-size:14px}.content-host{min-height:520px}.module-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;min-width:0}.panel-title{font-size:20px;font-weight:800;margin-bottom:12px}.panel-title small{font-size:12px;font-weight:500;color:var(--muted)}.stage{background:#f4f8f2;border:1px solid #e3ebe1;border-radius:16px;overflow:hidden;position:relative;min-width:0}.stage>svg{display:block;width:100%;height:auto}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}.controls:empty{display:none}.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 17px;font-size:14px;font-weight:650;line-height:1.35;transition:background .15s,border-color .15s,box-shadow .15s}.btn:hover:not(:disabled){border-color:#85b5a4;background:#f0f7f2}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.primary:hover:not(:disabled){background:var(--teal-dark);border-color:var(--teal-dark)}.btn.secondary{background:var(--teal-soft);border-color:#d1e8de;color:var(--teal-dark)}.btn.ghost{background:transparent}.btn.small{font-size:12px;min-height:36px;padding:7px 11px}.btn[aria-pressed=true]:not(.primary){background:var(--teal-soft);border-color:var(--teal);color:var(--teal-dark)}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.chip{border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px;font-weight:600;padding:9px 14px;min-height:42px;line-height:1.3}.chip.active,.chip[aria-pressed=true]{background:var(--teal-soft);border-color:#8fb8aa;color:var(--teal-dark)}.chip:hover{border-color:#8fb8aa}.prompt{font-size:17px;font-weight:700;line-height:1.65;margin-bottom:16px}.hint{font-size:13px;color:var(--muted);line-height:1.75}.feedback{background:#f2f6f0;border:1px solid #dfe9db;border-radius:12px;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:16px;min-height:60px;color:#526b60}.feedback.is-success{background:#eaf6e6;border-color:#bddbb1;color:#3d682f}.feedback.is-error{background:#fff1e9;border-color:#f0c1a9;color:#995230}.field{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:650;margin:14px 0}.field input:not([type=checkbox]):not([type=range]),.field select,input[type=number]{width:100%;border:1px solid #cbdad1;padding:11px 12px;border-radius:10px;background:#fff;min-height:44px;color:var(--ink)}input[type=range]{accent-color:var(--teal);width:100%;min-height:32px}input[type=checkbox]{accent-color:var(--teal);width:18px;height:18px;vertical-align:middle;flex:none}.toggle{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;min-height:40px}.divider{height:1px;background:var(--line);margin:18px 0}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:100px;background:var(--teal-soft);color:var(--teal);padding:4px 11px;font-size:12px;font-weight:700}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.course-footer{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}.footer-trail{display:flex;align-items:center;gap:8px}.footer-trail i{width:6px;height:6px;background:var(--coral);border-radius:50%;display:block}.footer-nav{display:flex;align-items:center;gap:12px}.footer-nav button{background:transparent;border:0;min-height:42px;color:var(--teal);font-size:13px;padding:8px}.footer-nav button:hover{text-decoration:underline}.global-announcement{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:12px;box-shadow:0 8px 30px #203d3a30;z-index:30;font-size:14px;max-width:90vw}.offline-note{margin-top:14px;text-align:center;color:#8b9b90;font-size:11px;letter-spacing:.05em}
+@media(min-width:1500px){.app-wrap{padding-top:34px}.intro{margin-bottom:30px}.stage>svg{max-height:550px}}
+@media(max-width:1100px){.header-inner,.app-wrap{padding-left:24px;padding-right:24px}.module-layout{grid-template-columns:minmax(0,1fr) 280px;gap:16px}.panel{padding:18px}.nav-card{padding:14px 12px;gap:9px}.nav-title{font-size:14px}.nav-subtitle{font-size:10px}.intro-art{width:200px}.header-tag{display:none}}
+@media(max-width:820px){.module-layout{grid-template-columns:1fr}.module-nav{gap:7px}.nav-card{padding:12px 8px;flex-direction:column;align-items:flex-start;gap:7px;min-height:94px}.nav-number{font-size:18px}.nav-subtitle{display:none}.intro-art{width:170px}.intro h1{font-size:29px}.panel{padding:18px}.content-host{min-height:0}.stage>svg{max-height:490px}.course-footer{align-items:flex-start}}
+@media(max-width:540px){body{font-size:15px}.header-inner{padding:12px 16px;gap:8px;min-height:70px}.brand-mark{width:34px;height:34px}.brand-title{font-size:17px;letter-spacing:.03em}.brand-note{font-size:9px}.header-actions{gap:6px}.top-button{padding:8px 10px;font-size:12px}.top-button svg{display:none}.app-wrap{padding:22px 14px 18px}.intro{margin-bottom:20px;gap:0}.intro-art{display:none}.intro h1{font-size:28px}.intro p{font-size:13px}.learning-cycle{margin-top:12px;gap:6px}.learning-cycle span{padding:3px 9px}.module-nav{gap:5px;margin-bottom:18px}.nav-card{border-radius:12px;padding:10px 7px;min-height:78px;gap:8px}.nav-title{font-size:12px;white-space:nowrap}.nav-number{font-size:15px}.nav-done{right:5px;top:4px;font-size:9px}.panel{padding:14px;border-radius:16px}.panel-title{font-size:18px}.controls{gap:7px}.btn{padding:10px 13px}.teacher-panel{padding:17px}.course-footer{flex-direction:column;gap:5px}.footer-nav{width:100%;justify-content:space-between}.intro p{max-width:330px}.stage{border-radius:12px}.teacher-panel ol{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:380px){.nav-card{padding:10px 4px}.nav-title{font-size:11px}.nav-number{font-size:14px}}
+@media print{.header-actions,.module-nav,.controls,.footer-nav,.offline-note{display:none!important}.app-wrap{padding:0}.site-header{border:0}.module-layout{grid-template-columns:1fr}body{background:#fff}.panel{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <div class="brand"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="17" width="22" height="22" rx="6" fill="#147d77"/><path d="M26 6a15 15 0 0 1 16 20" fill="none" stroke="#f17b59" stroke-width="5" stroke-linecap="round"/><path d="m36 24 5 6 5-7" fill="none" stroke="#f17b59" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 27h10m-4-4 4 4-4 4" fill="none" stroke="#e6f2b9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="brand-title">平移与旋转</div><div class="brand-note">小小运动实验室</div></div></div>
+  <div class="header-actions"><span class="header-tag">小学数学 · 观察与探索</span><button class="top-button" id="tips-button" type="button" aria-expanded="false" aria-controls="teacher-panel"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 14h6m-5 3h4M6 10a5 5 0 1 1 8 0c-1 1-1 2-1 2H7s0-1-1-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>教学提示</button><button class="top-button" id="fullscreen-button" type="button"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8V3h5m4 0h5v5M3 12v5h5m4 0h5v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>全屏演示</span></button></div>
+</div></header>
+<main class="app-wrap">
+  <section class="intro" aria-label="课程介绍"><div class="intro-copy"><span class="eyebrow">观察 · 操作 · 发现</span><h1>让数学，<span>动起来。</span></h1><p>先猜一猜，再动一动。用自己的发现，说出运动的秘密。</p><div class="learning-cycle" aria-label="学习步骤"><span>① 先预测</span><b>→</b><span>② 动手试</span><b>→</b><span>③ 说理由</span></div></div><svg class="intro-art" viewBox="0 0 260 120" aria-hidden="true"><path d="M8 92h243" stroke="#dce4d5" stroke-width="1.5" stroke-dasharray="3 6"/><rect x="24" y="29" width="39" height="47" rx="9" fill="none" stroke="#9dbab0" stroke-width="2" stroke-dasharray="5 5"/><path d="M78 52h42m-7-7 7 7-7 7" stroke="#f17b59" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="135" y="29" width="39" height="47" rx="9" fill="#147d77" transform="rotate(0 154 52)"/><circle cx="156" cy="43" r="4" fill="#cce79b"/><path d="M215 33a25 25 0 1 1-24 29" stroke="#9dbab0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="m205 28 12 5-9 9" stroke="#f17b59" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="215" cy="58" r="5" fill="#f17b59"/><text x="43" y="111" text-anchor="middle" font-size="11" fill="#7d9285">移动位置</text><text x="215" y="111" text-anchor="middle" font-size="11" fill="#7d9285">绕点转动</text></svg></section>
+  <nav id="module-nav" class="module-nav" aria-label="选择学习活动"></nav>
+  <aside id="teacher-panel" class="teacher-panel" hidden></aside>
+  <div id="module-host" class="content-host"></div>
+  <footer class="course-footer"><div class="footer-trail"><i></i><span>看清运动过程，试着说出理由。</span></div><div class="footer-nav" id="footer-nav"><button id="prev-module" type="button">← 上一活动</button><span id="current-step">活动 1 / 5</span><button id="next-module" type="button">下一活动 →</button></div></footer>
+  <div class="offline-note">平移与旋转 · 互动课件</div>
+</main>
+<div id="announcement" class="global-announcement" role="status" aria-live="polite" hidden></div>
+<noscript><p style="padding:30px">请在浏览器中启用 JavaScript，以操作本课件。</p></noscript>
+<script>/* Shared lifecycle and accessible interface. All runnable HTML files embed this code. */
+(function(){
+  'use strict';
+  const modules=[];
+  let uid=0;
+  function createKit(markDone){
+    const cleanup=[];
+    let disposed=false;
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function onCleanup(fn){cleanup.push(fn);}
+    function listen(el,type,fn,opts){if(!el)return;el.addEventListener(type,fn,opts);onCleanup(()=>el.removeEventListener(type,fn,opts));}
+    function tween(from,to,duration,update,done){
+      let frame=0,last=0,elapsed=0,running=true,cancelled=false,finished=false;
+      const length=Math.max(1,duration);
+      function tick(now){
+        if(cancelled||disposed||!running)return;
+        if(last)elapsed+=Math.min(now-last,80);
+        last=now;
+        const progress=Math.min(1,elapsed/length);
+        update(from+(to-from)*progress,progress);
+        if(progress<1)frame=requestAnimationFrame(tick);
+        else{running=false;finished=true;if(done)done();}
+      }
+      const handle={pause(){if(!running)return;running=false;cancelAnimationFrame(frame);last=0;},resume(){if(cancelled||disposed||running||finished)return;running=true;last=0;frame=requestAnimationFrame(tick);},cancel(){cancelled=true;running=false;cancelAnimationFrame(frame);},get isRunning(){return running;}};
+      onCleanup(handle.cancel);
+      update(from,0);
+      frame=requestAnimationFrame(tick);
+      return handle;
+    }
+    function feedback(el,text,type='info'){
+      if(!el)return;el.classList.remove('is-success','is-error');if(type!=='info')el.classList.add('is-'+type);el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.textContent=text;
+    }
+    function svgPoint(svg,event){const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;const m=svg.getScreenCTM();return m?p.matrixTransform(m.inverse()):{x:0,y:0};}
+    return {listen,onCleanup,tween,feedback,svgPoint,markDone,reducedMotion,uid(prefix='cw'){return prefix+'-'+(++uid);},announce(text){window.Courseware.announce(text);},dispose(){if(disposed)return;disposed=true;for(const fn of cleanup.reverse()){try{fn();}catch(e){console.error('Cleanup failed',e);}}}};
+  }
+  const tips={
+    life:{steps:['先播放一个生活场景，请学生用手势表示运动。','让学生先选择“平移”或“旋转”，再打开观察线索。','追问：你观察的是哪一部分？它怎样运动？'],note:'扇叶、齿轮和指针有固定的转动中心；观察国旗时看沿旗杆升降的整体运动。'},
+    translation:{steps:['先预测两扇自动门开、关时各自的平移方向。','按“左上角→右上角→右下角”的要求移动课本。','再比较先下后右、直接斜向移动等不同路线。'],note:'平移也可以沿斜方向进行。观察整个移动过程，课本的大小、形状和朝向保持不变。'},
+    rotation:{steps:['固定正面视角，以钟面转动方向作参照。','比较从 A 到 C 的顺时针与逆时针两条路线。','请学生说出经过的位置，再尝试从 C 到 B 或 D。'],note:'到达同一个终点可以采用不同方向。不要只凭最后的位置判断刚才的转动过程。'},
+    overlap:{steps:['先选择哪些图案能通过平移与目标重合。','开启验证，将透明副本移到目标上方。','对照耳朵、尾巴或叶柄的位置，说明判断理由。'],note:'检验中只移动位置，保持每个图案原有的大小与朝向。镜像、旋转后的图案不能自动调整姿态。'},
+    clock:{steps:['请学生先说出分针走一大格经过几分钟。','从12出发，先预测第一次到达目标位置的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里显示分针示意图。按顺时针、一圈以内第一次到达来计算，不把最短路线当作走时方向。'}
+  };
+  window.Courseware={modules,register(module){if(modules.some(x=>x.id===module.id))throw new Error('Duplicate module '+module.id);modules.push(module);},announce(text){const el=document.getElementById('announcement');el.textContent=text;el.hidden=false;clearTimeout(this.noticeTimer);this.noticeTimer=setTimeout(()=>el.hidden=true,3500);},boot(){
+    modules.sort((a,b)=>a.number-b.number);
+    const root=document.getElementById('module-host');
+    const nav=document.getElementById('module-nav');
+    const teacher=document.getElementById('teacher-panel');
+    const tipsButton=document.getElementById('tips-button');
+    let active=null,kit=null,dispose=null,done=new Set();
+    try{done=new Set(JSON.parse(localStorage.getItem('motion-lab-completed')||'[]'));}catch(e){/* Private/file mode may disable storage. */}
+    function markDone(id){done.add(id);try{localStorage.setItem('motion-lab-completed',JSON.stringify([...done]));}catch(e){}renderNav();}
+    function renderNav(){
+      const focused=document.activeElement&&document.activeElement.closest?document.activeElement.closest('[data-module]'):null;
+      const focusId=focused&&nav.contains(focused)?focused.dataset.module:null;
+      if(modules.length===1){nav.className='single-label';nav.innerHTML='<span class="num">'+String(modules[0].number).padStart(2,'0')+'</span><span>'+modules[0].title+' · 独立活动</span>';return;}
+      nav.className='module-nav';nav.innerHTML=modules.map(m=>'<button type="button" class="nav-card '+(active&&m.id===active.id?'active':'')+'" data-module="'+m.id+'" aria-current="'+(active&&m.id===active.id?'page':'false')+'"><span class="nav-number">'+String(m.number).padStart(2,'0')+'</span><span class="nav-copy"><span class="nav-title">'+m.title+'</span><span class="nav-subtitle">'+m.subtitle+'</span></span>'+(done.has(m.id)?'<span class="nav-done" aria-label="已完成">✓</span>':'')+'</button>').join('');
+      nav.querySelectorAll('[data-module]').forEach(b=>b.addEventListener('click',()=>switchTo(b.dataset.module,true)));
+      if(focusId){const replacement=nav.querySelector('[data-module="'+focusId+'"]');if(replacement)replacement.focus({preventScroll:true});}
+    }
+    function switchTo(id,focus=false){
+      const module=modules.find(x=>x.id===id)||modules[0];if(active&&active.id===module.id)return;
+      if(dispose){try{dispose();}catch(e){console.error(e);}}if(kit)kit.dispose();
+      active=module;kit=createKit(()=>markDone(module.id));root.innerHTML='';root.dataset.module=module.id;
+      dispose=module.mount(root,kit)||null;renderNav();
+      const t=tips[module.id];teacher.innerHTML='<h2>教师提示 · '+module.title+'</h2><ol>'+t.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p>'+t.note+'</p>';
+      document.getElementById('current-step').textContent='活动 '+module.number+' / 5';
+      const index=modules.indexOf(module);document.getElementById('prev-module').disabled=index===0;document.getElementById('next-module').disabled=index===modules.length-1;
+      document.title=module.title+' · 平移与旋转互动实验室';
+      try{history.replaceState(null,'','#'+module.id);}catch(e){}
+      if(focus){const btn=nav.querySelector('[data-module="'+module.id+'"]');if(btn)btn.focus({preventScroll:true});}
+    }
+    tipsButton.addEventListener('click',()=>{teacher.hidden=!teacher.hidden;tipsButton.setAttribute('aria-expanded',String(!teacher.hidden));});
+    const full=document.getElementById('fullscreen-button');
+    full.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else window.Courseware.announce('可使用浏览器菜单进入全屏演示。');}catch(e){window.Courseware.announce('当前窗口不支持全屏，可使用浏览器菜单进入全屏。');}});
+    document.addEventListener('fullscreenchange',()=>{full.querySelector('span').textContent=document.fullscreenElement?'退出全屏':'全屏演示';});
+    document.getElementById('prev-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i>0)switchTo(modules[i-1].id,true);});
+    document.getElementById('next-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i<modules.length-1)switchTo(modules[i+1].id,true);});
+    window.addEventListener('hashchange',()=>switchTo(location.hash.slice(1)));
+    if(modules.length===1)document.getElementById('footer-nav').hidden=true;
+    switchTo(location.hash.slice(1));
+  }};
+})();
+
+/* Module 01 · life observations. All artwork is original inline SVG. */
+Courseware.register({
+  id: 'life', number: 1, title: '生活观察', subtitle: '发现身边的运动', icon: '◎',
+  mount(root, kit) {
+    const arrowId = kit.uid('lf-arrow');
+    const scenes = [
+      { name: '升旗', object: '旗面整体', type: 'translation', instruction: '观察旗面整体沿旗杆上升的过程。', reason: '旗面整体向上移动，运动过程中没有转动，可以看作平移。', cue: '盯住旗角的标记点：它沿竖直方向向上移动。' },
+      { name: '自动门', object: '左右门扇', type: 'translation', instruction: '观察两扇门打开时各自怎样运动。', reason: '开门时，左门向左、右门向右移动，两扇门的运动都可以看作平移。', cue: '分别看左右两扇门：它们向相反方向移动，门扇没有转动。' },
+      { name: '电梯', object: '电梯轿厢', type: 'translation', instruction: '观察电梯轿厢上升的过程。', reason: '轿厢整体沿竖直方向上升，运动过程中保持原来的朝向，可以看作平移。', cue: '盯住轿厢上的红点：它和轿厢一起沿竖直方向上升。' },
+      { name: '电风扇', object: '扇叶', type: 'rotation', instruction: '观察彩色扇叶，风扇底座保持不动。', reason: '扇叶绕着固定的中心轴转动，可以看作旋转。这里观察的是扇叶。', cue: '盯住红色扇叶上的点：它绕固定的中心转动。' },
+      { name: '齿轮', object: '两个齿轮', type: 'rotation', instruction: '观察两个齿轮中心与齿上的标记点。', reason: '两个齿轮分别绕自己的固定中心转动，都可以看作旋转；相邻齿轮的转向相反。', cue: '中心的位置没有变，齿上的标记点围着各自的中心转动。' },
+      { name: '抽屉', object: '抽屉整体', type: 'translation', instruction: '从侧面观察抽屉沿滑轨拉出的过程。', reason: '抽屉沿滑轨向外移动，运动过程中没有转动，可以看作平移。', cue: '观察抽屉边缘：它向右移动，各条边仍保持原来的朝向。' }
+    ];
+    const done = new Set();
+    let current = 0, phase = 0, running = false, slow = false, clues = false, frame = 0, last = 0, destroyed = false;
+    root.innerHTML = `<style>
+      .lf-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:18px}.lf-tab{min-height:62px;border:1px solid #dde8e3;background:#fff;border-radius:14px;color:#405c55;font:inherit;font-weight:700;cursor:pointer;position:relative;padding:9px 5px}.lf-tab.active{background:#e5f2ec;border-color:#147d77;color:#0b635e;box-shadow:inset 0 0 0 1px #147d77}.lf-tab small{display:block;font-size:11px;color:#81958e;letter-spacing:1px;margin-bottom:3px}.lf-tab.lf-done:after{content:'✓';position:absolute;right:6px;top:3px;color:#147d77;font-size:13px}.lf-main{min-width:0}.lf-stage{position:relative;border:1px solid #dfe9e1;border-radius:20px;overflow:hidden;background:#f1f6ed}.lf-stage svg{display:block;width:100%;height:auto;max-height:440px}.lf-scene-caption{padding:14px 20px 0;font-size:13px;color:#5c776a;display:flex;justify-content:space-between;gap:12px}.lf-scene-caption strong{color:#254b3f;font-size:14px}.lf-bottom{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:16px}.lf-progress-track{height:5px;background:#dce7dd;border-radius:4px;overflow:hidden;margin-top:16px}.lf-progress-fill{height:100%;width:0;background:#147d77;border-radius:4px}.lf-question{font-size:24px;line-height:1.45;color:#203d3a;margin:12px 0 8px}.lf-choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 16px}.lf-choice{min-height:88px;border-radius:16px;border:1px solid #d6e3dd;background:#fff;text-align:left;padding:15px;font:inherit;font-weight:700;color:#254b43;cursor:pointer}.lf-choice span{font-size:25px;display:block;margin-bottom:5px}.lf-choice.selected{border-color:#147d77;background:#e4f1e9;box-shadow:inset 0 0 0 1px #147d77}.lf-choice.incorrect{border-color:#e4a18c;background:#fff3ec}.lf-notes{padding:16px 0;border-top:1px solid #e2e9e3;margin-top:22px}.lf-notes p{font-size:14px;line-height:1.8;color:#65776e;margin:8px 0 0}.lf-score{font-size:12px;font-weight:700;color:#147d77;letter-spacing:.5px}.lf-clue-line{stroke:#ed805d;stroke-width:3;stroke-dasharray:7 6;fill:none}.lf-svg-text{font-family:inherit;fill:#547462;font-size:16px}.lf-stage [data-clue]{display:none}.lf-stage.has-clues [data-clue]{display:block}.lf-tab:focus-visible,.lf-choice:focus-visible{outline:3px solid #ed805d;outline-offset:3px}.lf-status{font-size:12px;color:#6b8175;margin-left:auto}.lf-dots{display:flex;gap:6px;margin-top:12px}.lf-dot{width:20px;height:5px;border-radius:3px;background:#dfe8e2}.lf-dot.done{background:#147d77}
+      @media(max-width:760px){.lf-tabs{grid-template-columns:repeat(3,1fr)}.lf-scene-caption{padding:12px 12px 0;font-size:11px}.lf-scene-caption strong{font-size:12px}.lf-stage svg{min-height:230px}.lf-question{font-size:22px}.lf-choice-grid{margin-top:14px}.lf-tab{min-height:55px}}
+    </style>
+    <div class="lf-tabs" role="group" aria-label="生活场景">${scenes.map((s,i)=>`<button type="button" class="lf-tab${i===0?' active':''}" data-scene="${i}" aria-pressed="${i===0}"><small>0${i+1}</small>${s.name}</button>`).join('')}</div>
+    <div class="module-layout">
+      <section class="panel lf-main" aria-label="运动观察区">
+        <div class="lf-stage"><div class="lf-scene-caption"><strong data-object></strong><span>先观察 · 再判断</span></div><div data-picture></div></div>
+        <div class="lf-progress-track" aria-hidden="true"><div class="lf-progress-fill"></div></div>
+        <div class="lf-bottom"><button type="button" class="btn primary" data-play>▶ 播放运动</button><button type="button" class="btn secondary" data-reset>↺ 重来</button><label class="toggle"><input type="checkbox" data-slow>慢速</label><span class="lf-status" data-state>准备好了</span></div>
+        <div class="controls" style="margin-top:14px"><button type="button" class="btn ghost" data-clues aria-pressed="false">显示观察线索</button></div>
+      </section>
+      <aside class="panel" aria-label="判断与思考">
+        <div class="eyebrow">观察任务 <span class="lf-score" data-score>0 / 6 已发现</span></div>
+        <h2 class="lf-question" data-question>它的运动可以<br>看作哪一种？</h2><p class="hint" data-instruction></p>
+        <div class="lf-choice-grid" role="group" aria-label="选择运动方式"><button type="button" class="lf-choice" data-answer="translation"><span aria-hidden="true">↗</span>平移</button><button type="button" class="lf-choice" data-answer="rotation"><span aria-hidden="true">↻</span>旋转</button></div>
+        <div class="feedback" data-feedback role="status" aria-live="polite">先做一个手势，表示你看到的运动，再选一选。</div>
+        <div class="lf-notes"><div class="eyebrow">说一说</div><p data-sentence></p><div class="lf-dots" aria-hidden="true">${scenes.map((_,i)=>`<span class="lf-dot" data-dot="${i}"></span>`).join('')}</div></div>
+        <button type="button" class="btn secondary" style="width:100%;margin-top:16px" data-next>观察下一个 →</button>
+      </aside>
+    </div>`;
+    const $ = s => root.querySelector(s);
+    const $$ = s => [...root.querySelectorAll(s)];
+    const feedback = $('[data-feedback]');
+    const common = `<defs><marker id="${arrowId}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#ed805d" stroke-width="1.8"/></marker></defs><ellipse cx="360" cy="359" rx="208" ry="15" fill="#e2eadf"/>`;
+    const arrow = (d) => `<path class="lf-clue-line" d="${d}" marker-end="url(#${arrowId})"/>`;
+    function gearPath(teeth,radius) {
+      const points=[];
+      for(let i=0;i<teeth*4;i++) { const a=i*Math.PI*2/(teeth*4), r=(i%4===1||i%4===2)?radius:radius-13; points.push(`${i?'L':'M'}${(r*Math.cos(a)).toFixed(2)},${(r*Math.sin(a)).toFixed(2)}`); }
+      return points.join(' ')+'Z';
+    }
+    function artwork(i) {
+      if(i===0) return `<path d="M305 346V62" stroke="#87a393" stroke-width="8" stroke-linecap="round"/><circle cx="305" cy="59" r="8" fill="#edb960"/><rect x="271" y="343" width="69" height="11" rx="5" fill="#5c8271"/><rect x="305" y="212" width="125" height="77" rx="3" fill="none" stroke="#b9cbbb" stroke-dasharray="6 5" data-clue/><g data-motion><rect x="310" y="212" width="125" height="77" rx="3" fill="#df574d"/><path d="m334 224 3 9 10 .2-8 6 3 10-8-6-8 6 3-10-8-6 10-.2Z" fill="#ffdf78"/><g fill="#ffdf78" font-size="13"><text x="352" y="224">★</text><text x="363" y="237">★</text><text x="363" y="252">★</text><text x="352" y="266">★</text></g><circle cx="435" cy="289" r="6" fill="#f8b962" stroke="#fff" stroke-width="3"/></g><g data-clue>${arrow('M480 285V126')}<text x="494" y="210" class="lf-svg-text">向上</text></g>`;
+      if(i===1) return `<rect x="112" y="88" width="496" height="257" rx="12" fill="#d5e6db"/><path d="M112 121H608" stroke="#a4bdaa" stroke-width="5"/><rect x="223" y="135" width="274" height="204" fill="#7fa393"/><rect x="128" y="138" width="84" height="185" rx="3" fill="#edf6ee"/><rect x="508" y="138" width="84" height="185" rx="3" fill="#edf6ee"/><g data-motion="left"><rect x="228" y="138" width="132" height="198" rx="3" fill="#b7dbcf" stroke="#fff" stroke-width="5"/><path d="M244 155H336L244 244Z" fill="#d7eee2"/><path d="M348 217V254" stroke="#458977" stroke-width="5" stroke-linecap="round"/><rect x="246" y="245" width="95" height="14" rx="4" fill="#6b9f90" opacity=".55"/></g><g data-motion="right"><rect x="360" y="138" width="132" height="198" rx="3" fill="#b7dbcf" stroke="#fff" stroke-width="5"/><path d="M380 155H474L380 244Z" fill="#d7eee2"/><path d="M372 217V254" stroke="#458977" stroke-width="5" stroke-linecap="round"/><rect x="381" y="245" width="95" height="14" rx="4" fill="#6b9f90" opacity=".55"/></g><g data-clue>${arrow('M308 370H214')}${arrow('M412 370H506')}</g>`;
+      if(i===2) return `<rect x="258" y="58" width="204" height="292" rx="14" fill="#d8e3d5"/><rect x="276" y="72" width="168" height="260" rx="7" fill="#bbcebd"/><path d="M289 72V332M431 72V332" stroke="#7fa18d" stroke-width="4"/><path d="M470 96H496M470 160H496M470 225H496M470 290H496" stroke="#a6bca8" stroke-width="3"/><g data-motion><path d="M290 207H430V308H290Z" fill="#fff8e5" stroke="#497d69" stroke-width="5"/><path d="M302 221H418V290H302Z" fill="#c6e3d4"/><path d="M360 222V291" stroke="#fff8e5" stroke-width="4"/><rect x="315" y="299" width="90" height="6" rx="3" fill="#81ad96"/><circle cx="418" cy="223" r="7" fill="#ed805d" stroke="#fff" stroke-width="3"/></g><g data-clue>${arrow('M514 296V126')}<text x="529" y="213" class="lf-svg-text">向上</text></g>`;
+      if(i===3) return `<path d="M349 286H371L381 341H339Z" fill="#81b8a3"/><path d="M298 346Q360 323 422 346V355H298Z" fill="#5a9b84"/><circle cx="360" cy="194" r="124" fill="#fbfcf4" stroke="#abcab5" stroke-width="7"/><g data-motion>${[0,120,240].map((a,j)=>`<g transform="rotate(${a})"><path d="M0 0C-20-22-42-78-11-100C20-124 62-81 39-40C24-13 11-3 0 0Z" fill="${j===0?'#ed805d':'#86b9a1'}" stroke="#f8faf1" stroke-width="3"/>${j===0?'<circle cx="13" cy="-84" r="7" fill="#fff4d8"/>':''}</g>`).join('')}</g><circle cx="360" cy="194" r="19" fill="#568d76" stroke="#eff5e9" stroke-width="5"/><g data-clue><circle cx="360" cy="194" r="88" class="lf-clue-line"/><circle cx="360" cy="194" r="5" fill="#f9cd73"/><path d="M380 194H487" stroke="#8ba997" stroke-dasharray="4 4"/><text x="492" y="200" class="lf-svg-text">中心不动</text></g>`;
+      if(i===4) return `<g data-motion="left"><path d="${gearPath(12,90)}" fill="#8bb6a2" stroke="#4f8975" stroke-width="4"/><circle r="47" fill="#e6efe0" stroke="#4f8975" stroke-width="4"/><circle cx="0" cy="-68" r="8" fill="#f5b467" stroke="#fff" stroke-width="3"/></g><g data-motion="right"><path d="${gearPath(10,75)}" fill="#edb878" stroke="#b88a56" stroke-width="4"/><circle r="36" fill="#f7ecd6" stroke="#b88a56" stroke-width="4"/><circle cx="0" cy="-56" r="7" fill="#df765b" stroke="#fff" stroke-width="3"/></g><circle cx="286" cy="211" r="13" fill="#568a77"/><circle cx="451" cy="211" r="12" fill="#b88750"/><g data-clue><circle cx="286" cy="211" r="68" class="lf-clue-line"/><circle cx="451" cy="211" r="56" class="lf-clue-line"/><text x="224" y="340" class="lf-svg-text">各自绕固定的中心转动</text></g>`;
+      return `<rect x="165" y="105" width="267" height="234" rx="9" fill="#c2ad8e"/><path d="M165 134H432M183 322H416" stroke="#9f896d" stroke-width="5"/><rect x="186" y="158" width="229" height="120" rx="3" fill="#726a58"/><path d="M169 339V357M424 339V357" stroke="#a18b6d" stroke-width="10" stroke-linecap="round"/><g data-motion><path d="M194 167H418V264H194Z" fill="#d7c69c" stroke="#ad936c" stroke-width="3"/><path d="M196 171H417V196H196Z" fill="#eee2bf"/><rect x="410" y="157" width="26" height="118" rx="4" fill="#cfa875" stroke="#a6845d" stroke-width="3"/><path d="M439 199H450V235H439" fill="none" stroke="#715f49" stroke-width="5" stroke-linejoin="round"/><circle cx="423" cy="171" r="6" fill="#ed805d" stroke="#fff" stroke-width="2"/></g><g data-clue>${arrow('M449 304H568')}<text x="449" y="337" class="lf-svg-text">沿滑轨拉出</text></g>`;
+    }
+    function draw() {
+      $('[data-picture]').innerHTML = `<svg viewBox="0 0 720 405" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${scenes[current].name}运动示意图">${common}${artwork(current)}</svg>`;
+      $('[data-object]').textContent = `观察对象：${scenes[current].object}`;
+      $('[data-instruction]').textContent = scenes[current].instruction;
+      $('[data-sentence]').textContent = `“我观察的是${scenes[current].object}，它在……”`;
+      update();
+    }
+    function update() {
+      const motion = $('[data-motion]'), left=$('[data-motion="left"]'),right=$('[data-motion="right"]');
+      if(current===0) motion.setAttribute('transform',`translate(0 ${-145*phase})`);
+      if(current===1) {left.setAttribute('transform',`translate(${-100*phase} 0)`);right.setAttribute('transform',`translate(${100*phase} 0)`);}
+      if(current===2) motion.setAttribute('transform',`translate(0 ${-130*phase})`);
+      if(current===3) motion.setAttribute('transform',`translate(360 194) rotate(${360*phase})`);
+      if(current===4) {left.setAttribute('transform',`translate(286 211) rotate(${180*phase})`);right.setAttribute('transform',`translate(451 211) rotate(${-216*phase})`);}
+      if(current===5) motion.setAttribute('transform',`translate(${110*phase} 0)`);
+      $('.lf-progress-fill').style.width=`${phase*100}%`;
+    }
+    function syncButtons() { $('[data-play]').textContent = running?'Ⅱ 暂停运动':phase>=1?'↻ 再看一次':'▶ 播放运动'; $('[data-state]').textContent=running?'正在观察':phase>=1?'播放完成':phase>0?'已暂停':'准备好了'; }
+    function tick(now) {
+      if(!running||destroyed)return;
+      if(!last)last=now;
+      phase=Math.min(1,phase+Math.min(60,now-last)/(4500/(slow?.35:1)));last=now;update();
+      if(phase>=1){running=false;syncButtons();return;}
+      frame=requestAnimationFrame(tick);
+    }
+    function stop(){running=false;cancelAnimationFrame(frame);last=0;syncButtons();}
+    function play(){if(running){stop();return;} if(phase>=1)phase=0;running=true;last=0;syncButtons();frame=requestAnimationFrame(tick);}
+    function select(i){ stop();current=i;phase=0;$$('[data-scene]').forEach((b,j)=>{b.classList.toggle('active',j===i);b.setAttribute('aria-pressed',String(j===i));});$$('[data-answer]').forEach(b=>{b.classList.remove('selected','incorrect');b.setAttribute('aria-pressed','false');});kit.feedback(feedback,'先做一个手势，表示你看到的运动，再选一选。');draw();syncButtons(); }
+    kit.listen($('[data-play]'),'click',play);
+    kit.listen($('[data-reset]'),'click',()=>{stop();phase=0;update();syncButtons();});
+    kit.listen($('[data-slow]'),'change',e=>{slow=e.target.checked;});
+    kit.listen($('[data-clues]'),'click',()=>{clues=!clues;$('.lf-stage').classList.toggle('has-clues',clues);$('[data-clues]').textContent=clues?'隐藏观察线索':'显示观察线索';$('[data-clues]').setAttribute('aria-pressed',String(clues));if(clues)kit.feedback(feedback,scenes[current].cue);});
+    $$('[data-scene]').forEach(b=>kit.listen(b,'click',()=>select(Number(b.dataset.scene))));
+    $$('[data-answer]').forEach(b=>kit.listen(b,'click',()=>{
+      const correct=b.dataset.answer===scenes[current].type;
+      $$('[data-answer]').forEach(x=>{x.classList.toggle('selected',x===b&&correct);x.classList.toggle('incorrect',x===b&&!correct);x.setAttribute('aria-pressed',String(x===b));});
+      kit.feedback(feedback,correct?`观察得很仔细！${scenes[current].reason}`:`再观察一次。${scenes[current].cue}`,correct?'success':'error');
+      if(correct){done.add(current);$(`[data-scene="${current}"]`).classList.add('lf-done');$(`[data-dot="${current}"]`).classList.add('done');$('[data-score]').textContent=`${done.size} / 6 已发现`;if(done.size===scenes.length)kit.markDone();}
+    }));
+    kit.listen($('[data-next]'),'click',()=>select((current+1)%scenes.length));
+    draw();
+    return ()=>{destroyed=true;running=false;cancelAnimationFrame(frame);};
+  }
+});
+
+/* Module 02 · translation, with doors and a tabletop route laboratory. */
+Courseware.register({
+  id: 'translation', number: 2, title: '平移实验', subtitle: '试试不同的路线', icon: '↗',
+  mount(root, kit) {
+    const aid=kit.uid('tr-arrow');
+    const doorDone=new Set(),routesDone=new Set();
+    let destroyed=false, view='doors';
+    root.innerHTML=`<style>
+      .tr-tabs{display:flex;gap:10px;margin-bottom:18px}.tr-tabs button{flex:1;max-width:250px}.tr-view[hidden]{display:none}.tr-canvas{background:#f1f6ed;border:1px solid #dfe9e1;border-radius:20px;overflow:hidden}.tr-canvas svg{width:100%;height:auto;display:block;max-height:440px}.tr-canvas-head{padding:15px 18px 0;display:flex;justify-content:space-between;gap:10px;color:#557566;font-size:13px}.tr-canvas-head strong{color:#254b3f}.tr-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}.tr-range{display:grid;grid-template-columns:auto 1fr 42px;gap:12px;align-items:center;font-size:13px;margin-top:20px;color:#5b7467}.tr-range input{width:100%;accent-color:#147d77;min-height:34px}.tr-state{color:#6b8175;font-size:12px}.tr-question{font-size:24px;line-height:1.45;margin:12px 0 10px;color:#203d3a}.tr-mode{display:flex;gap:6px;background:#edf3ed;padding:5px;border-radius:12px;margin:18px 0}.tr-mode button{flex:1;min-height:40px;border:0;background:transparent;color:#718478;font:inherit;font-size:14px;font-weight:700;border-radius:8px;cursor:pointer}.tr-mode button.active{background:#fff;color:#147d77;box-shadow:0 2px 8px #284b3210}.tr-predict{border:0;padding:0;margin:14px 0 18px;display:grid;grid-template-columns:70px 1fr 1fr;gap:8px;align-items:center}.tr-predict legend{float:left;width:70px;font-size:14px;color:#405e4f;font-weight:700}.tr-arrow-choice{min-height:46px;border-radius:11px;border:1px solid #d6e3d8;background:#fff;color:#4c705b;font:inherit;font-weight:700;cursor:pointer}.tr-arrow-choice.active{background:#e2f0e6;border-color:#147d77;color:#126a5d;box-shadow:inset 0 0 0 1px #147d77}.tr-complete{display:flex;gap:7px;flex-wrap:wrap;margin-top:18px}.tr-badge{font-size:11px;background:#eff3ec;color:#819483;padding:5px 9px;border-radius:20px}.tr-badge.done{background:#e0f0e5;color:#147d77}.tr-rule{border-top:1px solid #e3eae1;margin-top:20px;padding-top:15px;line-height:1.8;color:#647969;font-size:13px}.tr-route-list{display:grid;gap:9px;margin:18px 0}.tr-route{background:#fff;border:1px solid #d7e4d9;border-radius:13px;padding:12px 14px;min-height:60px;font:inherit;color:#355c4b;cursor:pointer;display:flex;align-items:center;justify-content:space-between;text-align:left;gap:8px}.tr-route strong{display:block;font-size:14px}.tr-route small{display:block;font-size:11px;color:#7f9586;margin-top:4px}.tr-route.active{background:#e6f2e8;border-color:#147d77}.tr-route.done .tr-route-symbol{color:#147d77}.tr-route-symbol{font-size:23px;color:#a6b5a3}.tr-corners{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.tr-corners .btn{font-size:13px;min-height:42px}.tr-path-readout{font-size:12px;color:#547261;background:#eff5eb;border-radius:10px;padding:10px 12px;margin-top:14px;min-height:38px;line-height:1.6}.tr-book{cursor:grab;touch-action:none}.tr-book:active{cursor:grabbing}.tr-book:focus-visible{outline:none}.tr-book:focus-visible rect.tr-book-cover{stroke:#ed805d;stroke-width:5}.tr-target-label{font-size:14px;font-family:inherit;fill:#79907b;font-weight:600}.tr-route-ghost{opacity:.4}.tr-view button:focus-visible{outline:3px solid #ed805d;outline-offset:3px}.tr-toggle-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}.tr-ledger{font-size:12px;color:#527263;margin-top:12px;line-height:1.8;max-height:78px;overflow:auto}.tr-short-hint{font-size:12px;color:#78917c;line-height:1.65;margin:12px 0 0}
+      @media(max-width:760px){.tr-question{font-size:22px}.tr-canvas-head{font-size:11px;padding:12px 12px 0}.tr-canvas svg{min-height:230px}.tr-tabs{gap:7px}.tr-tabs button{font-size:13px}.tr-range{grid-template-columns:auto 1fr 38px;gap:7px;font-size:11px}.tr-predict{grid-template-columns:64px 1fr 1fr}.tr-canvas-head span{font-size:10px}}
+    </style>
+    <div class="tr-tabs" role="group" aria-label="平移实验选择"><button type="button" class="btn primary" data-tr-tab="doors" aria-pressed="true">01 自动门方向</button><button type="button" class="btn secondary" data-tr-tab="book" aria-pressed="false">02 课本搬家</button></div>
+    <div class="tr-view" data-tr-view="doors"><div class="module-layout">
+      <section class="panel"><div class="tr-canvas"><div class="tr-canvas-head"><strong>两扇门，各往哪边走？</strong><span>观察左门与右门</span></div>
+      <svg viewBox="0 0 720 405" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自动门开关的平移示意图" data-door-svg>
+      <defs><marker id="${aid}" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#e47e5f" stroke-width="1.8"/></marker></defs>
+      <ellipse cx="360" cy="361" rx="247" ry="15" fill="#e0eadf"/><rect x="102" y="77" width="516" height="275" rx="12" fill="#d1e5d6"/><path d="M102 115H618" stroke="#a5c4ad" stroke-width="5"/><rect x="230" y="131" width="260" height="213" fill="#6b9482"/><rect x="118" y="132" width="100" height="200" rx="4" fill="#eaf3e7"/><rect x="502" y="132" width="100" height="200" rx="4" fill="#eaf3e7"/>
+      <g data-door-ghost><rect x="231" y="131" width="129" height="212" fill="none" stroke="#8da993" stroke-dasharray="7 6" stroke-width="2"/><rect x="360" y="131" width="129" height="212" fill="none" stroke="#8da993" stroke-dasharray="7 6" stroke-width="2"/></g>
+      <g data-door-left><rect x="231" y="131" width="129" height="212" rx="3" fill="#98cbb7" stroke="#fff" stroke-width="5"/><path d="M246 148H342L246 238Z" fill="#cce7d7"/><path d="M346 216V257" stroke="#347966" stroke-width="5" stroke-linecap="round"/><rect x="248" y="268" width="94" height="28" rx="8" fill="#eaf6e8"/><text x="295" y="287" text-anchor="middle" font-size="14" font-weight="700" fill="#3a7a62">左门</text></g>
+      <g data-door-right><rect x="360" y="131" width="129" height="212" rx="3" fill="#edbe8a" stroke="#fff" stroke-width="5"/><path d="M378 148H473L378 238Z" fill="#f8dfba"/><path d="M374 216V257" stroke="#af8651" stroke-width="5" stroke-linecap="round"/><rect x="378" y="268" width="94" height="28" rx="8" fill="#fff0d8"/><text x="425" y="287" text-anchor="middle" font-size="14" font-weight="700" fill="#987144">右门</text></g>
+      <g data-door-arrows style="display:none"><path data-left-arrow d="M310 374H208" stroke="#e47e5f" stroke-width="3" fill="none" marker-end="url(#${aid})"/><path data-right-arrow d="M410 374H512" stroke="#e47e5f" stroke-width="3" fill="none" marker-end="url(#${aid})"/></g></svg></div>
+      <label class="tr-range">门的打开程度<input type="range" min="0" max="100" value="0" step="1" data-door-range aria-label="门的打开程度"><output data-door-percent>0%</output></label>
+      <div class="tr-controls"><button type="button" class="btn primary" data-door-play>▶ 播放开门</button><button type="button" class="btn secondary" data-door-reset>↺ 重来</button><label class="toggle"><input type="checkbox" data-door-slow>慢速</label><span class="tr-state" data-door-state>门已关好</span></div>
+      <div class="tr-toggle-row"><label class="toggle"><input type="checkbox" data-door-outline checked>起点虚影</label><label class="toggle"><input type="checkbox" data-door-clues>方向箭头</label></div>
+      </section>
+      <aside class="panel"><div class="eyebrow">先预测，再验证</div><h2 class="tr-question">开门和关门，<br>方向一样吗？</h2><p class="hint">选一个动作，再分别给两扇门选择方向。</p>
+      <div class="tr-mode" role="group" aria-label="选择开门或关门"><button type="button" class="active" data-door-mode="open" aria-pressed="true">开门时</button><button type="button" data-door-mode="close" aria-pressed="false">关门时</button></div>
+      <fieldset class="tr-predict"><legend>左门</legend><button type="button" class="tr-arrow-choice" data-predict-side="left" data-predict-direction="-1" aria-pressed="false">← 向左</button><button type="button" class="tr-arrow-choice" data-predict-side="left" data-predict-direction="1" aria-pressed="false">向右 →</button></fieldset>
+      <fieldset class="tr-predict"><legend>右门</legend><button type="button" class="tr-arrow-choice" data-predict-side="right" data-predict-direction="-1" aria-pressed="false">← 向左</button><button type="button" class="tr-arrow-choice" data-predict-side="right" data-predict-direction="1" aria-pressed="false">向右 →</button></fieldset>
+      <button type="button" class="btn primary" style="width:100%" data-door-check>验证我的预测</button><div class="feedback" role="status" aria-live="polite" data-door-feedback style="margin-top:16px">先想一想，再用手势表示两扇门的运动方向。</div>
+      <div class="tr-complete"><span class="tr-badge" data-door-badge="open">○ 开门方向</span><span class="tr-badge" data-door-badge="close">○ 关门方向</span></div><div class="tr-rule">两扇门都可以看作平移。描述运动时，要说清楚观察的是哪一扇门。</div>
+      </aside></div></div>
+    <div class="tr-view" data-tr-view="book" hidden><div class="module-layout">
+      <section class="panel"><div class="tr-canvas"><div class="tr-canvas-head"><strong>把数学课本送到右下角</strong><span>拖动 · 点击四角 · 方向键</span></div>
+      <svg viewBox="0 0 720 440" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="课本在桌面上平移，起点左上角，目标右下角" data-book-svg>
+      <rect x="57" y="38" width="606" height="372" rx="26" fill="#d9dfc4"/><rect x="67" y="38" width="586" height="354" rx="22" fill="#e7e9d1" stroke="#c4d2b5" stroke-width="3"/><path d="M89 211H631M360 60V371" stroke="#ced8bb" stroke-dasharray="4 8"/>
+      <g fill="none" stroke="#becdad" stroke-width="2" stroke-dasharray="5 6"><rect x="112" y="69" width="96" height="122" rx="9"/><rect x="512" y="69" width="96" height="122" rx="9"/><rect x="112" y="249" width="96" height="122" rx="9"/><rect x="512" y="249" width="96" height="122" rx="9"/></g>
+      <g class="tr-target-label" text-anchor="middle"><text x="160" y="59">左上角 · 起点</text><text x="560" y="59">右上角</text><text x="160" y="389">左下角</text><text x="560" y="389" fill="#ba7752">右下角 · 目标</text></g>
+      <polyline data-book-trace points="160,130" fill="none" stroke="#e48b62" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round" stroke-linejoin="round"/>
+      <g data-book-ghost transform="translate(160 130)" class="tr-route-ghost"><rect x="-44" y="-57" width="88" height="114" rx="7" fill="#c8d9c0" stroke="#548b75" stroke-width="2" stroke-dasharray="5 4"/><circle cx="-30" cy="-43" r="4" fill="#d07859"/></g>
+      <g data-book transform="translate(160 130)" class="tr-book" tabindex="0" role="button" aria-label="数学课本。可以拖动，也可用方向键移动，按 Home 返回起点。"><rect x="-40" y="-52" width="88" height="114" rx="7" fill="#597f6123"/><rect x="-44" y="-57" width="88" height="114" rx="7" fill="#fbf8e8" stroke="#97b39a" stroke-width="2"/><rect class="tr-book-cover" x="-44" y="-61" width="88" height="111" rx="7" fill="#287f73"/><path d="M-34-58V47" stroke="#78ac91" stroke-width="2"/><circle cx="-28" cy="-44" r="5" fill="#f3a06e" stroke="#ffe6c9" stroke-width="1.5"/><text x="4" y="-7" text-anchor="middle" fill="#fff9df" font-size="23" font-weight="700">数学</text><path d="M-16 12H25M-16 19H15" stroke="#97c5a4" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="34" r="6" fill="#d8dd94"/></g>
+      </svg></div><div class="tr-path-readout" data-book-route role="status">起点：左上角。选一条路线，或自己移动课本。</div>
+      <div class="tr-controls"><button type="button" class="btn primary" data-book-play>▶ 回放路线</button><button type="button" class="btn secondary" data-book-reset>↺ 回到起点</button><label class="toggle"><input type="checkbox" data-book-slow>慢速</label></div>
+      <div class="tr-toggle-row"><label class="toggle"><input type="checkbox" data-book-show-trace checked>运动轨迹</label><label class="toggle"><input type="checkbox" data-book-show-ghost checked>起点虚影</label></div>
+      <p class="tr-short-hint">看封面和红色书角：移动过程中，课本的大小、形状和朝向保持不变。</p>
+      </section>
+      <aside class="panel"><div class="eyebrow">同一起点，不同路线</div><h2 class="tr-question">怎样把课本<br>移到右下角？</h2><p class="hint">先预测路线，再点击观察。斜向移动时也保持课本的朝向。</p>
+      <div class="tr-route-list"><button type="button" class="tr-route" data-route="right-down"><span><strong>先向右，再向下</strong><small>左上 → 右上 → 右下</small></span><span class="tr-route-symbol">↳</span></button><button type="button" class="tr-route" data-route="down-right"><span><strong>先向下，再向右</strong><small>左上 → 左下 → 右下</small></span><span class="tr-route-symbol">↱</span></button><button type="button" class="tr-route" data-route="diagonal"><span><strong>沿斜方向直接移动</strong><small>左上 → 右下</small></span><span class="tr-route-symbol">↘</span></button></div>
+      <div class="feedback" data-book-feedback role="status" aria-live="polite">试着比较：路线变了，课本最后到的位置变了吗？</div>
+      <div class="eyebrow" style="margin-top:20px">自己选择下一站</div><div class="tr-corners"><button type="button" class="btn secondary" data-corner="tl">↖ 左上角</button><button type="button" class="btn secondary" data-corner="tr">右上角 ↗</button><button type="button" class="btn secondary" data-corner="bl">↙ 左下角</button><button type="button" class="btn secondary" data-corner="br">右下角 ↘</button></div>
+      <div class="tr-ledger" data-book-ledger>已发现 0 / 3 条示范路线。</div><div class="tr-rule">先向右、再向下，是两次平移；沿斜方向直接移动，也可以是平移。</div>
+      </aside></div></div>`;
+    const $=s=>root.querySelector(s),$$=s=>[...root.querySelectorAll(s)];
+    const mark=()=>{if(doorDone.size===2&&routesDone.size===3)kit.markDone();};
+    let doorMode='open',door=0,doorRun=false,doorFrame=0,doorLast=0,doorSlow=false,doorStart=0,doorGoal=1,doorTime=0,doorPaused=false;
+    const prediction={left:null,right:null};
+    function doorDraw(){
+      $('[data-door-left]').setAttribute('transform',`translate(${-108*door} 0)`);$('[data-door-right]').setAttribute('transform',`translate(${108*door} 0)`);
+      $('[data-door-range]').value=String(Math.round(door*100));$('[data-door-percent]').textContent=`${Math.round(door*100)}%`;
+      const ghosts=$('[data-door-ghost]').children;ghosts[0].setAttribute('transform',`translate(${doorMode==='close'?-108:0} 0)`);ghosts[1].setAttribute('transform',`translate(${doorMode==='close'?108:0} 0)`);
+      $('[data-left-arrow]').setAttribute('d',doorMode==='open'?'M310 374H208':'M208 374H310');$('[data-right-arrow]').setAttribute('d',doorMode==='open'?'M410 374H512':'M512 374H410');
+    }
+    function doorButtons(){
+      $('[data-door-play]').textContent=doorRun?'Ⅱ 暂停':doorPaused?'▶ 继续':`▶ 播放${doorMode==='open'?'开门':'关门'}`;
+      $('[data-door-state]').textContent=doorRun?(doorMode==='open'?'正在打开':'正在关闭'):doorPaused?'已暂停':door===0?'门已关好':door===1?'门已打开':'可拖动滑块观察';
+    }
+    function stopDoor(pause=false){doorRun=false;doorPaused=pause;cancelAnimationFrame(doorFrame);doorLast=0;doorButtons();}
+    function doorTick(now){if(!doorRun||destroyed)return;if(!doorLast)doorLast=now;doorTime+=Math.min(60,now-doorLast)*(doorSlow?.35:1);doorLast=now;const p=Math.min(1,doorTime/2400);door=doorStart+(doorGoal-doorStart)*p;doorDraw();if(p>=1){door=doorGoal;stopDoor();doorDraw();return;}doorFrame=requestAnimationFrame(doorTick);}
+    function startDoor(force=false){
+      if(doorRun&&!force){stopDoor(true);return;}
+      if(force)stopDoor();
+      if(!doorPaused||force){doorGoal=doorMode==='open'?1:0;if(Math.abs(door-doorGoal)<.001||force){door=doorMode==='open'?0:1;doorDraw();}doorStart=door;doorTime=0;}
+      doorRun=true;doorPaused=false;doorLast=0;doorButtons();doorFrame=requestAnimationFrame(doorTick);
+    }
+    function setDoorMode(mode){stopDoor();doorMode=mode;door=mode==='open'?0:1;prediction.left=null;prediction.right=null;$$('[data-door-mode]').forEach(b=>{b.classList.toggle('active',b.dataset.doorMode===mode);b.setAttribute('aria-pressed',String(b.dataset.doorMode===mode));});$$('[data-predict-side]').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-pressed','false');});kit.feedback($('[data-door-feedback]'),`请预测${mode==='open'?'开门':'关门'}时，左右两扇门各向哪里平移。`);doorDraw();doorButtons();}
+    $$('[data-door-mode]').forEach(b=>kit.listen(b,'click',()=>setDoorMode(b.dataset.doorMode)));
+    $$('[data-predict-side]').forEach(b=>kit.listen(b,'click',()=>{prediction[b.dataset.predictSide]=Number(b.dataset.predictDirection);$$(`[data-predict-side="${b.dataset.predictSide}"]`).forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',String(x===b));});}));
+    kit.listen($('[data-door-check]'),'click',()=>{
+      if(prediction.left===null||prediction.right===null){kit.feedback($('[data-door-feedback]'),'请先为左门和右门各选一个方向。');return;}
+      const correct=doorMode==='open'?prediction.left===-1&&prediction.right===1:prediction.left===1&&prediction.right===-1;
+      const text=doorMode==='open'?'左门向左平移，右门向右平移。':'左门向右平移，右门向左平移。';
+      kit.feedback($('[data-door-feedback]'),correct?`预测正确！${text}`:`跟着动画再看一遍：${text}`,correct?'success':'error');
+      if(correct){doorDone.add(doorMode);const badge=$(`[data-door-badge="${doorMode}"]`);badge.classList.add('done');badge.textContent=`✓ ${doorMode==='open'?'开门':'关门'}方向`;mark();}startDoor(true);
+    });
+    kit.listen($('[data-door-play]'),'click',()=>startDoor());
+    kit.listen($('[data-door-reset]'),'click',()=>{stopDoor();door=doorMode==='open'?0:1;doorDraw();doorButtons();});
+    kit.listen($('[data-door-slow]'),'change',e=>doorSlow=e.target.checked);
+    kit.listen($('[data-door-range]'),'input',e=>{stopDoor();door=Number(e.target.value)/100;doorDraw();doorButtons();});
+    kit.listen($('[data-door-outline]'),'change',e=>$('[data-door-ghost]').style.display=e.target.checked?'':'none');
+    kit.listen($('[data-door-clues]'),'change',e=>$('[data-door-arrows]').style.display=e.target.checked?'':'none');
+    const corners={tl:{x:160,y:130,name:'左上角'},tr:{x:560,y:130,name:'右上角'},bl:{x:160,y:310,name:'左下角'},br:{x:560,y:310,name:'右下角'}};
+    const routes={'right-down':['tl','tr','br'],'down-right':['tl','bl','br'],'diagonal':['tl','br']};
+    const labels={'right-down':'先向右，再向下','down-right':'先向下，再向右','diagonal':'沿斜方向直接移动'};
+    let pos={x:160,y:130},trace=[{x:160,y:130}],lastPath=[{x:160,y:130},{x:560,y:130},{x:560,y:310}],lastRoute='right-down',bookRun=false,bookPaused=false,bookFrame=0,bookLast=0,bookSlow=false,queue=[],segment=0,segmentTime=0,drag=null,pointerMoved=false;
+    const svg=$('[data-book-svg]'),book=$('[data-book]');
+    function bookDraw(){book.setAttribute('transform',`translate(${pos.x} ${pos.y})`);$('[data-book-trace]').setAttribute('points',trace.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' '));}
+    function bookButtons(){$('[data-book-play]').textContent=bookRun?'Ⅱ 暂停移动':bookPaused?'▶ 继续移动':'▶ 回放路线';}
+    function stopBook(pause=false){bookRun=false;bookPaused=pause;bookLast=0;cancelAnimationFrame(bookFrame);bookButtons();}
+    function point(p){return{x:p.x,y:p.y};}
+    function atGoal(){return Math.hypot(pos.x-560,pos.y-310)<2;}
+    function routeFinished(){
+      stopBook();
+      if(!lastRoute&&trace.length>1)lastPath=trace.map(point);
+      if(lastRoute&&routes[lastRoute]&&atGoal()){routesDone.add(lastRoute);const b=$(`[data-route="${lastRoute}"]`);b.classList.add('done');b.querySelector('.tr-route-symbol').textContent='✓';$('[data-book-ledger]').textContent=`已发现 ${routesDone.size} / 3 条示范路线。${routesDone.size===3?'三条路线都到达了右下角！':''}`;mark();}
+      if(atGoal())kit.feedback($('[data-book-feedback]'),lastRoute==='diagonal'?'到了！斜向移动时，课本没有转动，也可以看作平移。':'到了右下角！观察封面和红色书角：移动过程中朝向保持不变。','success');
+    }
+    function bookTick(now){
+      if(!bookRun||destroyed)return;if(!bookLast)bookLast=now;
+      const a=queue[segment],b=queue[segment+1],dist=Math.hypot(b.x-a.x,b.y-a.y),duration=Math.max(35,dist*4.5);
+      segmentTime+=Math.min(60,now-bookLast)*(bookSlow?.4:1);bookLast=now;const p=Math.min(1,segmentTime/duration);pos={x:a.x+(b.x-a.x)*p,y:a.y+(b.y-a.y)*p};
+      const prior=trace[trace.length-1];if(Math.hypot(pos.x-prior.x,pos.y-prior.y)>3||p===1)trace.push(point(pos));bookDraw();
+      if(p>=1){segment++;segmentTime=0;if(segment>=queue.length-1){routeFinished();return;}}
+      bookFrame=requestAnimationFrame(bookTick);
+    }
+    function startPath(points,id,label,resetTrace=true){
+      stopBook();drag=null;queue=points.map(point);if(queue.length<2)return;lastPath=queue.map(point);lastRoute=id;segment=0;segmentTime=0;pos=point(queue[0]);if(resetTrace)trace=[point(pos)];bookDraw();
+      $$('[data-route]').forEach(b=>b.classList.toggle('active',b.dataset.route===id));$('[data-book-route]').textContent=label;
+      bookRun=true;bookPaused=false;bookButtons();bookFrame=requestAnimationFrame(bookTick);
+    }
+    function cornerName(p){const key=Object.keys(corners).find(k=>Math.hypot(corners[k].x-p.x,corners[k].y-p.y)<4);return key?corners[key].name:'桌面上的位置';}
+    $$('[data-route]').forEach(b=>kit.listen(b,'click',()=>{const id=b.dataset.route;kit.feedback($('[data-book-feedback]'),`正在验证：${labels[id]}。请留意每一段移动的方向。`);startPath(routes[id].map(k=>corners[k]),id,`${labels[id]}：${routes[id].map(k=>corners[k].name).join(' → ')}`);}));
+    $$('[data-corner]').forEach(b=>kit.listen(b,'click',()=>{const end=corners[b.dataset.corner];if(Math.hypot(pos.x-end.x,pos.y-end.y)<1){kit.feedback($('[data-book-feedback]'),`课本已经在${end.name}了，试试另一个位置。`);return;}startPath([point(pos),point(end)],null,`自己选择：${cornerName(pos)} → ${end.name}`,false);}));
+    kit.listen($('[data-book-play]'),'click',()=>{if(bookRun){stopBook(true);return;}if(bookPaused){bookPaused=false;bookRun=true;bookLast=0;bookButtons();bookFrame=requestAnimationFrame(bookTick);return;}startPath(lastPath,lastRoute,lastRoute?`${labels[lastRoute]}：再次观察移动过程。`:'回放你刚才的移动轨迹。');});
+    function bookReset(){stopBook();drag=null;pos=point(corners.tl);trace=[point(pos)];$$('[data-route]').forEach(b=>b.classList.remove('active'));bookDraw();$('[data-book-route]').textContent='已回到左上角。试试另一条路线。';kit.feedback($('[data-book-feedback]'),'课本回到起点了。你还能找到不同的移动方法吗？');}
+    kit.listen($('[data-book-reset]'),'click',bookReset);
+    kit.listen($('[data-book-slow]'),'change',e=>bookSlow=e.target.checked);
+    kit.listen($('[data-book-show-trace]'),'change',e=>$('[data-book-trace]').style.display=e.target.checked?'':'none');
+    kit.listen($('[data-book-show-ghost]'),'change',e=>$('[data-book-ghost]').style.display=e.target.checked?'':'none');
+    kit.listen(book,'pointerdown',e=>{
+      if(e.button!==undefined&&e.button!==0)return;e.preventDefault();stopBook();const p=kit.svgPoint(svg,e);drag={pointerId:e.pointerId,dx:p.x-pos.x,dy:p.y-pos.y,path:[point(pos)]};pointerMoved=false;svg.setPointerCapture(e.pointerId);book.focus({preventScroll:true});$$('[data-route]').forEach(b=>b.classList.remove('active'));
+    });
+    kit.listen(svg,'pointermove',e=>{
+      if(!drag||drag.pointerId!==e.pointerId)return;e.preventDefault();const p=kit.svgPoint(svg,e);pos={x:Math.max(124,Math.min(596,p.x-drag.dx)),y:Math.max(105,Math.min(330,p.y-drag.dy))};
+      const prev=trace[trace.length-1];if(Math.hypot(pos.x-prev.x,pos.y-prev.y)>3){trace.push(point(pos));drag.path.push(point(pos));pointerMoved=true;}bookDraw();$('[data-book-route]').textContent='自由拖动：只改变位置，课本始终保持原来的朝向。';
+    });
+    function release(e){
+      if(!drag||drag.pointerId!==e.pointerId)return;
+      const path=drag.path.map(point);drag=null;if(svg.hasPointerCapture(e.pointerId))svg.releasePointerCapture(e.pointerId);
+      if(!pointerMoved)return;lastRoute=null;lastPath=path.length>1?path:[point(pos),point(pos)];
+      const nearest=Object.values(corners).sort((a,b)=>Math.hypot(pos.x-a.x,pos.y-a.y)-Math.hypot(pos.x-b.x,pos.y-b.y))[0];
+      if(Math.hypot(pos.x-nearest.x,pos.y-nearest.y)<50){pos=point(nearest);trace.push(point(pos));bookDraw();}
+      lastPath=trace.map(point);
+      $('[data-book-route]').textContent=`你把课本移动到了${cornerName(pos)}。可点击“回放路线”再次观察。`;
+      kit.feedback($('[data-book-feedback]'),atGoal()?'你把课本送到了右下角！再用三条示范路线比较，看看路径有什么不同。':'课本只改变了位置。继续把它移到右下角吧。',atGoal()?'success':'info');
+    }
+    kit.listen(svg,'pointerup',release);kit.listen(svg,'pointercancel',release);
+    kit.listen(book,'keydown',e=>{
+      if(e.key==='Home'){e.preventDefault();bookReset();return;}const delta={ArrowLeft:[-20,0],ArrowRight:[20,0],ArrowUp:[0,-20],ArrowDown:[0,20]}[e.key];if(!delta)return;e.preventDefault();stopBook();pos={x:Math.max(124,Math.min(596,pos.x+delta[0])),y:Math.max(105,Math.min(330,pos.y+delta[1]))};trace.push(point(pos));lastPath=trace.map(point);lastRoute=null;bookDraw();$('[data-book-route]').textContent='方向键移动：课本保持原来的大小、形状和朝向。';if(atGoal())kit.feedback($('[data-book-feedback]'),'到了右下角！你还可以试试不同的路线。','success');
+    });
+    $$('[data-tr-tab]').forEach(b=>kit.listen(b,'click',()=>{view=b.dataset.trTab;stopDoor();stopBook();$$('[data-tr-view]').forEach(x=>x.hidden=x.dataset.trView!==view);$$('[data-tr-tab]').forEach(x=>{const active=x===b;x.classList.toggle('primary',active);x.classList.toggle('secondary',!active);x.setAttribute('aria-pressed',String(active));});}));
+    doorDraw();doorButtons();bookDraw();bookButtons();
+    return ()=>{destroyed=true;doorRun=false;bookRun=false;cancelAnimationFrame(doorFrame);cancelAnimationFrame(bookFrame);};
+  }
+});
+
+Courseware.register({
+  id: 'rotation',
+  number: 3,
+  title: '旋转转盘',
+  subtitle: '探索两种转动方向',
+  icon: 'rotate',
+  mount(root, kit) {
+    const prefix = kit.uid('rot');
+    const letters = ['A', 'B', 'C', 'D'];
+    const tasks = [{ start: 0, target: 2 }, { start: 2, target: 1 }, { start: 2, target: 3 }];
+    const records = new Map();
+    let taskIndex = 0, direction = 1, progress = 0, prediction = null;
+    let animation = null, playing = false, slow = false, traceVisible = true, tweenDestination = 0;
+    let drag = null, completed = false;
+    const point = (angle, radius = 150) => ({ x: 340 + Math.sin(angle * Math.PI / 180) * radius, y: 220 - Math.cos(angle * Math.PI / 180) * radius });
+    const arc = (start, delta, radius = 150) => {
+      if (Math.abs(delta) < 0.05) return '';
+      const a = point(start, radius), b = point(start + delta, radius);
+      return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${Math.abs(delta) > 180 ? 1 : 0} ${delta > 0 ? 1 : 0} ${b.x} ${b.y}`;
+    };
+    const tickMarks = Array.from({ length: 48 }, (_, i) => {
+      const a = point(i * 7.5, i % 12 === 0 ? 129 : 134), b = point(i * 7.5, 140);
+      return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${i % 12 === 0 ? '#7EA5A0' : '#D6E4E0'}" stroke-width="${i % 12 === 0 ? 3 : 2}"/>`;
+    }).join('');
+    root.innerHTML = `
+      <style>
+        .rot-main{min-width:0}.rot-taskbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.rot-taskbar .chip{min-width:104px}
+        .rot-stage{position:relative;overflow:hidden;border:1px solid #DFE9E3;background:radial-gradient(circle at 50% 45%,#fff 0,#F5F9F4 70%);border-radius:22px}
+        .rot-svg{display:block;width:100%;max-height:480px;touch-action:none;user-select:none}.rot-svg text{font-family:inherit}
+        .rot-grip{cursor:grab}.rot-grip:active{cursor:grabbing}.rot-corner{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:7px;font-size:12px;color:#607A74;font-weight:700;letter-spacing:.05em}
+        .rot-corner i{display:block;width:7px;height:7px;background:#147D77;border-radius:50%}.rot-current{text-align:center;margin:0 12px 16px;color:#496960;font-size:14px}
+        .rot-controls{margin-top:18px}.rot-options{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:18px;font-size:13px;color:#4C6D66}.rot-options label{display:flex;gap:8px;align-items:center;cursor:pointer}.rot-options input{accent-color:#147D77;width:16px;height:16px}
+        .rot-direction{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 20px}.rot-direction button{min-height:66px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border:1px solid #DCE5DF;border-radius:15px;background:#fff;color:#3B5B54;cursor:pointer}.rot-direction button span{font-size:27px;line-height:1}.rot-direction button.active[data-dir="1"]{background:#E5F2ED;border:2px solid #147D77;color:#147D77}.rot-direction button.active[data-dir="-1"]{background:#FFF0E7;border:2px solid #D96C47;color:#B95B3E}
+        .rot-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.rot-choices .btn{padding:10px;min-width:0;font-size:19px}.rot-choices .btn.active{background:#203D3A;color:white;border-color:#203D3A}
+        .rot-card-heading{margin:0 0 8px;font-size:16px;line-height:1.5;color:#24463E}.rot-rule{border-top:1px solid #E7EDE7;margin-top:22px;padding-top:19px}.rot-routes{display:grid;gap:10px;margin-top:12px}.rot-route{border:1px solid #DCE9E2;border-radius:14px;padding:13px 14px;background:#F5FAF6}.rot-route:nth-child(2){border-color:#F0DFD3;background:#FFF8F2}.rot-route-label{display:block;font-size:12px;font-weight:700;color:#698278;margin-bottom:7px}.rot-route strong{font-size:17px;letter-spacing:.04em;color:#245E51}.rot-route:nth-child(2) strong{color:#A45F3E}.rot-route em{font-size:13px;font-style:normal;color:#82918B;letter-spacing:0}.rot-comparison{font-size:13px;line-height:1.7;color:#5C756C;margin:12px 0 0}.rot-reference{font-size:13px;margin:14px 0 0;padding:10px 13px;background:#F1F5EF;border-radius:10px;color:#526D63}.rot-reference[hidden]{display:none}.rot-note{margin-top:14px;font-size:12px;line-height:1.7;color:#74887F}.rot-feedback{min-height:66px}
+        @media(max-width:640px){.rot-svg{min-height:280px}.rot-taskbar{gap:7px}.rot-taskbar .chip{min-width:0;flex:1;padding-left:9px;padding-right:9px}.rot-corner{top:12px;font-size:10px}.rot-current{font-size:12px;bottom:9px}.rot-options{font-size:12px}.rot-direction button{min-height:58px}}
+      </style>
+      <div class="module-layout">
+        <div class="panel rot-main">
+          <div class="rot-taskbar" role="group" aria-label="旋转任务">
+            ${tasks.map((t, i) => `<button class="chip${i === 0 ? ' active' : ''}" data-task="${i}" aria-pressed="${i === 0}">${letters[t.start]} → ${letters[t.target]}</button>`).join('')}
+          </div>
+          <div class="rot-stage">
+            <div class="rot-corner"><i></i>固定中心 · 观察转动</div>
+            <svg class="rot-svg" viewBox="0 0 680 440" role="img" aria-label="指针绕固定中心旋转的转盘，A在上、B在右、C在下、D在左">
+              <defs><marker id="${prefix}-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker><filter id="${prefix}-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#245E51" flood-opacity=".09"/></filter></defs>
+              <circle cx="340" cy="220" r="146" fill="#fff" stroke="#DDE8E0" stroke-width="2" filter="url(#${prefix}-shadow)"/>
+              ${tickMarks}
+              <circle class="rot-target" cx="340" cy="390" r="25" fill="#FCE9CA"/>
+              ${letters.map((letter, i) => { const p = point(i * 90, 180); return `<text x="${p.x}" y="${p.y + 8}" fill="#234B43" text-anchor="middle" font-size="26" font-weight="800">${letter}</text>`; }).join('')}
+              <path class="rot-record-cw" fill="none" stroke="#99C8B2" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+              <path class="rot-record-ccw" fill="none" stroke="#E9B698" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+              <path class="rot-trace" fill="none" stroke="#147D77" stroke-width="8" stroke-linecap="round" marker-end="url(#${prefix}-arrow)"/>
+              <g class="rot-pointer">
+                <path d="M 333 235 L 331 115 Q 331 105 340 90 Q 349 105 349 115 L 347 235 Z" fill="#EE805C"/>
+                <circle class="rot-grip" data-rot-handle="true" cx="340" cy="104" r="20" fill="#fff" fill-opacity=".02" stroke="transparent" stroke-width="10"/>
+                <circle cx="340" cy="110" r="5" fill="#FFF0DF" pointer-events="none"/>
+              </g>
+              <circle cx="340" cy="220" r="14" fill="#244E44"/><circle cx="340" cy="220" r="5" fill="#E5EEE3"/>
+              <path d="M 356 231 L 391 259 L 441 259" fill="none" stroke="#98ADA1" stroke-width="1.5"/>
+              <text x="445" y="264" fill="#698176" font-size="13">中心不动</text>
+            </svg>
+            <div class="rot-current">现在指向 <strong>A</strong></div>
+          </div>
+          <div class="controls rot-controls">
+            <button class="btn primary rot-play" disabled>开始转动</button>
+            <button class="btn secondary rot-step" disabled>转到下一站</button>
+            <button class="btn ghost rot-reset">从起点重来</button>
+          </div>
+          <div class="rot-options">
+            <label><input type="checkbox" class="rot-slow">慢速播放</label>
+            <label><input type="checkbox" class="rot-show-trace" checked>显示轨迹</label>
+            <label><input type="checkbox" class="rot-show-reference">钟面参照</label>
+          </div>
+          <div class="rot-reference" hidden>钟表的顺时针方向：12 → 3 → 6 → 9 → 12。</div>
+          <p class="rot-note">先选择方向并预测，再播放或沿所选方向拖动指针末端。也可以用“转到下一站”逐步观察。</p>
+        </div>
+        <aside class="panel">
+          <div class="eyebrow">先预测 · 再验证</div>
+          <h3 class="panel-title rot-question">让指针从 A 转到 C</h3>
+          <p class="hint">请选择一种旋转方向。</p>
+          <div class="rot-direction" role="group" aria-label="旋转方向">
+            <button data-dir="1" class="active" aria-pressed="true"><span aria-hidden="true">↻</span>顺时针</button>
+            <button data-dir="-1" aria-pressed="false"><span aria-hidden="true">↺</span>逆时针</button>
+          </div>
+          <h4 class="rot-card-heading rot-prediction-label">离开 A 后，先到哪一站？</h4>
+          <div class="rot-choices" role="group" aria-label="预测先到的位置"></div>
+          <div class="feedback rot-feedback" role="status" aria-live="polite">选一选，再让指针动起来。</div>
+          <div class="rot-rule">
+            <h4 class="rot-card-heading">留下两条路线</h4>
+            <div class="rot-routes">
+              <div class="rot-route"><span class="rot-route-label">↻ 顺时针</span><strong class="rot-route-cw"><em>完成一次转动后记录</em></strong></div>
+              <div class="rot-route"><span class="rot-route-label">↺ 逆时针</span><strong class="rot-route-ccw"><em>换个方向，再试一次</em></strong></div>
+            </div>
+            <p class="rot-comparison">终点相同，转动的方向和经过的位置也相同吗？</p>
+          </div>
+        </aside>
+      </div>`;
+    const $ = selector => root.querySelector(selector);
+    const svg = $('.rot-svg'), feedback = $('.rot-feedback');
+    const currentTask = () => tasks[taskIndex];
+    const totalSteps = () => ((currentTask().target - currentTask().start) * direction + 4) % 4;
+    const route = (dir = direction) => {
+      const { start, target } = currentTask();
+      const count = ((target - start) * dir + 4) % 4;
+      return Array.from({ length: count + 1 }, (_, i) => letters[(start + dir * i + 8) % 4]);
+    };
+    const key = dir => `${taskIndex}:${dir}`;
+    const dirName = () => direction === 1 ? '顺时针' : '逆时针';
+    function stopAnimation() { if (animation) animation.cancel(); animation = null; playing = false; }
+    function releaseDrag() { if (!drag) return; const id = drag.id; drag = null; if (svg.hasPointerCapture(id)) svg.releasePointerCapture(id); }
+    function updateButtons() {
+      $('.rot-play').disabled = prediction === null;
+      $('.rot-step').disabled = prediction === null || playing || completed;
+      $('.rot-play').textContent = playing ? '暂停转动' : completed ? '再转一次' : animation ? '继续转动' : '开始转动';
+    }
+    function draw() {
+      const { start, target } = currentTask();
+      const angle = start * 90 + direction * progress * 90;
+      $('.rot-pointer').setAttribute('transform', `rotate(${angle} 340 220)`);
+      $('.rot-trace').setAttribute('d', traceVisible ? arc(start * 90, direction * progress * 90, 151) : '');
+      $('.rot-trace').setAttribute('stroke', direction === 1 ? '#147D77' : '#DC7754');
+      const targetPoint = point(target * 90, 180);
+      $('.rot-target').setAttribute('cx', targetPoint.x); $('.rot-target').setAttribute('cy', targetPoint.y);
+      const near = Math.abs(progress - Math.round(progress)) < .025;
+      const position = (start + direction * Math.round(progress) + 12) % 4;
+      $('.rot-current').innerHTML = near ? `现在指向 <strong>${letters[position]}</strong>` : `${dirName()}转动中 · 中心保持不动`;
+      for (const dir of [1, -1]) {
+        const selector = dir === 1 ? '.rot-record-cw' : '.rot-record-ccw';
+        const steps = ((target - start) * dir + 4) % 4;
+        $(selector).setAttribute('d', traceVisible && records.has(key(dir)) ? arc(start * 90, dir * steps * 90, dir === 1 ? 159 : 165) : '');
+      }
+      updateButtons();
+    }
+    function updateRoutes() {
+      for (const dir of [1, -1]) {
+        const el = $(dir === 1 ? '.rot-route-cw' : '.rot-route-ccw');
+        el.innerHTML = records.has(key(dir)) ? records.get(key(dir)).join(' → ') : '<em>完成一次转动后记录</em>';
+      }
+      $('.rot-comparison').textContent = records.has(key(1)) && records.has(key(-1))
+        ? '两种方向都能到达同一个终点，但经过的位置和转动方向不同。'
+        : '终点相同，转动的方向和经过的位置也相同吗？';
+    }
+    function finish() {
+      if (completed) return;
+      releaseDrag();
+      completed = true; playing = false; animation = null;
+      progress = totalSteps(); records.set(key(direction), route());
+      const correct = letters[(currentTask().start + direction + 4) % 4];
+      kit.feedback(feedback, `${prediction === correct ? '预测正确！' : `先到的是 ${correct}。`} ${dirName()}路线：${route().join(' → ')}。换个方向，看看有什么不同。`, prediction === correct ? 'success' : 'info');
+      updateRoutes(); draw();
+      if (records.has('0:1') && records.has('0:-1')) kit.markDone();
+    }
+    function moveTo(destination) {
+      if (prediction === null) return;
+      releaseDrag(); stopAnimation(); playing = true; tweenDestination = destination;
+      const duration = (destination - progress) * (kit.reducedMotion ? 160 : slow ? 1600 : 850);
+      animation = kit.tween(progress, destination, Math.max(80, duration), value => { progress = value; draw(); }, () => {
+        animation = null; playing = false; progress = destination;
+        if (progress >= totalSteps() - .001) finish();
+        else { draw(); const at = letters[(currentTask().start + direction * Math.round(progress) + 12) % 4]; kit.feedback(feedback, `现在到达 ${at}。继续转，看看怎样到达终点。`); }
+      });
+      updateButtons();
+    }
+    function reset(clearPrediction = true) {
+      releaseDrag(); stopAnimation(); progress = 0; completed = false;
+      if (clearPrediction) prediction = null;
+      $('.rot-question').textContent = `让指针从 ${letters[currentTask().start]} 转到 ${letters[currentTask().target]}`;
+      $('.rot-prediction-label').textContent = `离开 ${letters[currentTask().start]} 后，先到哪一站？`;
+      $('.rot-choices').innerHTML = letters.filter((_, index) => index !== currentTask().start).map(letter => `<button class="btn secondary${prediction === letter ? ' active' : ''}" data-predict="${letter}" aria-pressed="${prediction === letter}">${letter}</button>`).join('');
+      kit.feedback(feedback, clearPrediction ? '选一选，再让指针动起来。' : '预测已经保留。再转一次，仔细观察。');
+      updateRoutes(); draw();
+    }
+    kit.listen(root, 'click', event => {
+      const button = event.target.closest('button'); if (!button || !root.contains(button)) return;
+      if (button.hasAttribute('data-task')) {
+        taskIndex = Number(button.dataset.task); reset();
+        root.querySelectorAll('[data-task]').forEach(el => { const active = Number(el.dataset.task) === taskIndex; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+      } else if (button.hasAttribute('data-dir')) {
+        direction = Number(button.dataset.dir); reset();
+        root.querySelectorAll('[data-dir]').forEach(el => { const active = Number(el.dataset.dir) === direction; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+      } else if (button.hasAttribute('data-predict')) {
+        if (playing || progress > 0) reset(false);
+        prediction = button.dataset.predict;
+        root.querySelectorAll('[data-predict]').forEach(el => { const active = el.dataset.predict === prediction; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+        const chosen = root.querySelector('[data-predict="' + prediction + '"]');
+        if (chosen && chosen !== button) chosen.focus({ preventScroll: true });
+        kit.feedback(feedback, `你预测先到 ${prediction}。开始转动来验证吧。`); updateButtons();
+      }
+    });
+    kit.listen($('.rot-play'), 'click', () => {
+      if (playing) { animation.pause(); playing = false; updateButtons(); return; }
+      if (animation) { animation.resume(); playing = true; updateButtons(); return; }
+      if (completed) reset(false);
+      moveTo(totalSteps());
+    });
+    kit.listen($('.rot-step'), 'click', () => moveTo(Math.min(totalSteps(), Math.floor(progress + .01) + 1)));
+    kit.listen($('.rot-reset'), 'click', () => reset());
+    kit.listen($('.rot-slow'), 'change', event => { slow = event.target.checked; if (playing) moveTo(tweenDestination); else if (animation) { animation.cancel(); animation = null; updateButtons(); } });
+    kit.listen($('.rot-show-trace'), 'change', event => { traceVisible = event.target.checked; draw(); });
+    kit.listen($('.rot-show-reference'), 'change', event => { $('.rot-reference').hidden = !event.target.checked; });
+    const pointerAngle = event => { const p = kit.svgPoint(svg, event); return Math.atan2(p.x - 340, 220 - p.y) * 180 / Math.PI; };
+    kit.listen(svg, 'pointerdown', event => {
+      if (!event.target.closest('[data-rot-handle]')) return;
+      if (prediction === null) { kit.feedback(feedback, '先选择你预测会先到的位置，再拖动指针。'); return; }
+      if (completed) reset(false);
+      stopAnimation();
+      drag = { id: event.pointerId, angleOffset: pointerAngle(event) - (currentTask().start * 90 + direction * progress * 90), warned: false };
+      svg.setPointerCapture(event.pointerId); event.preventDefault(); updateButtons();
+    });
+    kit.listen(svg, 'pointermove', event => {
+      if (!drag || event.pointerId !== drag.id) return;
+      // Project the pointer onto the chosen directed arc. Rejected backward motions
+      // cannot accumulate progress, and the hand stays at the actual pointer angle.
+      const angle = pointerAngle(event) - drag.angleOffset;
+      const candidate = (((angle - currentTask().start * 90) * direction % 360) + 360) % 360 / 90;
+      if (candidate < progress - .025 || candidate > totalSteps() + .15) {
+        if (!drag.warned) { kit.feedback(feedback, `当前选择${dirName()}，请沿这个方向拖动；也可以切换方向后重试。`); drag.warned = true; }
+        return;
+      }
+      progress = Math.min(totalSteps(), Math.max(progress, candidate));
+      draw(); if (progress >= totalSteps() - .025) { progress = totalSteps(); finish(); }
+    });
+    const endDrag = event => { if (drag && event.pointerId === drag.id) releaseDrag(); };
+    kit.listen(svg, 'pointerup', endDrag); kit.listen(svg, 'pointercancel', endDrag); kit.listen(svg, 'lostpointercapture', endDrag);
+    reset();
+    return () => { releaseDrag(); stopAnimation(); };
+  }
+});
+
+(function () {
+  'use strict';
+
+  const DOG = 'M-49 65L-50 37C-66 29-68 11-60-3C-58-8-52-7-51-1C-53 12-43 17-36 17L-32-5C-41-13-44-24-42-37C-38-55-25-65-8-65C5-66 17-59 23-49L42-44C52-43 57-35 54-27C52-19 42-15 26-15L22 12C27 22 31 35 30 51L42 53C49 54 50 65 43 68L14 68C7 68 4 62 4 54L-3 35L-8 55C-1 55 3 60 1 66C0 71-9 72-18 71L-42 71C-49 71-53 68-49 65Z';
+  const DOG_OTHER = 'M-49 65L-50 37C-66 29-68 11-60-3C-58-8-52-7-51-1C-53 12-43 17-36 17L-32-5C-41-13-44-24-42-37C-38-50-30-52-27-53L-26-67L-11-60C1-64 15-57 23-49L42-44C52-43 57-35 54-27C52-19 42-15 26-15L22 12C27 22 31 35 30 51L42 53C49 54 50 65 43 68L14 68C7 68 4 62 4 54L-3 35L-8 55C-1 55 3 60 1 66C0 71-9 72-18 71L-42 71C-49 71-53 68-49 65Z';
+  const LEAF = 'M7 19C-8 8-23 6-39 8C-47 8-56 3-58-5C-64-6-65-15-61-21C-66-28-62-35-56-37C-58-44-51-51-45-50C-43-58-33-62-28-57C-23-65-13-66-7-60C-1-66 7-63 11-57C19-62 28-58 29-51C38-54 44-49 43-42C52-42 56-34 52-28C59-22 56-15 49-12C34-7 21 2 13 18L34 70Q34 74 30 75Q27 76 25 71L7 25Z';
+
+  const SETS = {
+    dog: {
+      name: '小狗', noun: '小狗',
+      variants: ['same', 'mirror', 'turn90', 'other', 'same', 'turn180'],
+      reasons: {
+        mirror: '小狗的脸和尾巴朝着相反的方向。只移动位置，不能把它翻过来。',
+        turn90: '这只小狗转了方向。只平移，不能把它转正。',
+        other: '仔细看耳朵：它的形状不同。移动位置，不能改变耳朵的轮廓。',
+        turn180: '这只小狗上下倒转了。只移动位置，它的朝向不会改变。'
+      }
+    },
+    leaf: {
+      name: '银杏叶', noun: '树叶',
+      variants: ['same', 'turn180', 'same', 'turn90', 'same', 'mirror'],
+      reasons: {
+        turn180: '叶柄朝向与目标不同。只移动位置，叶柄的朝向不会改变。',
+        turn90: '这片树叶转了方向。只平移，不能把它转回目标的朝向。',
+        mirror: '叶片与叶柄左右翻转了。只移动位置，不能把图案翻过来。'
+      }
+    }
+  };
+
+  const TARGET = { x: 190, y: 187 };
+  const START = { x: 520, y: 187 };
+  const NUMBERS = ['①', '②', '③', '④', '⑤', '⑥'];
+
+  function pose(variant) {
+    return variant === 'mirror' ? 'scale(-1 1)' : variant === 'turn90' ? 'rotate(90)' : variant === 'turn180' ? 'rotate(180)' : '';
+  }
+
+  function pathFor(kind, variant) {
+    return kind === 'leaf' ? LEAF : variant === 'other' ? DOG_OTHER : DOG;
+  }
+
+  function silhouette(kind, variant, fill) {
+    return '<g transform="' + pose(variant) + '"><path d="' + pathFor(kind, variant) + '" fill="' + fill + '"/></g>';
+  }
+
+  function drawing(kind, variant, options) {
+    const o = Object.assign({ fill: '#DCEBE6', stroke: '#147D77', width: 2.8, details: true }, options || {});
+    let details = '';
+    if (o.details) {
+      if (kind === 'leaf') {
+        details = '<path d="M10 20L-49-27M10 20L-31-44M10 20L-9-50M10 20L15-45M10 20L40-27" fill="none" stroke="' + o.stroke + '" stroke-width="1.7" opacity=".65"/>';
+      } else {
+        const ear = variant === 'other' ? 'M-25-53L-24-59L-15-55' : 'M-19-58C-35-51-35-30-21-25C-8-21-8-44-6-53';
+        details = '<path d="' + ear + 'M21-13Q2-1-29-7M-3 35L-2 16M15 58L15 67M25 58L25 67M-26 60L-26 69M-17 61L-17 70" fill="none" stroke="' + o.stroke + '" stroke-width="2.2"/><circle cx="19" cy="-39" r="3.3" fill="' + o.stroke + '"/><ellipse cx="49" cy="-33" rx="4.8" ry="4.2" fill="' + o.stroke + '"/>';
+      }
+    }
+    return '<g transform="' + pose(variant) + '" stroke-linecap="round" stroke-linejoin="round"><path d="' + pathFor(kind, variant) + '" fill="' + o.fill + '" stroke="' + o.stroke + '" stroke-width="' + o.width + '"/>' + details + '</g>';
+  }
+
+  function freshState() {
+    return { phase: 'predict', predictions: new Set(), selected: 0, verified: new Map(), x: START.x, y: START.y };
+  }
+
+  Courseware.register({
+    id: 'overlap',
+    number: 4,
+    title: '重合侦探',
+    subtitle: '移动图案，验证重合',
+    icon: '◈',
+    mount(root, kit) {
+      const id = kit.uid('overlap');
+      const maskTarget = id + '-target-diff';
+      const maskCandidate = id + '-candidate-diff';
+      const states = { dog: freshState(), leaf: freshState() };
+      let current = 'dog';
+      let drag = null;
+      let animation = null;
+      let disposed = false;
+      let completionReported = false;
+      const state = () => states[current];
+
+      root.innerHTML = `
+        <style>
+          .ov-module{--ov-teal:#147D77;--ov-coral:#F17B59;--ov-ink:#203D3A;color:var(--ov-ink)}
+          .ov-module button,.ov-module input{font:inherit}
+          .ov-module button:focus-visible,.ov-module input:focus-visible,.ov-module svg:focus-visible{outline:3px solid #CE7341;outline-offset:4px}
+          .ov-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+          .ov-tabs{display:flex;gap:8px;flex-wrap:wrap}
+          .ov-tabs .chip{min-height:44px;padding:10px 21px;cursor:pointer;border:1px solid #B9CEC5;background:#fff;border-radius:999px;color:var(--ov-ink)}
+          .ov-tabs .chip.active{background:var(--ov-teal);border-color:var(--ov-teal);color:white}
+          .ov-total{font-size:14px;font-weight:650;color:#496C65;display:flex;align-items:center;gap:9px}
+          .ov-total i{display:block;width:68px;height:6px;border-radius:20px;background:#DCE7DF;overflow:hidden}
+          .ov-total i span{display:block;height:100%;width:0;background:var(--ov-teal);border-radius:20px;transition:width .2s}
+          .ov-module .module-layout{align-items:start}
+          .ov-workbench{padding:22px;overflow:hidden}
+          .ov-board-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+          .ov-board-head h3{font-size:20px;margin:3px 0 0;line-height:1.4}
+          .ov-step-pill{background:#F1F4EC;color:#4F6D59;border-radius:12px;padding:8px 11px;white-space:nowrap;font-size:12px;font-weight:700}
+          .ov-stage{position:relative;border:1px solid #DCE5D9;border-radius:20px;background:#FBFCF7;overflow:hidden}
+          .ov-stage svg{width:100%;height:auto;display:block;max-height:405px;touch-action:none;user-select:none}
+          .ov-svg-label{font-family:inherit;fill:#456B63;font-size:17px;font-weight:700}
+          .ov-svg-caption{font-family:inherit;fill:#648178;font-size:13px}
+          .ov-movable{cursor:grab;touch-action:none}
+          .ov-movable.is-dragging{cursor:grabbing}
+          .ov-module[data-phase="predict"] .ov-movable{cursor:default}
+          .ov-diff-legend{padding:9px 15px;background:#FFF0E9;color:#8B432C;font-size:13px;line-height:1.6;display:flex;gap:9px;align-items:center}
+          .ov-diff-legend[hidden]{display:none}
+          .ov-diff-legend:before{content:'';width:10px;height:10px;flex:none;background:#E6653F;border-radius:3px}
+          .ov-gallery-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:21px 0 11px}
+          .ov-gallery-head h4{margin:0;font-size:15px}
+          .ov-gallery-head span{color:#638077;font-size:12px}
+          .ov-gallery{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:9px}
+          .ov-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-width:0;min-height:142px;padding:10px 4px 8px;border:1.5px solid #DDE5DB;border-radius:15px;background:#fff;color:var(--ov-ink);cursor:pointer;transition:border-color .15s,background .15s,box-shadow .15s}
+          .ov-card:hover{border-color:#79A79B;background:#F8FBF5}
+          .ov-card.is-selected{border-color:var(--ov-teal);box-shadow:0 0 0 2px #147D7714;background:#F2F8F2}
+          .ov-card.is-predicted:before{content:'✓';position:absolute;right:6px;top:6px;display:grid;place-items:center;width:20px;height:20px;color:white;background:var(--ov-teal);border-radius:50%;font-size:12px;font-weight:800}
+          .ov-card svg{display:block;width:100%;max-width:88px;height:87px;overflow:visible;pointer-events:none}
+          .ov-card-num{font-size:17px;font-weight:750;line-height:1}
+          .ov-card-status{min-height:16px;font-size:10px;line-height:1.4;margin-top:5px;white-space:nowrap;color:#778C83}
+          .ov-card-status.is-yes{color:#147D77;font-weight:700}
+          .ov-card-status.is-no{color:#A34B2D;font-weight:700}
+          .ov-rule{display:flex;gap:10px;margin:15px 0 0;color:#658074;font-size:13px;line-height:1.65}
+          .ov-rule strong{color:#3B6659;flex:none}
+          .ov-sidebar{padding:24px;display:flex;flex-direction:column;gap:19px}
+          .ov-sidebar h3{margin:4px 0 8px;font-size:21px;line-height:1.4}
+          .ov-sidebar .prompt{margin:0;font-size:15px;line-height:1.85}
+          .ov-sidebar .eyebrow{font-size:11px;letter-spacing:.08em;color:#618478;font-weight:750}
+          .ov-primary-actions{display:grid;gap:9px}
+          .ov-module .btn{min-height:44px;cursor:pointer}
+          .ov-module .btn:disabled{opacity:.42;cursor:not-allowed}
+          .ov-primary-actions .btn{width:100%;padding:11px 12px;line-height:1.5}
+          .ov-secondary-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+          .ov-secondary-actions .btn{font-size:13px;padding:9px 7px}
+          .ov-nudge{padding:14px;border:1px solid #DFE7DC;border-radius:16px;background:#FAFBF6}
+          .ov-nudge-head{font-size:12px;color:#5B776D;text-align:center;margin-bottom:8px}
+          .ov-arrows{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:44px 44px;justify-content:center;gap:5px}
+          .ov-arrow{min-width:44px;min-height:44px;border:1px solid #CCDBCF;border-radius:11px;background:white;color:#325E52;cursor:pointer;font-size:21px;font-weight:700}
+          .ov-arrow[data-dy="-1"]{grid-column:2}
+          .ov-arrow[data-dx="-1"]{grid-column:1;grid-row:2}
+          .ov-arrow[data-dy="1"]{grid-column:2;grid-row:2}
+          .ov-arrow[data-dx="1"]{grid-column:3;grid-row:2}
+          .ov-arrow:disabled{opacity:.4;cursor:not-allowed}
+          .ov-key-hint{font-size:11px;color:#789087;margin:10px 0 0;text-align:center;line-height:1.7}
+          .ov-options{display:grid;gap:3px}
+          .ov-check{display:flex;align-items:center;gap:9px;min-height:44px;cursor:pointer;font-size:13px;color:#486C5E}
+          .ov-check input{width:18px;height:18px;accent-color:var(--ov-teal)}
+          .ov-hint{border-left:3px solid #DFC889;background:#FCF6E6;padding:11px 13px;border-radius:0 10px 10px 0;font-size:13px;line-height:1.8;color:#76633C}
+          .ov-hint[hidden]{display:none}
+          .ov-feedback{min-height:68px;font-size:14px;line-height:1.8}
+          .ov-summary{padding:15px;border-radius:15px;background:#E9F3E9;border:1px solid #C9DFC7;line-height:1.75;font-size:13px}
+          .ov-summary[hidden]{display:none}
+          .ov-summary strong{display:block;font-size:15px;margin-bottom:5px;color:#245B47}
+          .ov-summary p{margin:0}
+          .ov-reset{border-top:1px solid #E4E9DF;padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+          .ov-reset span{font-size:12px;color:#6D8479}
+          .ov-reset .btn{padding:8px 10px;font-size:13px}
+          .ov-module [hidden]{display:none!important}
+          @media(max-width:1100px){.ov-gallery{grid-template-columns:repeat(3,minmax(0,1fr))}.ov-card{min-height:124px}.ov-card svg{height:73px}.ov-workbench{padding:16px}}
+          @media(max-width:820px){.ov-module .module-layout{grid-template-columns:1fr}.ov-gallery{grid-template-columns:repeat(6,minmax(0,1fr))}.ov-sidebar{gap:16px}.ov-nudge{max-width:300px;width:100%;justify-self:center;box-sizing:border-box}.ov-sidebar h3{font-size:20px}}
+          @media(max-width:580px){.ov-top{gap:12px}.ov-tabs .chip{padding:9px 16px}.ov-workbench{padding:13px}.ov-board-head h3{font-size:17px}.ov-step-pill{font-size:10px;padding:7px}.ov-gallery{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.ov-card{min-height:123px}.ov-card svg{height:73px}.ov-gallery-head{align-items:flex-start}.ov-gallery-head span{max-width:130px;text-align:right;line-height:1.5}.ov-sidebar{padding:20px}.ov-rule{display:block}.ov-rule strong{margin-right:6px}.ov-total{font-size:12px}}
+          @media(prefers-reduced-motion:reduce){.ov-card,.ov-total i span{transition:none}}
+        </style>
+        <section class="ov-module" data-phase="predict" aria-label="重合侦探互动实验">
+          <div class="ov-top">
+            <div class="ov-tabs" role="group" aria-label="选择图案组">
+              <button type="button" class="chip active" data-set="dog" aria-pressed="true">小狗图案</button>
+              <button type="button" class="chip" data-set="leaf" aria-pressed="false">银杏叶图案</button>
+            </div>
+            <div class="ov-total"><span data-total>已验证 0 / 12</span><i aria-hidden="true"><span data-progress></span></i></div>
+          </div>
+          <div class="module-layout">
+            <div class="panel ov-workbench">
+              <div class="ov-board-head">
+                <div><div class="eyebrow">只移动位置 · 不转动 · 不翻面</div><h3 data-board-title>哪些小狗能和目标完全重合？</h3></div>
+                <div class="ov-step-pill" data-phase-label>第 1 步 · 先预测</div>
+              </div>
+              <div class="stage ov-stage">
+                <svg data-board viewBox="0 0 720 350" tabindex="0" role="group" aria-label="图案比对操作区。开始验证后，可拖动右侧副本，或使用方向键移动，按回车检查。">
+                  <defs>
+                    <pattern id="${id}-dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#E0E8DC"/></pattern>
+                    <mask id="${maskTarget}" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="350"><g data-mask-target-white></g><g data-mask-candidate-black></g></mask>
+                    <mask id="${maskCandidate}" maskUnits="userSpaceOnUse" x="0" y="0" width="720" height="350"><g data-mask-candidate-white></g><g data-mask-target-black></g></mask>
+                  </defs>
+                  <rect width="720" height="350" fill="url(#${id}-dots)"/>
+                  <rect x="58" y="84" width="264" height="218" rx="24" fill="#E8F1E6" fill-opacity=".85" stroke="#CCDCC8" stroke-dasharray="5 6"/>
+                  <rect x="388" y="84" width="264" height="218" rx="24" fill="#FFFFFF" fill-opacity=".6" stroke="#E4E9E0"/>
+                  <text x="190" y="48" text-anchor="middle" class="ov-svg-label">目标图案</text>
+                  <text x="520" y="48" text-anchor="middle" class="ov-svg-label" data-moving-label>观察副本 ①</text>
+                  <text x="190" y="70" text-anchor="middle" class="ov-svg-caption">它的位置保持不变</text>
+                  <text x="520" y="70" text-anchor="middle" class="ov-svg-caption" data-moving-caption>先在下面选出你的预测</text>
+                  <g data-target transform="translate(190 187)"></g>
+                  <g data-target-outline transform="translate(190 187)" pointer-events="none" opacity=".7"></g>
+                  <g data-movable class="ov-movable" transform="translate(520 187)" opacity=".72"></g>
+                  <g data-differences pointer-events="none" style="display:none">
+                    <rect width="720" height="350" fill="#E6653F" fill-opacity=".7" mask="url(#${maskTarget})"/>
+                    <rect width="720" height="350" fill="#E6653F" fill-opacity=".7" mask="url(#${maskCandidate})"/>
+                  </g>
+                  <text x="360" y="330" text-anchor="middle" class="ov-svg-caption" data-stage-note>形状、大小、朝向都要仔细观察</text>
+                </svg>
+                <div class="ov-diff-legend" data-diff-legend hidden>橙红色是没有盖住的部分。再看看：形状或朝向有什么不同？</div>
+              </div>
+              <div class="ov-gallery-head"><h4 data-gallery-title>点选你认为可以重合的图案</h4><span data-gallery-subtitle>可以多选，稍后用平移验证</span></div>
+              <div class="ov-gallery" data-gallery role="group" aria-label="六个候选图案"></div>
+              <p class="ov-rule"><strong>侦探规则</strong><span>只能平移。每个选项的原图一直保留，拖动的是它的透明副本。</span></p>
+            </div>
+            <aside class="panel ov-sidebar" aria-label="操作与观察">
+              <div><div class="eyebrow" data-instruction-step>STEP 01 / 先猜一猜</div><h3 data-instruction-title>谁是目标的“同伴”？</h3><p class="prompt" data-instruction>看清目标图案，在下方选出你认为只靠平移就能与它完全重合的图案。</p></div>
+              <div class="ov-primary-actions">
+                <button type="button" class="btn primary" data-begin>完成预测，开始验证</button>
+                <button type="button" class="btn primary" data-compare hidden>移到目标（只平移）</button>
+                <div class="ov-secondary-actions" data-verify-actions hidden><button type="button" class="btn secondary" data-check>检查是否重合</button><button type="button" class="btn secondary" data-return>副本归位</button></div>
+              </div>
+              <div class="ov-nudge" data-nudge hidden>
+                <div class="ov-nudge-head">也可以点箭头移动副本</div>
+                <div class="ov-arrows" role="group" aria-label="平移方向">
+                  <button type="button" class="ov-arrow" data-dy="-1" aria-label="向上平移">↑</button>
+                  <button type="button" class="ov-arrow" data-dx="-1" aria-label="向左平移">←</button>
+                  <button type="button" class="ov-arrow" data-dy="1" aria-label="向下平移">↓</button>
+                  <button type="button" class="ov-arrow" data-dx="1" aria-label="向右平移">→</button>
+                </div>
+                <p class="ov-key-hint">点选操作区后：方向键移动，回车检查。<br>按住 Shift + 方向键可微调。</p>
+              </div>
+              <div class="feedback ov-feedback" data-feedback role="status" aria-live="polite">先留下自己的预测。即使猜错，验证也能帮我们发现原因。</div>
+              <div class="ov-summary" data-summary hidden></div>
+              <div class="ov-options">
+                <label class="ov-check"><input type="checkbox" data-outline checked>显示目标的比对轮廓</label>
+                <label class="ov-check"><input type="checkbox" data-show-hint>显示观察提示</label>
+                <div class="ov-hint" data-hint hidden>先比较脸、尾巴或叶柄的朝向，再看轮廓。移动位置不会让图案转向，也不会把它翻面。</div>
+              </div>
+              <div class="ov-reset"><span data-group-progress>本组已验证 0 / 6</span><button type="button" class="btn ghost" data-reset>本组重来</button></div>
+            </aside>
+          </div>
+        </section>`;
+
+      const q = selector => root.querySelector(selector);
+      const qa = selector => Array.from(root.querySelectorAll(selector));
+      const module = q('.ov-module');
+      const svg = q('[data-board]');
+      const movable = q('[data-movable]');
+      const feedback = q('[data-feedback]');
+      const targetOutline = q('[data-target-outline]');
+
+      function say(message, type) {
+        kit.feedback(feedback, message, type || 'info');
+      }
+
+      function stopAnimation() {
+        if (animation) {
+          animation.cancel();
+          animation = null;
+        }
+      }
+
+      function stopDrag() {
+        if (drag) {
+          try { if (movable.hasPointerCapture(drag.id)) movable.releasePointerCapture(drag.id); } catch (_) { /* The pointer may already have ended. */ }
+          drag = null;
+        }
+        movable.classList.remove('is-dragging');
+      }
+
+      function setDifferenceVisibility(show) {
+        q('[data-differences]').style.display = show ? '' : 'none';
+        q('[data-diff-legend]').hidden = !show;
+      }
+
+      function position(x, y) {
+        const s = state();
+        s.x = Math.max(75, Math.min(645, x));
+        s.y = Math.max(89, Math.min(264, y));
+        const value = 'translate(' + s.x + ' ' + s.y + ')';
+        movable.setAttribute('transform', value);
+        q('[data-mask-candidate-black]').setAttribute('transform', value);
+        q('[data-mask-candidate-white]').setAttribute('transform', value);
+      }
+
+      function animateTo(x, y, done) {
+        stopAnimation();
+        stopDrag();
+        setDifferenceVisibility(false);
+        const s = state();
+        const fromX = s.x;
+        const fromY = s.y;
+        const activeSet = current;
+        const selected = s.selected;
+        if (kit.reducedMotion || (Math.abs(x - fromX) < .1 && Math.abs(y - fromY) < .1)) {
+          position(x, y);
+          if (done) done();
+          return;
+        }
+        animation = kit.tween(0, 1, 430, t => {
+          if (!disposed && current === activeSet && state().selected === selected) position(fromX + (x - fromX) * t, fromY + (y - fromY) * t);
+        }, () => {
+          animation = null;
+          if (disposed || current !== activeSet || state().selected !== selected) return;
+          position(x, y);
+          if (done) done();
+        });
+      }
+
+      function renderGallery() {
+        const s = state();
+        const focusedCard = document.activeElement && document.activeElement.closest ? document.activeElement.closest('[data-candidate]') : null;
+        const restoreIndex = focusedCard && q('[data-gallery]').contains(focusedCard) ? focusedCard.dataset.candidate : null;
+        q('[data-gallery]').innerHTML = SETS[current].variants.map((variant, index) => {
+          const predicted = s.predictions.has(index);
+          const checked = s.verified.has(index);
+          const correct = checked && s.verified.get(index);
+          const active = s.phase === 'predict' ? predicted : s.selected === index;
+          const status = checked ? correct ? '✓ 可重合' : '× 不能重合' : s.phase === 'predict' ? predicted ? '已选预测' : '点选预测' : '待验证';
+          const label = '图案' + NUMBERS[index] + '，' + (checked ? correct ? '已验证，可以通过平移重合' : '已验证，不能只靠平移重合' : s.phase === 'predict' ? predicted ? '已选择预测，点击取消' : '未选择预测，点击选择' : '点击选择副本进行验证');
+          return '<button type="button" class="ov-card' + (active ? ' is-selected' : '') + (predicted ? ' is-predicted' : '') + '" data-candidate="' + index + '" aria-pressed="' + active + '" aria-label="' + label + '"><svg viewBox="-88 -88 176 176" aria-hidden="true">' + drawing(current, variant, { fill: '#E5ECE1', stroke: '#3F6659', width: 2.8 }) + '</svg><span class="ov-card-num">' + NUMBERS[index] + '</span><span class="ov-card-status' + (checked ? correct ? ' is-yes' : ' is-no' : '') + '">' + status + '</span></button>';
+        }).join('');
+        if (restoreIndex !== null) q('[data-gallery]').querySelector('[data-candidate="' + restoreIndex + '"]').focus({ preventScroll: true });
+      }
+
+      function renderFigures() {
+        const s = state();
+        const variant = SETS[current].variants[s.selected];
+        q('[data-target]').innerHTML = drawing(current, 'same', { fill: '#C9DED2', stroke: '#729B88', width: 1.5 });
+        targetOutline.innerHTML = drawing(current, 'same', { fill: 'none', stroke: '#147D77', width: 3.5, details: false });
+        targetOutline.style.display = q('[data-outline]').checked ? '' : 'none';
+        movable.innerHTML = drawing(current, variant, { fill: '#F8C4AD', stroke: '#B45636', width: 2.8 });
+        q('[data-mask-target-white]').innerHTML = silhouette(current, 'same', 'white');
+        q('[data-mask-target-black]').innerHTML = silhouette(current, 'same', 'black');
+        q('[data-mask-target-white]').setAttribute('transform', 'translate(' + TARGET.x + ' ' + TARGET.y + ')');
+        q('[data-mask-target-black]').setAttribute('transform', 'translate(' + TARGET.x + ' ' + TARGET.y + ')');
+        q('[data-mask-candidate-black]').innerHTML = silhouette(current, variant, 'black');
+        q('[data-mask-candidate-white]').innerHTML = silhouette(current, variant, 'white');
+        position(s.x, s.y);
+        q('[data-moving-label]').textContent = (s.phase === 'predict' ? '观察副本 ' : '操作副本 ') + NUMBERS[s.selected];
+      }
+
+      function renderProgress() {
+        const s = state();
+        const total = states.dog.verified.size + states.leaf.verified.size;
+        q('[data-total]').textContent = '已验证 ' + total + ' / 12';
+        q('[data-progress]').style.width = (total / 12 * 100) + '%';
+        q('[data-group-progress]').textContent = '本组已验证 ' + s.verified.size + ' / 6';
+        const summary = q('[data-summary]');
+        summary.hidden = s.verified.size !== 6;
+        if (s.verified.size === 6) {
+          const variants = SETS[current].variants;
+          const matches = variants.map((v, i) => v === 'same' ? NUMBERS[i] : '').filter(Boolean).join('、');
+          const accurate = variants.reduce((count, v, i) => count + (s.predictions.has(i) === (v === 'same') ? 1 : 0), 0);
+          summary.innerHTML = '<strong>本组验证完成！</strong><p>' + matches + ' 可以只靠平移与目标重合。</p><p>你对 6 个图案的预测中，有 ' + accurate + ' 个与验证结果一致。</p><p>' + (total === 12 ? '两组都完成了！请说一说：平移时，图案的哪些特点保持不变？' : '再切换另一组，把新发现用起来。') + '</p>';
+        }
+        if (total === 12 && !completionReported) {
+          completionReported = true;
+          kit.markDone();
+        }
+      }
+
+      function renderPhase() {
+        const s = state();
+        const predicting = s.phase === 'predict';
+        module.dataset.phase = s.phase;
+        q('[data-board-title]').textContent = '哪些' + SETS[current].noun + '能和目标完全重合？';
+        q('[data-phase-label]').textContent = predicting ? '第 1 步 · 先预测' : '第 2 步 · 再验证';
+        q('[data-instruction-step]').textContent = predicting ? 'STEP 01 / 先猜一猜' : 'STEP 02 / 只用平移';
+        q('[data-instruction-title]').textContent = predicting ? '谁是目标的“同伴”？' : '移动它，看看能否盖住';
+        q('[data-instruction]').textContent = predicting ? '看清目标图案，在下方选出你认为只靠平移就能与它完全重合的图案。' : '点选一个图案，把右侧透明副本拖到左侧目标上。也可以点击“移到目标”，观察轮廓能否完全重合。';
+        q('[data-gallery-title]').textContent = predicting ? '点选你认为可以重合的图案' : '点选图案，逐一验证你的预测';
+        q('[data-gallery-subtitle]').textContent = predicting ? '可以多选，稍后用平移验证' : '绿色小勾保留你的原先预测';
+        q('[data-moving-caption]').textContent = predicting ? '先在下面选出你的预测' : '拖动它，或使用右侧按钮';
+        q('[data-stage-note]').textContent = predicting ? '形状、大小、朝向都要仔细观察' : '位置可以改变，形状、大小和朝向保持不变';
+        q('[data-begin]').hidden = !predicting;
+        q('[data-compare]').hidden = predicting;
+        q('[data-verify-actions]').hidden = predicting;
+        q('[data-nudge]').hidden = predicting;
+        qa('[data-set]').forEach(button => {
+          const selected = button.dataset.set === current;
+          button.classList.toggle('active', selected);
+          button.setAttribute('aria-pressed', String(selected));
+        });
+        renderGallery();
+        renderFigures();
+        renderProgress();
+      }
+
+      function notePrediction(s, index, canOverlap) {
+        const guessedYes = s.predictions.has(index);
+        return guessedYes === canOverlap ? '你的这次预测与验证结果一致。' : guessedYes ? '你原先选了它，验证帮助我们修正了预测。' : '你原先没有选它，现在发现它也可以。';
+      }
+
+      function recordResult(canOverlap) {
+        const s = state();
+        const index = s.selected;
+        s.verified.set(index, canOverlap);
+        setDifferenceVisibility(!canOverlap);
+        if (canOverlap) {
+          say(NUMBERS[index] + ' 可以重合！它的形状、大小和朝向与目标相同，只改变位置就能盖住目标。' + notePrediction(s, index, true), 'success');
+        } else {
+          const reason = SETS[current].reasons[SETS[current].variants[index]];
+          say(NUMBERS[index] + ' 不能只靠平移重合。' + reason + notePrediction(s, index, false), 'info');
+        }
+        renderGallery();
+        renderProgress();
+      }
+
+      function checkPosition(exactPlacement) {
+        if (state().phase !== 'verify') return;
+        stopAnimation();
+        const s = state();
+        const distance = Math.hypot(s.x - TARGET.x, s.y - TARGET.y);
+        if (distance > 25) {
+          setDifferenceVisibility(false);
+          say('还没有移到目标附近。继续移到目标所在的位置，或点击“移到目标（只平移）”，再比较轮廓。');
+          return;
+        }
+        const canOverlap = SETS[current].variants[s.selected] === 'same';
+        if (canOverlap && !exactPlacement && distance > .1) {
+          animateTo(TARGET.x, TARGET.y, () => recordResult(true));
+        } else {
+          recordResult(canOverlap);
+        }
+      }
+
+      function selectCandidate(index) {
+        stopAnimation();
+        stopDrag();
+        setDifferenceVisibility(false);
+        const s = state();
+        s.selected = index;
+        s.x = START.x;
+        s.y = START.y;
+        if (s.phase === 'predict') {
+          if (s.predictions.has(index)) s.predictions.delete(index);
+          else s.predictions.add(index);
+          const selected = Array.from(s.predictions).sort().map(i => NUMBERS[i]).join('、');
+          say(selected ? '你的预测：' + selected + ' 可以重合。想好后，开始用平移验证。' : '目前没有选中图案。可以继续观察，也可以带着“都不能重合”的预测开始验证。');
+        } else {
+          say('现在验证 ' + NUMBERS[index] + '。先看看它的朝向，再把透明副本移到目标上。');
+        }
+        renderGallery();
+        renderFigures();
+      }
+
+      function nudge(dx, dy, fine) {
+        if (state().phase !== 'verify') return;
+        stopAnimation();
+        stopDrag();
+        setDifferenceVisibility(false);
+        const step = fine ? 2 : 12;
+        position(state().x + dx * step, state().y + dy * step);
+      }
+
+      kit.listen(q('[data-gallery]'), 'click', event => {
+        const button = event.target.closest('button[data-candidate]');
+        if (button) selectCandidate(Number(button.dataset.candidate));
+      });
+
+      qa('[data-set]').forEach(button => kit.listen(button, 'click', () => {
+        if (current === button.dataset.set) return;
+        stopAnimation();
+        stopDrag();
+        current = button.dataset.set;
+        state().x = START.x;
+        state().y = START.y;
+        setDifferenceVisibility(false);
+        renderPhase();
+        say(state().phase === 'predict' ? '换一组图案，再用同样的方法观察：哪些只靠平移就能重合？' : '已保留这组的预测与验证记录。选择图案，继续验证。');
+      }));
+
+      kit.listen(q('[data-begin]'), 'click', () => {
+        state().phase = 'verify';
+        setDifferenceVisibility(false);
+        renderPhase();
+        say('预测已保留。选择一个图案，把它平移到目标上；观察时只移动位置，不转动，也不翻面。');
+      });
+
+      kit.listen(q('[data-compare]'), 'click', () => {
+        if (state().phase !== 'verify') return;
+        animateTo(TARGET.x, TARGET.y, () => checkPosition(true));
+      });
+      kit.listen(q('[data-check]'), 'click', () => checkPosition(false));
+      kit.listen(q('[data-return]'), 'click', () => {
+        animateTo(START.x, START.y);
+        say('副本回到右侧了。你可以再次移动，或选择另一个图案。');
+      });
+      qa('.ov-arrow').forEach(button => kit.listen(button, 'click', () => nudge(Number(button.dataset.dx || 0), Number(button.dataset.dy || 0), false)));
+      kit.listen(q('[data-outline]'), 'change', event => { targetOutline.style.display = event.target.checked ? '' : 'none'; });
+      kit.listen(q('[data-show-hint]'), 'change', event => { q('[data-hint]').hidden = !event.target.checked; });
+      kit.listen(q('[data-reset]'), 'click', () => {
+        stopAnimation();
+        stopDrag();
+        states[current] = freshState();
+        setDifferenceVisibility(false);
+        renderPhase();
+        say('本组已重新开始。再仔细观察，先留下你的预测。');
+      });
+
+      kit.listen(movable, 'pointerdown', event => {
+        if (state().phase !== 'verify' || (event.pointerType === 'mouse' && event.button !== 0)) return;
+        if (drag && drag.id !== event.pointerId) return;
+        event.preventDefault();
+        stopAnimation();
+        stopDrag();
+        setDifferenceVisibility(false);
+        const p = kit.svgPoint(svg, event);
+        drag = { id: event.pointerId, dx: p.x - state().x, dy: p.y - state().y };
+        movable.classList.add('is-dragging');
+        try { movable.setPointerCapture(event.pointerId); } catch (_) { /* Window pointerup still ends the interaction. */ }
+        svg.focus({ preventScroll: true });
+      });
+      kit.listen(window, 'pointermove', event => {
+        if (!drag || drag.id !== event.pointerId) return;
+        event.preventDefault();
+        const p = kit.svgPoint(svg, event);
+        position(p.x - drag.dx, p.y - drag.dy);
+      }, { passive: false });
+      kit.listen(window, 'pointerup', event => {
+        if (!drag || drag.id !== event.pointerId) return;
+        stopDrag();
+        checkPosition(false);
+      });
+      kit.listen(window, 'pointercancel', event => {
+        if (drag && drag.id === event.pointerId) stopDrag();
+      });
+      kit.listen(svg, 'keydown', event => {
+        if (state().phase !== 'verify') return;
+        const directions = { ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0] };
+        if (directions[event.key]) {
+          event.preventDefault();
+          nudge(directions[event.key][0], directions[event.key][1], event.shiftKey);
+        } else if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          checkPosition(false);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          animateTo(START.x, START.y);
+        } else if (event.key === 'Escape') {
+          event.preventDefault();
+          stopDrag();
+          stopAnimation();
+        }
+      });
+
+      renderPhase();
+      const cleanup = () => {
+        if (disposed) return;
+        disposed = true;
+        stopAnimation();
+        stopDrag();
+      };
+      kit.onCleanup(cleanup);
+      return cleanup;
+    }
+  });
+})();
+
+Courseware.register({
+  id: 'clock',
+  number: 5,
+  title: '分针计时',
+  subtitle: '数一数经过的时间',
+  icon: 'clock',
+  mount(root, kit) {
+    const prefix = kit.uid('ck');
+    let target = 3, minutes = 0, prediction = null, animation = null, playing = false;
+    let slow = false, showMinutes = false, showTrace = true, completed = false, tweenDestination = 0;
+    const seen = new Set();
+    const center = { x: 330, y: 225 };
+    const point = (angle, radius) => ({ x: center.x + Math.sin(angle * Math.PI / 180) * radius, y: center.y - Math.cos(angle * Math.PI / 180) * radius });
+    const arc = (angle, radius) => {
+      if (angle < .02) return '';
+      const a = point(0, radius), b = point(angle, radius);
+      return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${angle > 180 ? 1 : 0} 1 ${b.x} ${b.y}`;
+    };
+    const ticks = Array.from({ length: 60 }, (_, index) => {
+      const a = point(index * 6, index % 5 === 0 ? 136 : 144), b = point(index * 6, 151);
+      return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${index % 5 === 0 ? '#6B9588' : '#D8E4DB'}" stroke-width="${index % 5 === 0 ? 3 : 1.5}" stroke-linecap="round"/>`;
+    }).join('');
+    root.innerHTML = `
+      <style>
+        .ck-main{min-width:0}.ck-presets{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:18px}.ck-presets-label{font-size:13px;color:#71887D;margin-right:2px}.ck-presets .chip{min-width:52px}.ck-random{margin-left:auto}
+        .ck-stage{position:relative;overflow:hidden;border:1px solid #DFE9E3;background:radial-gradient(circle at 50% 45%,#fff 0,#F6F8F0 75%);border-radius:22px}.ck-svg{display:block;width:100%;max-height:480px}.ck-svg text{font-family:inherit}.ck-stage-label{position:absolute;top:17px;left:18px;font-size:12px;color:#6C8376;font-weight:600}.ck-stage-label i{display:inline-block;width:7px;height:7px;background:#147D77;border-radius:50%;margin-right:7px}.ck-direction-label{text-align:center;color:#6F8779;font-size:13px;padding:0 16px 16px;line-height:1.6}
+        .ck-target-number{font-weight:800}.ck-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:16px 0}.ck-metric{background:#F3F6EF;border:1px solid #E7ECE1;border-radius:13px;padding:13px 10px;text-align:center}.ck-metric span{display:block;font-size:11px;color:#7A8D7E;margin-bottom:5px}.ck-metric strong{display:block;font-size:21px;font-weight:750;color:#285546}.ck-metric strong.ck-muted{font-size:14px;line-height:25px;color:#93A095;font-weight:500}.ck-metric:last-child{background:#FFF4E7;border-color:#F4E5D1}.ck-metric:last-child strong{color:#B66C36}
+        .ck-options{display:flex;gap:14px 20px;flex-wrap:wrap;margin-top:18px;color:#567264;font-size:13px}.ck-options label{display:flex;align-items:center;gap:8px;cursor:pointer}.ck-options input{width:16px;height:16px;accent-color:#147D77}.ck-rule-box{border-radius:14px;background:#F2F6EE;padding:15px 16px;margin:18px 0;display:flex;gap:12px;align-items:center;color:#4C6D5E}.ck-rule-icon{display:grid;place-items:center;flex:0 0 43px;height:43px;border-radius:50%;background:#E0ECD8;font-size:23px;color:#588346}.ck-rule-box strong{display:block;font-size:14px;margin-bottom:3px}.ck-rule-box small{font-size:12px;line-height:1.6}.ck-answer-label{display:block;font-weight:700;font-size:14px;color:#355B4A;margin:20px 0 10px}.ck-answer-row{display:flex;gap:10px;align-items:center;margin-bottom:12px}.ck-answer-row input{box-sizing:border-box;width:100%;min-width:0;border:1.5px solid #CDDCCF;border-radius:12px;font-family:inherit;font-size:23px;font-weight:600;line-height:1.4;padding:12px 13px;color:#244D3D;background:#fff;min-height:52px}.ck-answer-row input:focus{outline:3px solid #DFEEDB;border-color:#147D77}.ck-answer-row span{font-size:14px;white-space:nowrap;color:#6A8070}.ck-submit{width:100%}.ck-feedback{margin-top:16px;min-height:86px}.ck-question{line-height:1.6}.ck-question strong{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;background:#F7E1B6;color:#9C631F;border-radius:9px;padding:0 5px}.ck-note{font-size:12px;color:#788A7C;line-height:1.7;margin:16px 0 0}.ck-record{border-top:1px solid #E7EDE3;margin-top:24px;padding-top:19px}.ck-record h4{font-size:14px;margin:0 0 11px;color:#3B5F4E}.ck-record-items{display:flex;flex-wrap:wrap;gap:6px}.ck-record-items span{background:#E9F2E3;color:#527447;padding:5px 8px;border-radius:7px;font-size:11px}.ck-record-empty{color:#91A08F;font-size:12px}.ck-large-step{font-size:11px;fill:#95A78F}
+        @media(max-width:640px){.ck-presets{gap:7px}.ck-presets .chip{min-width:42px;padding-left:9px;padding-right:9px}.ck-random{margin-left:0}.ck-metrics{gap:7px}.ck-metric{padding:11px 5px}.ck-metric strong{font-size:18px}.ck-stage-label{font-size:10px;top:12px}.ck-direction-label{font-size:11px;bottom:9px}.ck-options{font-size:12px}.ck-svg{min-height:290px}}
+      </style>
+      <div class="module-layout">
+        <div class="panel ck-main">
+          <div class="ck-presets" role="group" aria-label="选择分针目标位置">
+            <span class="ck-presets-label">转到</span>
+            ${[1, 3, 4, 10].map(n => `<button class="chip${n === 3 ? ' active' : ''}" data-target="${n}" aria-pressed="${n === 3}">${n}</button>`).join('')}
+            <button class="btn ghost ck-random">换一题</button>
+          </div>
+          <div class="ck-stage">
+            <div class="ck-stage-label"><i></i>分针示意图 · 只观察分针</div>
+            <svg class="ck-svg" viewBox="0 0 660 450" role="img" aria-label="分针从12顺时针旋转到指定数字的示意钟面">
+              <defs><filter id="${prefix}-shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#325E43" flood-opacity=".1"/></filter><marker id="${prefix}-arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="#94B58A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+              <circle cx="330" cy="225" r="165" fill="#FFF" stroke="#D9E5D7" stroke-width="2" filter="url(#${prefix}-shadow)"/>
+              <path class="ck-sector" fill="#EDF5E4" opacity=".9"/>
+              <circle cx="330" cy="225" r="157" fill="none" stroke="#F0F4EA" stroke-width="9"/>
+              <path class="ck-trace" fill="none" stroke="#7BA96A" stroke-width="9" stroke-linecap="round"/>
+              ${ticks}
+              <circle class="ck-target" cx="446" cy="225" r="22" fill="#F8E3B8"/>
+              ${Array.from({ length: 12 }, (_, i) => { const p = point(i * 30, 116); return `<text data-number="${i || 12}" x="${p.x}" y="${p.y + 8}" text-anchor="middle" fill="#46624A" font-size="24" font-weight="650">${i || 12}</text>`; }).join('')}
+              <g class="ck-five-labels">${Array.from({ length: 11 }, (_, i) => { const n = i + 1, p = point(n * 30, 188); return `<text x="${p.x}" y="${p.y + 4}" text-anchor="middle" class="ck-large-step">${n * 5}分</text>`; }).join('')}</g>
+              <path d="M 380 33 A 199 199 0 0 1 436 59" fill="none" stroke="#94B58A" stroke-width="2" stroke-linecap="round" marker-end="url(#${prefix}-arrow)"/>
+              <g class="ck-hand"><path d="M 324 242 L 325 122 Q 325 113 330 102 Q 335 113 335 122 L 336 242 Z" fill="#ED815B"/><circle cx="330" cy="119" r="4" fill="#FFEADB"/></g>
+              <circle cx="330" cy="225" r="12" fill="#365E45"/><circle cx="330" cy="225" r="4" fill="#DFEBCF"/>
+            </svg>
+            <div class="ck-direction-label">从 12 出发，顺时针走，在一圈以内第一次到达目标</div>
+          </div>
+          <div class="ck-metrics">
+            <div class="ck-metric"><span>起点</span><strong>12</strong></div>
+            <div class="ck-metric"><span>已走大格</span><strong class="ck-count ck-muted">暂时隐藏</strong></div>
+            <div class="ck-metric"><span>经过时间</span><strong class="ck-time ck-muted">暂时隐藏</strong></div>
+          </div>
+          <div class="controls">
+            <button class="btn primary ck-play" disabled>开始转动</button>
+            <button class="btn secondary ck-step" disabled>走一大格</button>
+            <button class="btn ghost ck-reset">从 12 重来</button>
+          </div>
+          <div class="ck-options">
+            <label><input type="checkbox" class="ck-slow">慢速播放</label>
+            <label><input type="checkbox" class="ck-show-minutes">显示计时提示</label>
+            <label><input type="checkbox" class="ck-show-trace" checked>显示轨迹</label>
+          </div>
+        </div>
+        <aside class="panel">
+          <div class="eyebrow">先估一估 · 再走一走</div>
+          <h3 class="panel-title">分针走了多久？</h3>
+          <p class="prompt ck-question">从 12 顺时针转到 <strong class="ck-target-label">3</strong>，经过多少分钟？</p>
+          <div class="ck-rule-box"><span class="ck-rule-icon" aria-hidden="true">↻</span><div><strong>每走一大格，经过 5 分钟</strong><small>这一题只走不到一圈，第一次到达就停下。</small></div></div>
+          <form class="ck-form">
+            <label class="ck-answer-label" for="${prefix}-answer">我的预测</label>
+            <div class="ck-answer-row"><input id="${prefix}-answer" type="number" inputmode="numeric" min="0" max="60" step="1" placeholder="填一个数" required aria-describedby="${prefix}-answer-hint"><span>分钟</span></div>
+            <span class="sr-only" id="${prefix}-answer-hint">请输入0到60之间的整数分钟。</span>
+            <button type="submit" class="btn primary ck-submit">提交预测</button>
+          </form>
+          <div class="feedback ck-feedback" role="status" aria-live="polite">先填入你的预测，再让分针走一走。</div>
+          <p class="ck-note">可以连续播放，也可以每次走一大格。隐藏计时提示时，试着自己数一数。</p>
+          <div class="ck-record"><h4>我的观察记录</h4><div class="ck-record-items"><em class="ck-record-empty">完成后，记录会出现在这里。</em></div></div>
+        </aside>
+      </div>`;
+    const $ = selector => root.querySelector(selector);
+    const input = $('.ck-answer-row input'), feedback = $('.ck-feedback');
+    const targetMinutes = () => target * 5;
+    function stopAnimation() { if (animation) animation.cancel(); animation = null; playing = false; }
+    function updateButtons() {
+      $('.ck-play').disabled = prediction === null;
+      $('.ck-step').disabled = prediction === null || playing || completed;
+      $('.ck-play').textContent = playing ? '暂停转动' : completed ? '再看一次' : animation ? '继续转动' : '开始转动';
+      $('.ck-submit').textContent = completed ? '检查答案' : prediction === null ? '提交预测' : '更新预测';
+    }
+    function draw() {
+      const angle = minutes * 6;
+      $('.ck-hand').setAttribute('transform', `rotate(${angle} 330 225)`);
+      $('.ck-trace').setAttribute('d', showTrace ? arc(angle, 157) : '');
+      const end = point(angle, 132);
+      $('.ck-sector').setAttribute('d', showTrace && angle > .01 ? `M 330 225 L 330 93 A 132 132 0 ${angle > 180 ? 1 : 0} 1 ${end.x} ${end.y} Z` : '');
+      const p = point(target * 30, 116); $('.ck-target').setAttribute('cx', p.x); $('.ck-target').setAttribute('cy', p.y);
+      $('.ck-five-labels').setAttribute('visibility', showMinutes ? 'visible' : 'hidden');
+      const reveal = showMinutes || completed;
+      $('.ck-count').classList.toggle('ck-muted', !reveal); $('.ck-time').classList.toggle('ck-muted', !reveal);
+      $('.ck-count').textContent = reveal ? `${Math.floor((minutes + .001) / 5)} 格` : '暂时隐藏';
+      $('.ck-time').textContent = reveal ? `${Math.floor(minutes + .001)} 分钟` : '暂时隐藏';
+      $('.ck-target-label').textContent = target;
+      root.querySelectorAll('[data-number]').forEach(el => { const active = Number(el.dataset.number) === target; el.setAttribute('fill', active ? '#9E6524' : '#46624A'); el.setAttribute('font-weight', active ? '800' : '650'); });
+      root.querySelectorAll('[data-target]').forEach(el => { const active = Number(el.dataset.target) === target; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+      updateButtons();
+    }
+    function showResult() {
+      const correct = prediction === targetMinutes();
+      kit.feedback(feedback, `${correct ? '预测正确！' : `你的预测是 ${prediction} 分钟。`} 分针走了 ${target} 个大格，每格 5 分钟，一共 ${targetMinutes()} 分钟。`, correct ? 'success' : 'info');
+      if (correct) kit.markDone();
+    }
+    function finish() {
+      completed = true; minutes = targetMinutes(); animation = null; playing = false; seen.add(target);
+      $('.ck-record-items').innerHTML = [...seen].sort((a, b) => a - b).map(n => `<span>12 → ${n}：${n * 5} 分钟</span>`).join('');
+      showResult(); draw();
+    }
+    function moveTo(destination) {
+      if (prediction === null) return;
+      stopAnimation(); playing = true; tweenDestination = destination;
+      const duration = (destination - minutes) / 5 * (kit.reducedMotion ? 160 : slow ? 1300 : 700);
+      animation = kit.tween(minutes, destination, Math.max(80, duration), value => { minutes = value; draw(); }, () => {
+        animation = null; playing = false; minutes = destination;
+        if (minutes >= targetMinutes() - .001) finish();
+        else { draw(); kit.feedback(feedback, showMinutes ? `现在走了 ${Math.round(minutes / 5)} 个大格，经过 ${Math.round(minutes)} 分钟。继续观察。` : '分针又走完一大格。记住走了几格，继续观察。'); }
+      });
+      updateButtons();
+    }
+    function reset(clearPrediction = false) {
+      stopAnimation(); minutes = 0; completed = false;
+      if (clearPrediction) { prediction = null; input.value = ''; }
+      kit.feedback(feedback, prediction === null ? '先填入你的预测，再让分针走一走。' : `已保留你的预测：${prediction} 分钟。分针回到 12，可以再观察一次。`);
+      draw();
+    }
+    function selectTarget(value) { target = value; reset(true); }
+    kit.listen($('.ck-form'), 'submit', event => {
+      event.preventDefault();
+      const raw = input.value.trim(), value = Number(raw);
+      if (!raw || !Number.isInteger(value) || value < 0 || value > 60) { kit.feedback(feedback, '请输入 0 到 60 之间的整数分钟，再开始验证。', 'error'); input.focus(); return; }
+      prediction = value;
+      if (completed) showResult();
+      else kit.feedback(feedback, `预测已记录：${prediction} 分钟。让分针走一走，看看是否正确。`);
+      updateButtons();
+    });
+    kit.listen(root, 'click', event => {
+      const button = event.target.closest('[data-target]'); if (button && root.contains(button)) selectTarget(Number(button.dataset.target));
+    });
+    kit.listen($('.ck-random'), 'click', () => {
+      const options = Array.from({ length: 11 }, (_, i) => i + 1).filter(n => n !== target);
+      selectTarget(options[Math.floor(Math.random() * options.length)]);
+    });
+    kit.listen($('.ck-play'), 'click', () => {
+      if (playing) { animation.pause(); playing = false; updateButtons(); return; }
+      if (animation) { animation.resume(); playing = true; updateButtons(); return; }
+      if (completed) reset(false);
+      moveTo(targetMinutes());
+    });
+    kit.listen($('.ck-step'), 'click', () => moveTo(Math.min(targetMinutes(), (Math.floor(minutes / 5 + .001) + 1) * 5)));
+    kit.listen($('.ck-reset'), 'click', () => reset(false));
+    kit.listen($('.ck-slow'), 'change', event => { slow = event.target.checked; if (playing) moveTo(tweenDestination); else if (animation) { animation.cancel(); animation = null; updateButtons(); } });
+    kit.listen($('.ck-show-minutes'), 'change', event => { showMinutes = event.target.checked; draw(); });
+    kit.listen($('.ck-show-trace'), 'change', event => { showTrace = event.target.checked; draw(); });
+    reset(true);
+    return () => stopAnimation();
+  }
+});
+
+Courseware.boot();</script>
+</body>
+</html>

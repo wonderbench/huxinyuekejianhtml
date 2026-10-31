@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="平移与旋转互动实验室：生活观察、平移实验、旋转转盘、图案重合与分针计时。支持离线与触屏的数学互动课件。">
+<meta name="color-scheme" content="light">
+<title>平移与旋转 · 互动实验室</title>
+<style>:root{--ink:#203d3a;--muted:#657b74;--teal:#147d77;--teal-dark:#0c5f5a;--teal-soft:#e5f2ed;--coral:#f17b59;--coral-soft:#fff0e9;--cream:#f4f4ed;--line:#dce5dc;--white:#fff;--shadow:0 10px 32px rgba(32,61,58,.045);font-family:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;color:var(--ink);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);font-size:16px;line-height:1.65}button,input,select{font:inherit}button{cursor:pointer}button,input,select,a{-webkit-tap-highlight-color:transparent}button:disabled{cursor:not-allowed;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #df6945;outline-offset:4px}button{color:inherit}svg{max-width:100%;vertical-align:middle}svg text{font-family:inherit}a{color:var(--teal)}[hidden]{display:none!important}h1,h2,h3,p{margin-top:0}h1,h2,h3{line-height:1.35}p:last-child{margin-bottom:0}button{user-select:none}
+.site-header{border-bottom:1px solid var(--line);background:rgba(255,255,255,.76)}.header-inner{max-width:1400px;min-height:78px;margin:auto;padding:14px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:43px;height:43px;flex:none}.brand-title{font-size:20px;letter-spacing:.08em;font-weight:800}.brand-note{font-size:11px;color:var(--muted);letter-spacing:.18em;font-weight:600}.header-actions{display:flex;gap:10px;align-items:center}.header-tag{color:var(--muted);font-size:13px;margin-right:8px}.top-button{border:1px solid var(--line);border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;gap:7px;padding:9px 14px;min-height:44px;font-size:14px;font-weight:600}.top-button:hover{background:var(--teal-soft);border-color:#9fc4b8}.top-button[aria-expanded=true]{background:var(--teal-soft);border-color:var(--teal)}
+.app-wrap{max-width:1400px;margin:auto;padding:28px 36px 22px}.intro{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:26px}.intro-copy{padding-top:2px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;color:var(--teal);font-size:12px;font-weight:800;margin-bottom:8px;display:block}.intro h1{font-size:clamp(27px,3vw,37px);letter-spacing:.035em;margin-bottom:8px;font-weight:850}.intro h1 span{color:var(--teal)}.intro p{font-size:15px;color:var(--muted);margin:0}.intro-art{width:236px;max-height:116px;flex:none}.learning-cycle{display:flex;align-items:center;gap:10px;margin-top:16px;color:#6f7b6f;font-size:12px}.learning-cycle span{background:#e9ece1;border-radius:100px;padding:4px 12px}.learning-cycle b{color:#9ba898;font-weight:500}
+.module-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:24px}.nav-card{position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:16px 16px;background:#fff;border:1px solid var(--line);border-radius:15px;transition:background .15s,border-color .15s;min-height:78px}.nav-card:hover{border-color:#8db6a9;background:#fbfdfb}.nav-card.active{background:var(--teal);border-color:var(--teal);color:white;box-shadow:0 7px 16px rgba(20,125,119,.14)}.nav-number{font-size:22px;line-height:1;color:#acc0b5;font-weight:750;letter-spacing:-.04em}.active .nav-number{color:#8bc5b9}.nav-copy{display:flex;flex-direction:column;gap:4px}.nav-title{font-size:15px;font-weight:750}.nav-subtitle{font-size:11px;color:var(--muted)}.active .nav-subtitle{color:#cfebe3}.nav-done{position:absolute;right:9px;top:7px;font-size:11px;font-weight:800;color:var(--teal)}.active .nav-done{color:#ddf9b1}.single-label{display:flex;align-items:center;gap:12px;margin:0 0 22px;font-size:15px;font-weight:650}.single-label .num{background:var(--teal);border-radius:10px;color:#fff;padding:5px 12px;letter-spacing:.05em}
+.teacher-panel{margin-bottom:22px;background:#fff8e6;border:1px solid #eadcb3;border-radius:16px;padding:20px 24px}.teacher-panel h2{font-size:17px;margin-bottom:10px}.teacher-panel ol{margin:0;padding-left:21px;display:grid;gap:6px}.teacher-panel p{margin:12px 0 0;color:#7c6e4a;font-size:14px}.content-host{min-height:520px}.module-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:22px;align-items:start}.panel{background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:22px;min-width:0}.panel-title{font-size:20px;font-weight:800;margin-bottom:12px}.panel-title small{font-size:12px;font-weight:500;color:var(--muted)}.stage{background:#f4f8f2;border:1px solid #e3ebe1;border-radius:16px;overflow:hidden;position:relative;min-width:0}.stage>svg{display:block;width:100%;height:auto}.controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:16px}.controls:empty{display:none}.btn{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 17px;font-size:14px;font-weight:650;line-height:1.35;transition:background .15s,border-color .15s,box-shadow .15s}.btn:hover:not(:disabled){border-color:#85b5a4;background:#f0f7f2}.btn.primary{background:var(--teal);color:#fff;border-color:var(--teal)}.btn.primary:hover:not(:disabled){background:var(--teal-dark);border-color:var(--teal-dark)}.btn.secondary{background:var(--teal-soft);border-color:#d1e8de;color:var(--teal-dark)}.btn.ghost{background:transparent}.btn.small{font-size:12px;min-height:36px;padding:7px 11px}.btn[aria-pressed=true]:not(.primary){background:var(--teal-soft);border-color:var(--teal);color:var(--teal-dark)}.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.chip{border:1px solid var(--line);border-radius:10px;background:#fff;font-size:13px;font-weight:600;padding:9px 14px;min-height:42px;line-height:1.3}.chip.active,.chip[aria-pressed=true]{background:var(--teal-soft);border-color:#8fb8aa;color:var(--teal-dark)}.chip:hover{border-color:#8fb8aa}.prompt{font-size:17px;font-weight:700;line-height:1.65;margin-bottom:16px}.hint{font-size:13px;color:var(--muted);line-height:1.75}.feedback{background:#f2f6f0;border:1px solid #dfe9db;border-radius:12px;padding:13px 15px;font-size:14px;line-height:1.75;margin-top:16px;min-height:60px;color:#526b60}.feedback.is-success{background:#eaf6e6;border-color:#bddbb1;color:#3d682f}.feedback.is-error{background:#fff1e9;border-color:#f0c1a9;color:#995230}.field{display:flex;flex-direction:column;gap:7px;font-size:14px;font-weight:650;margin:14px 0}.field input:not([type=checkbox]):not([type=range]),.field select,input[type=number]{width:100%;border:1px solid #cbdad1;padding:11px 12px;border-radius:10px;background:#fff;min-height:44px;color:var(--ink)}input[type=range]{accent-color:var(--teal);width:100%;min-height:32px}input[type=checkbox]{accent-color:var(--teal);width:18px;height:18px;vertical-align:middle;flex:none}.toggle{display:flex;gap:9px;align-items:center;color:var(--muted);font-size:13px;min-height:40px}.divider{height:1px;background:var(--line);margin:18px 0}.badge{display:inline-flex;align-items:center;gap:6px;border-radius:100px;background:var(--teal-soft);color:var(--teal);padding:4px 11px;font-size:12px;font-weight:700}.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.course-footer{margin-top:22px;display:flex;align-items:center;justify-content:space-between;gap:16px;color:var(--muted);font-size:12px}.footer-trail{display:flex;align-items:center;gap:8px}.footer-trail i{width:6px;height:6px;background:var(--coral);border-radius:50%;display:block}.footer-nav{display:flex;align-items:center;gap:12px}.footer-nav button{background:transparent;border:0;min-height:42px;color:var(--teal);font-size:13px;padding:8px}.footer-nav button:hover{text-decoration:underline}.global-announcement{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 22px;border-radius:12px;box-shadow:0 8px 30px #203d3a30;z-index:30;font-size:14px;max-width:90vw}.offline-note{margin-top:14px;text-align:center;color:#8b9b90;font-size:11px;letter-spacing:.05em}
+@media(min-width:1500px){.app-wrap{padding-top:34px}.intro{margin-bottom:30px}.stage>svg{max-height:550px}}
+@media(max-width:1100px){.header-inner,.app-wrap{padding-left:24px;padding-right:24px}.module-layout{grid-template-columns:minmax(0,1fr) 280px;gap:16px}.panel{padding:18px}.nav-card{padding:14px 12px;gap:9px}.nav-title{font-size:14px}.nav-subtitle{font-size:10px}.intro-art{width:200px}.header-tag{display:none}}
+@media(max-width:820px){.module-layout{grid-template-columns:1fr}.module-nav{gap:7px}.nav-card{padding:12px 8px;flex-direction:column;align-items:flex-start;gap:7px;min-height:94px}.nav-number{font-size:18px}.nav-subtitle{display:none}.intro-art{width:170px}.intro h1{font-size:29px}.panel{padding:18px}.content-host{min-height:0}.stage>svg{max-height:490px}.course-footer{align-items:flex-start}}
+@media(max-width:540px){body{font-size:15px}.header-inner{padding:12px 16px;gap:8px;min-height:70px}.brand-mark{width:34px;height:34px}.brand-title{font-size:17px;letter-spacing:.03em}.brand-note{font-size:9px}.header-actions{gap:6px}.top-button{padding:8px 10px;font-size:12px}.top-button svg{display:none}.app-wrap{padding:22px 14px 18px}.intro{margin-bottom:20px;gap:0}.intro-art{display:none}.intro h1{font-size:28px}.intro p{font-size:13px}.learning-cycle{margin-top:12px;gap:6px}.learning-cycle span{padding:3px 9px}.module-nav{gap:5px;margin-bottom:18px}.nav-card{border-radius:12px;padding:10px 7px;min-height:78px;gap:8px}.nav-title{font-size:12px;white-space:nowrap}.nav-number{font-size:15px}.nav-done{right:5px;top:4px;font-size:9px}.panel{padding:14px;border-radius:16px}.panel-title{font-size:18px}.controls{gap:7px}.btn{padding:10px 13px}.teacher-panel{padding:17px}.course-footer{flex-direction:column;gap:5px}.footer-nav{width:100%;justify-content:space-between}.intro p{max-width:330px}.stage{border-radius:12px}.teacher-panel ol{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+@media(max-width:380px){.nav-card{padding:10px 4px}.nav-title{font-size:11px}.nav-number{font-size:14px}}
+@media print{.header-actions,.module-nav,.controls,.footer-nav,.offline-note{display:none!important}.app-wrap{padding:0}.site-header{border:0}.module-layout{grid-template-columns:1fr}body{background:#fff}.panel{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+  <div class="brand"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="17" width="22" height="22" rx="6" fill="#147d77"/><path d="M26 6a15 15 0 0 1 16 20" fill="none" stroke="#f17b59" stroke-width="5" stroke-linecap="round"/><path d="m36 24 5 6 5-7" fill="none" stroke="#f17b59" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 27h10m-4-4 4 4-4 4" fill="none" stroke="#e6f2b9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div class="brand-title">平移与旋转</div><div class="brand-note">小小运动实验室</div></div></div>
+  <div class="header-actions"><span class="header-tag">小学数学 · 观察与探索</span><button class="top-button" id="tips-button" type="button" aria-expanded="false" aria-controls="teacher-panel"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M7 14h6m-5 3h4M6 10a5 5 0 1 1 8 0c-1 1-1 2-1 2H7s0-1-1-2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>教学提示</button><button class="top-button" id="fullscreen-button" type="button"><svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8V3h5m4 0h5v5M3 12v5h5m4 0h5v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>全屏演示</span></button></div>
+</div></header>
+<main class="app-wrap">
+  <section class="intro" aria-label="课程介绍"><div class="intro-copy"><span class="eyebrow">观察 · 操作 · 发现</span><h1>让数学，<span>动起来。</span></h1><p>先猜一猜，再动一动。用自己的发现，说出运动的秘密。</p><div class="learning-cycle" aria-label="学习步骤"><span>① 先预测</span><b>→</b><span>② 动手试</span><b>→</b><span>③ 说理由</span></div></div><svg class="intro-art" viewBox="0 0 260 120" aria-hidden="true"><path d="M8 92h243" stroke="#dce4d5" stroke-width="1.5" stroke-dasharray="3 6"/><rect x="24" y="29" width="39" height="47" rx="9" fill="none" stroke="#9dbab0" stroke-width="2" stroke-dasharray="5 5"/><path d="M78 52h42m-7-7 7 7-7 7" stroke="#f17b59" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="135" y="29" width="39" height="47" rx="9" fill="#147d77" transform="rotate(0 154 52)"/><circle cx="156" cy="43" r="4" fill="#cce79b"/><path d="M215 33a25 25 0 1 1-24 29" stroke="#9dbab0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="m205 28 12 5-9 9" stroke="#f17b59" stroke-width="3" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle cx="215" cy="58" r="5" fill="#f17b59"/><text x="43" y="111" text-anchor="middle" font-size="11" fill="#7d9285">移动位置</text><text x="215" y="111" text-anchor="middle" font-size="11" fill="#7d9285">绕点转动</text></svg></section>
+  <nav id="module-nav" class="module-nav" aria-label="选择学习活动"></nav>
+  <aside id="teacher-panel" class="teacher-panel" hidden></aside>
+  <div id="module-host" class="content-host"></div>
+  <footer class="course-footer"><div class="footer-trail"><i></i><span>看清运动过程，试着说出理由。</span></div><div class="footer-nav" id="footer-nav"><button id="prev-module" type="button">← 上一活动</button><span id="current-step">活动 1 / 5</span><button id="next-module" type="button">下一活动 →</button></div></footer>
+  <div class="offline-note">平移与旋转 · 互动课件</div>
+</main>
+<div id="announcement" class="global-announcement" role="status" aria-live="polite" hidden></div>
+<noscript><p style="padding:30px">请在浏览器中启用 JavaScript，以操作本课件。</p></noscript>
+<script>/* Shared lifecycle and accessible interface. All runnable HTML files embed this code. */
+(function(){
+  'use strict';
+  const modules=[];
+  let uid=0;
+  function createKit(markDone){
+    const cleanup=[];
+    let disposed=false;
+    const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function onCleanup(fn){cleanup.push(fn);}
+    function listen(el,type,fn,opts){if(!el)return;el.addEventListener(type,fn,opts);onCleanup(()=>el.removeEventListener(type,fn,opts));}
+    function tween(from,to,duration,update,done){
+      let frame=0,last=0,elapsed=0,running=true,cancelled=false,finished=false;
+      const length=Math.max(1,duration);
+      function tick(now){
+        if(cancelled||disposed||!running)return;
+        if(last)elapsed+=Math.min(now-last,80);
+        last=now;
+        const progress=Math.min(1,elapsed/length);
+        update(from+(to-from)*progress,progress);
+        if(progress<1)frame=requestAnimationFrame(tick);
+        else{running=false;finished=true;if(done)done();}
+      }
+      const handle={pause(){if(!running)return;running=false;cancelAnimationFrame(frame);last=0;},resume(){if(cancelled||disposed||running||finished)return;running=true;last=0;frame=requestAnimationFrame(tick);},cancel(){cancelled=true;running=false;cancelAnimationFrame(frame);},get isRunning(){return running;}};
+      onCleanup(handle.cancel);
+      update(from,0);
+      frame=requestAnimationFrame(tick);
+      return handle;
+    }
+    function feedback(el,text,type='info'){
+      if(!el)return;el.classList.remove('is-success','is-error');if(type!=='info')el.classList.add('is-'+type);el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.textContent=text;
+    }
+    function svgPoint(svg,event){const p=svg.createSVGPoint();p.x=event.clientX;p.y=event.clientY;const m=svg.getScreenCTM();return m?p.matrixTransform(m.inverse()):{x:0,y:0};}
+    return {listen,onCleanup,tween,feedback,svgPoint,markDone,reducedMotion,uid(prefix='cw'){return prefix+'-'+(++uid);},announce(text){window.Courseware.announce(text);},dispose(){if(disposed)return;disposed=true;for(const fn of cleanup.reverse()){try{fn();}catch(e){console.error('Cleanup failed',e);}}}};
+  }
+  const tips={
+    life:{steps:['先播放一个生活场景，请学生用手势表示运动。','让学生先选择“平移”或“旋转”，再打开观察线索。','追问：你观察的是哪一部分？它怎样运动？'],note:'扇叶、齿轮和指针有固定的转动中心；观察国旗时看沿旗杆升降的整体运动。'},
+    translation:{steps:['先预测两扇自动门开、关时各自的平移方向。','按“左上角→右上角→右下角”的要求移动课本。','再比较先下后右、直接斜向移动等不同路线。'],note:'平移也可以沿斜方向进行。观察整个移动过程，课本的大小、形状和朝向保持不变。'},
+    rotation:{steps:['固定正面视角，以钟面转动方向作参照。','比较从 A 到 C 的顺时针与逆时针两条路线。','请学生说出经过的位置，再尝试从 C 到 B 或 D。'],note:'到达同一个终点可以采用不同方向。不要只凭最后的位置判断刚才的转动过程。'},
+    overlap:{steps:['先选择哪些图案能通过平移与目标重合。','开启验证，将透明副本移到目标上方。','对照耳朵、尾巴或叶柄的位置，说明判断理由。'],note:'检验中只移动位置，保持每个图案原有的大小与朝向。镜像、旋转后的图案不能自动调整姿态。'},
+    clock:{steps:['请学生先说出分针走一大格经过几分钟。','从12出发，先预测第一次到达目标位置的用时。','逐格验证，再隐藏时间提示独立完成另一题。'],note:'这里显示分针示意图。按顺时针、一圈以内第一次到达来计算，不把最短路线当作走时方向。'}
+  };
+  window.Courseware={modules,register(module){if(modules.some(x=>x.id===module.id))throw new Error('Duplicate module '+module.id);modules.push(module);},announce(text){const el=document.getElementById('announcement');el.textContent=text;el.hidden=false;clearTimeout(this.noticeTimer);this.noticeTimer=setTimeout(()=>el.hidden=true,3500);},boot(){
+    modules.sort((a,b)=>a.number-b.number);
+    const root=document.getElementById('module-host');
+    const nav=document.getElementById('module-nav');
+    const teacher=document.getElementById('teacher-panel');
+    const tipsButton=document.getElementById('tips-button');
+    let active=null,kit=null,dispose=null,done=new Set();
+    try{done=new Set(JSON.parse(localStorage.getItem('motion-lab-completed')||'[]'));}catch(e){/* Private/file mode may disable storage. */}
+    function markDone(id){done.add(id);try{localStorage.setItem('motion-lab-completed',JSON.stringify([...done]));}catch(e){}renderNav();}
+    function renderNav(){
+      const focused=document.activeElement&&document.activeElement.closest?document.activeElement.closest('[data-module]'):null;
+      const focusId=focused&&nav.contains(focused)?focused.dataset.module:null;
+      if(modules.length===1){nav.className='single-label';nav.innerHTML='<span class="num">'+String(modules[0].number).padStart(2,'0')+'</span><span>'+modules[0].title+' · 独立活动</span>';return;}
+      nav.className='module-nav';nav.innerHTML=modules.map(m=>'<button type="button" class="nav-card '+(active&&m.id===active.id?'active':'')+'" data-module="'+m.id+'" aria-current="'+(active&&m.id===active.id?'page':'false')+'"><span class="nav-number">'+String(m.number).padStart(2,'0')+'</span><span class="nav-copy"><span class="nav-title">'+m.title+'</span><span class="nav-subtitle">'+m.subtitle+'</span></span>'+(done.has(m.id)?'<span class="nav-done" aria-label="已完成">✓</span>':'')+'</button>').join('');
+      nav.querySelectorAll('[data-module]').forEach(b=>b.addEventListener('click',()=>switchTo(b.dataset.module,true)));
+      if(focusId){const replacement=nav.querySelector('[data-module="'+focusId+'"]');if(replacement)replacement.focus({preventScroll:true});}
+    }
+    function switchTo(id,focus=false){
+      const module=modules.find(x=>x.id===id)||modules[0];if(active&&active.id===module.id)return;
+      if(dispose){try{dispose();}catch(e){console.error(e);}}if(kit)kit.dispose();
+      active=module;kit=createKit(()=>markDone(module.id));root.innerHTML='';root.dataset.module=module.id;
+      dispose=module.mount(root,kit)||null;renderNav();
+      const t=tips[module.id];teacher.innerHTML='<h2>教师提示 · '+module.title+'</h2><ol>'+t.steps.map(s=>'<li>'+s+'</li>').join('')+'</ol><p>'+t.note+'</p>';
+      document.getElementById('current-step').textContent='活动 '+module.number+' / 5';
+      const index=modules.indexOf(module);document.getElementById('prev-module').disabled=index===0;document.getElementById('next-module').disabled=index===modules.length-1;
+      document.title=module.title+' · 平移与旋转互动实验室';
+      try{history.replaceState(null,'','#'+module.id);}catch(e){}
+      if(focus){const btn=nav.querySelector('[data-module="'+module.id+'"]');if(btn)btn.focus({preventScroll:true});}
+    }
+    tipsButton.addEventListener('click',()=>{teacher.hidden=!teacher.hidden;tipsButton.setAttribute('aria-expanded',String(!teacher.hidden));});
+    const full=document.getElementById('fullscreen-button');
+    full.addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();else window.Courseware.announce('可使用浏览器菜单进入全屏演示。');}catch(e){window.Courseware.announce('当前窗口不支持全屏，可使用浏览器菜单进入全屏。');}});
+    document.addEventListener('fullscreenchange',()=>{full.querySelector('span').textContent=document.fullscreenElement?'退出全屏':'全屏演示';});
+    document.getElementById('prev-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i>0)switchTo(modules[i-1].id,true);});
+    document.getElementById('next-module').addEventListener('click',()=>{const i=modules.indexOf(active);if(i<modules.length-1)switchTo(modules[i+1].id,true);});
+    window.addEventListener('hashchange',()=>switchTo(location.hash.slice(1)));
+    if(modules.length===1)document.getElementById('footer-nav').hidden=true;
+    switchTo(location.hash.slice(1));
+  }};
+})();
+
+Courseware.register({
+  id: 'rotation',
+  number: 3,
+  title: '旋转转盘',
+  subtitle: '探索两种转动方向',
+  icon: 'rotate',
+  mount(root, kit) {
+    const prefix = kit.uid('rot');
+    const letters = ['A', 'B', 'C', 'D'];
+    const tasks = [{ start: 0, target: 2 }, { start: 2, target: 1 }, { start: 2, target: 3 }];
+    const records = new Map();
+    let taskIndex = 0, direction = 1, progress = 0, prediction = null;
+    let animation = null, playing = false, slow = false, traceVisible = true, tweenDestination = 0;
+    let drag = null, completed = false;
+    const point = (angle, radius = 150) => ({ x: 340 + Math.sin(angle * Math.PI / 180) * radius, y: 220 - Math.cos(angle * Math.PI / 180) * radius });
+    const arc = (start, delta, radius = 150) => {
+      if (Math.abs(delta) < 0.05) return '';
+      const a = point(start, radius), b = point(start + delta, radius);
+      return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${Math.abs(delta) > 180 ? 1 : 0} ${delta > 0 ? 1 : 0} ${b.x} ${b.y}`;
+    };
+    const tickMarks = Array.from({ length: 48 }, (_, i) => {
+      const a = point(i * 7.5, i % 12 === 0 ? 129 : 134), b = point(i * 7.5, 140);
+      return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${i % 12 === 0 ? '#7EA5A0' : '#D6E4E0'}" stroke-width="${i % 12 === 0 ? 3 : 2}"/>`;
+    }).join('');
+    root.innerHTML = `
+      <style>
+        .rot-main{min-width:0}.rot-taskbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.rot-taskbar .chip{min-width:104px}
+        .rot-stage{position:relative;overflow:hidden;border:1px solid #DFE9E3;background:radial-gradient(circle at 50% 45%,#fff 0,#F5F9F4 70%);border-radius:22px}
+        .rot-svg{display:block;width:100%;max-height:480px;touch-action:none;user-select:none}.rot-svg text{font-family:inherit}
+        .rot-grip{cursor:grab}.rot-grip:active{cursor:grabbing}.rot-corner{position:absolute;top:16px;left:18px;display:flex;align-items:center;gap:7px;font-size:12px;color:#607A74;font-weight:700;letter-spacing:.05em}
+        .rot-corner i{display:block;width:7px;height:7px;background:#147D77;border-radius:50%}.rot-current{text-align:center;margin:0 12px 16px;color:#496960;font-size:14px}
+        .rot-controls{margin-top:18px}.rot-options{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:18px;font-size:13px;color:#4C6D66}.rot-options label{display:flex;gap:8px;align-items:center;cursor:pointer}.rot-options input{accent-color:#147D77;width:16px;height:16px}
+        .rot-direction{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 20px}.rot-direction button{min-height:66px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border:1px solid #DCE5DF;border-radius:15px;background:#fff;color:#3B5B54;cursor:pointer}.rot-direction button span{font-size:27px;line-height:1}.rot-direction button.active[data-dir="1"]{background:#E5F2ED;border:2px solid #147D77;color:#147D77}.rot-direction button.active[data-dir="-1"]{background:#FFF0E7;border:2px solid #D96C47;color:#B95B3E}
+        .rot-choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.rot-choices .btn{padding:10px;min-width:0;font-size:19px}.rot-choices .btn.active{background:#203D3A;color:white;border-color:#203D3A}
+        .rot-card-heading{margin:0 0 8px;font-size:16px;line-height:1.5;color:#24463E}.rot-rule{border-top:1px solid #E7EDE7;margin-top:22px;padding-top:19px}.rot-routes{display:grid;gap:10px;margin-top:12px}.rot-route{border:1px solid #DCE9E2;border-radius:14px;padding:13px 14px;background:#F5FAF6}.rot-route:nth-child(2){border-color:#F0DFD3;background:#FFF8F2}.rot-route-label{display:block;font-size:12px;font-weight:700;color:#698278;margin-bottom:7px}.rot-route strong{font-size:17px;letter-spacing:.04em;color:#245E51}.rot-route:nth-child(2) strong{color:#A45F3E}.rot-route em{font-size:13px;font-style:normal;color:#82918B;letter-spacing:0}.rot-comparison{font-size:13px;line-height:1.7;color:#5C756C;margin:12px 0 0}.rot-reference{font-size:13px;margin:14px 0 0;padding:10px 13px;background:#F1F5EF;border-radius:10px;color:#526D63}.rot-reference[hidden]{display:none}.rot-note{margin-top:14px;font-size:12px;line-height:1.7;color:#74887F}.rot-feedback{min-height:66px}
+        @media(max-width:640px){.rot-svg{min-height:280px}.rot-taskbar{gap:7px}.rot-taskbar .chip{min-width:0;flex:1;padding-left:9px;padding-right:9px}.rot-corner{top:12px;font-size:10px}.rot-current{font-size:12px;bottom:9px}.rot-options{font-size:12px}.rot-direction button{min-height:58px}}
+      </style>
+      <div class="module-layout">
+        <div class="panel rot-main">
+          <div class="rot-taskbar" role="group" aria-label="旋转任务">
+            ${tasks.map((t, i) => `<button class="chip${i === 0 ? ' active' : ''}" data-task="${i}" aria-pressed="${i === 0}">${letters[t.start]} → ${letters[t.target]}</button>`).join('')}
+          </div>
+          <div class="rot-stage">
+            <div class="rot-corner"><i></i>固定中心 · 观察转动</div>
+            <svg class="rot-svg" viewBox="0 0 680 440" role="img" aria-label="指针绕固定中心旋转的转盘，A在上、B在右、C在下、D在左">
+              <defs><marker id="${prefix}-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 1 1 L 9 5 L 1 9" fill="none" stroke="context-stroke" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></marker><filter id="${prefix}-shadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="5" stdDeviation="6" flood-color="#245E51" flood-opacity=".09"/></filter></defs>
+              <circle cx="340" cy="220" r="146" fill="#fff" stroke="#DDE8E0" stroke-width="2" filter="url(#${prefix}-shadow)"/>
+              ${tickMarks}
+              <circle class="rot-target" cx="340" cy="390" r="25" fill="#FCE9CA"/>
+              ${letters.map((letter, i) => { const p = point(i * 90, 180); return `<text x="${p.x}" y="${p.y + 8}" fill="#234B43" text-anchor="middle" font-size="26" font-weight="800">${letter}</text>`; }).join('')}
+              <path class="rot-record-cw" fill="none" stroke="#99C8B2" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+              <path class="rot-record-ccw" fill="none" stroke="#E9B698" stroke-width="5" stroke-linecap="round" opacity=".5"/>
+              <path class="rot-trace" fill="none" stroke="#147D77" stroke-width="8" stroke-linecap="round" marker-end="url(#${prefix}-arrow)"/>
+              <g class="rot-pointer">
+                <path d="M 333 235 L 331 115 Q 331 105 340 90 Q 349 105 349 115 L 347 235 Z" fill="#EE805C"/>
+                <circle class="rot-grip" data-rot-handle="true" cx="340" cy="104" r="20" fill="#fff" fill-opacity=".02" stroke="transparent" stroke-width="10"/>
+                <circle cx="340" cy="110" r="5" fill="#FFF0DF" pointer-events="none"/>
+              </g>
+              <circle cx="340" cy="220" r="14" fill="#244E44"/><circle cx="340" cy="220" r="5" fill="#E5EEE3"/>
+              <path d="M 356 231 L 391 259 L 441 259" fill="none" stroke="#98ADA1" stroke-width="1.5"/>
+              <text x="445" y="264" fill="#698176" font-size="13">中心不动</text>
+            </svg>
+            <div class="rot-current">现在指向 <strong>A</strong></div>
+          </div>
+          <div class="controls rot-controls">
+            <button class="btn primary rot-play" disabled>开始转动</button>
+            <button class="btn secondary rot-step" disabled>转到下一站</button>
+            <button class="btn ghost rot-reset">从起点重来</button>
+          </div>
+          <div class="rot-options">
+            <label><input type="checkbox" class="rot-slow">慢速播放</label>
+            <label><input type="checkbox" class="rot-show-trace" checked>显示轨迹</label>
+            <label><input type="checkbox" class="rot-show-reference">钟面参照</label>
+          </div>
+          <div class="rot-reference" hidden>钟表的顺时针方向：12 → 3 → 6 → 9 → 12。</div>
+          <p class="rot-note">先选择方向并预测，再播放或沿所选方向拖动指针末端。也可以用“转到下一站”逐步观察。</p>
+        </div>
+        <aside class="panel">
+          <div class="eyebrow">先预测 · 再验证</div>
+          <h3 class="panel-title rot-question">让指针从 A 转到 C</h3>
+          <p class="hint">请选择一种旋转方向。</p>
+          <div class="rot-direction" role="group" aria-label="旋转方向">
+            <button data-dir="1" class="active" aria-pressed="true"><span aria-hidden="true">↻</span>顺时针</button>
+            <button data-dir="-1" aria-pressed="false"><span aria-hidden="true">↺</span>逆时针</button>
+          </div>
+          <h4 class="rot-card-heading rot-prediction-label">离开 A 后，先到哪一站？</h4>
+          <div class="rot-choices" role="group" aria-label="预测先到的位置"></div>
+          <div class="feedback rot-feedback" role="status" aria-live="polite">选一选，再让指针动起来。</div>
+          <div class="rot-rule">
+            <h4 class="rot-card-heading">留下两条路线</h4>
+            <div class="rot-routes">
+              <div class="rot-route"><span class="rot-route-label">↻ 顺时针</span><strong class="rot-route-cw"><em>完成一次转动后记录</em></strong></div>
+              <div class="rot-route"><span class="rot-route-label">↺ 逆时针</span><strong class="rot-route-ccw"><em>换个方向，再试一次</em></strong></div>
+            </div>
+            <p class="rot-comparison">终点相同，转动的方向和经过的位置也相同吗？</p>
+          </div>
+        </aside>
+      </div>`;
+    const $ = selector => root.querySelector(selector);
+    const svg = $('.rot-svg'), feedback = $('.rot-feedback');
+    const currentTask = () => tasks[taskIndex];
+    const totalSteps = () => ((currentTask().target - currentTask().start) * direction + 4) % 4;
+    const route = (dir = direction) => {
+      const { start, target } = currentTask();
+      const count = ((target - start) * dir + 4) % 4;
+      return Array.from({ length: count + 1 }, (_, i) => letters[(start + dir * i + 8) % 4]);
+    };
+    const key = dir => `${taskIndex}:${dir}`;
+    const dirName = () => direction === 1 ? '顺时针' : '逆时针';
+    function stopAnimation() { if (animation) animation.cancel(); animation = null; playing = false; }
+    function releaseDrag() { if (!drag) return; const id = drag.id; drag = null; if (svg.hasPointerCapture(id)) svg.releasePointerCapture(id); }
+    function updateButtons() {
+      $('.rot-play').disabled = prediction === null;
+      $('.rot-step').disabled = prediction === null || playing || completed;
+      $('.rot-play').textContent = playing ? '暂停转动' : completed ? '再转一次' : animation ? '继续转动' : '开始转动';
+    }
+    function draw() {
+      const { start, target } = currentTask();
+      const angle = start * 90 + direction * progress * 90;
+      $('.rot-pointer').setAttribute('transform', `rotate(${angle} 340 220)`);
+      $('.rot-trace').setAttribute('d', traceVisible ? arc(start * 90, direction * progress * 90, 151) : '');
+      $('.rot-trace').setAttribute('stroke', direction === 1 ? '#147D77' : '#DC7754');
+      const targetPoint = point(target * 90, 180);
+      $('.rot-target').setAttribute('cx', targetPoint.x); $('.rot-target').setAttribute('cy', targetPoint.y);
+      const near = Math.abs(progress - Math.round(progress)) < .025;
+      const position = (start + direction * Math.round(progress) + 12) % 4;
+      $('.rot-current').innerHTML = near ? `现在指向 <strong>${letters[position]}</strong>` : `${dirName()}转动中 · 中心保持不动`;
+      for (const dir of [1, -1]) {
+        const selector = dir === 1 ? '.rot-record-cw' : '.rot-record-ccw';
+        const steps = ((target - start) * dir + 4) % 4;
+        $(selector).setAttribute('d', traceVisible && records.has(key(dir)) ? arc(start * 90, dir * steps * 90, dir === 1 ? 159 : 165) : '');
+      }
+      updateButtons();
+    }
+    function updateRoutes() {
+      for (const dir of [1, -1]) {
+        const el = $(dir === 1 ? '.rot-route-cw' : '.rot-route-ccw');
+        el.innerHTML = records.has(key(dir)) ? records.get(key(dir)).join(' → ') : '<em>完成一次转动后记录</em>';
+      }
+      $('.rot-comparison').textContent = records.has(key(1)) && records.has(key(-1))
+        ? '两种方向都能到达同一个终点，但经过的位置和转动方向不同。'
+        : '终点相同，转动的方向和经过的位置也相同吗？';
+    }
+    function finish() {
+      if (completed) return;
+      releaseDrag();
+      completed = true; playing = false; animation = null;
+      progress = totalSteps(); records.set(key(direction), route());
+      const correct = letters[(currentTask().start + direction + 4) % 4];
+      kit.feedback(feedback, `${prediction === correct ? '预测正确！' : `先到的是 ${correct}。`} ${dirName()}路线：${route().join(' → ')}。换个方向，看看有什么不同。`, prediction === correct ? 'success' : 'info');
+      updateRoutes(); draw();
+      if (records.has('0:1') && records.has('0:-1')) kit.markDone();
+    }
+    function moveTo(destination) {
+      if (prediction === null) return;
+      releaseDrag(); stopAnimation(); playing = true; tweenDestination = destination;
+      const duration = (destination - progress) * (kit.reducedMotion ? 160 : slow ? 1600 : 850);
+      animation = kit.tween(progress, destination, Math.max(80, duration), value => { progress = value; draw(); }, () => {
+        animation = null; playing = false; progress = destination;
+        if (progress >= totalSteps() - .001) finish();
+        else { draw(); const at = letters[(currentTask().start + direction * Math.round(progress) + 12) % 4]; kit.feedback(feedback, `现在到达 ${at}。继续转，看看怎样到达终点。`); }
+      });
+      updateButtons();
+    }
+    function reset(clearPrediction = true) {
+      releaseDrag(); stopAnimation(); progress = 0; completed = false;
+      if (clearPrediction) prediction = null;
+      $('.rot-question').textContent = `让指针从 ${letters[currentTask().start]} 转到 ${letters[currentTask().target]}`;
+      $('.rot-prediction-label').textContent = `离开 ${letters[currentTask().start]} 后，先到哪一站？`;
+      $('.rot-choices').innerHTML = letters.filter((_, index) => index !== currentTask().start).map(letter => `<button class="btn secondary${prediction === letter ? ' active' : ''}" data-predict="${letter}" aria-pressed="${prediction === letter}">${letter}</button>`).join('');
+      kit.feedback(feedback, clearPrediction ? '选一选，再让指针动起来。' : '预测已经保留。再转一次，仔细观察。');
+      updateRoutes(); draw();
+    }
+    kit.listen(root, 'click', event => {
+      const button = event.target.closest('button'); if (!button || !root.contains(button)) return;
+      if (button.hasAttribute('data-task')) {
+        taskIndex = Number(button.dataset.task); reset();
+        root.querySelectorAll('[data-task]').forEach(el => { const active = Number(el.dataset.task) === taskIndex; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+      } else if (button.hasAttribute('data-dir')) {
+        direction = Number(button.dataset.dir); reset();
+        root.querySelectorAll('[data-dir]').forEach(el => { const active = Number(el.dataset.dir) === direction; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+      } else if (button.hasAttribute('data-predict')) {
+        if (playing || progress > 0) reset(false);
+        prediction = button.dataset.predict;
+        root.querySelectorAll('[data-predict]').forEach(el => { const active = el.dataset.predict === prediction; el.classList.toggle('active', active); el.setAttribute('aria-pressed', String(active)); });
+        const chosen = root.querySelector('[data-predict="' + prediction + '"]');
+        if (chosen && chosen !== button) chosen.focus({ preventScroll: true });
+        kit.feedback(feedback, `你预测先到 ${prediction}。开始转动来验证吧。`); updateButtons();
+      }
+    });
+    kit.listen($('.rot-play'), 'click', () => {
+      if (playing) { animation.pause(); playing = false; updateButtons(); return; }
+      if (animation) { animation.resume(); playing = true; updateButtons(); return; }
+      if (completed) reset(false);
+      moveTo(totalSteps());
+    });
+    kit.listen($('.rot-step'), 'click', () => moveTo(Math.min(totalSteps(), Math.floor(progress + .01) + 1)));
+    kit.listen($('.rot-reset'), 'click', () => reset());
+    kit.listen($('.rot-slow'), 'change', event => { slow = event.target.checked; if (playing) moveTo(tweenDestination); else if (animation) { animation.cancel(); animation = null; updateButtons(); } });
+    kit.listen($('.rot-show-trace'), 'change', event => { traceVisible = event.target.checked; draw(); });
+    kit.listen($('.rot-show-reference'), 'change', event => { $('.rot-reference').hidden = !event.target.checked; });
+    const pointerAngle = event => { const p = kit.svgPoint(svg, event); return Math.atan2(p.x - 340, 220 - p.y) * 180 / Math.PI; };
+    kit.listen(svg, 'pointerdown', event => {
+      if (!event.target.closest('[data-rot-handle]')) return;
+      if (prediction === null) { kit.feedback(feedback, '先选择你预测会先到的位置，再拖动指针。'); return; }
+      if (completed) reset(false);
+      stopAnimation();
+      drag = { id: event.pointerId, angleOffset: pointerAngle(event) - (currentTask().start * 90 + direction * progress * 90), warned: false };
+      svg.setPointerCapture(event.pointerId); event.preventDefault(); updateButtons();
+    });
+    kit.listen(svg, 'pointermove', event => {
+      if (!drag || event.pointerId !== drag.id) return;
+      // Project the pointer onto the chosen directed arc. Rejected backward motions
+      // cannot accumulate progress, and the hand stays at the actual pointer angle.
+      const angle = pointerAngle(event) - drag.angleOffset;
+      const candidate = (((angle - currentTask().start * 90) * direction % 360) + 360) % 360 / 90;
+      if (candidate < progress - .025 || candidate > totalSteps() + .15) {
+        if (!drag.warned) { kit.feedback(feedback, `当前选择${dirName()}，请沿这个方向拖动；也可以切换方向后重试。`); drag.warned = true; }
+        return;
+      }
+      progress = Math.min(totalSteps(), Math.max(progress, candidate));
+      draw(); if (progress >= totalSteps() - .025) { progress = totalSteps(); finish(); }
+    });
+    const endDrag = event => { if (drag && event.pointerId === drag.id) releaseDrag(); };
+    kit.listen(svg, 'pointerup', endDrag); kit.listen(svg, 'pointercancel', endDrag); kit.listen(svg, 'lostpointercapture', endDrag);
+    reset();
+    return () => { releaseDrag(); stopAnimation(); };
+  }
+});
+
+Courseware.boot();</script>
+</body>
+</html>

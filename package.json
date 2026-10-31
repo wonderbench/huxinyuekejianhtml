@@ -1,0 +1,11 @@
+{
+  "name": "translation-rotation-classroom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline standalone HTML courseware for primary mathematics.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node tests/behavior.mjs"
+  }
+}
